@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import {
-    FaTh,
     FaBars,
-    FaUserAlt,
-    FaRegChartBar,
     FaCommentAlt,
-    FaShoppingBag,
-    FaThList,FaShoppingCart,
-    FaInfoCircle,FaTicketAlt,
-    FaHome
+    FaShoppingCart,
+    FaInfoCircle,
+    FaTicketAlt,
+    FaHome,
+    FaLock ,
+    FaUserPlus
 }from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 
 const Sidebar = ({children}) => {
-    const[isOpen ,setIsOpen] = useState(false);
+    const[isOpen ,setIsOpen] = useState(true);
     const toggle = () => setIsOpen (!isOpen);
     const menuItem=[
         {
@@ -45,12 +44,12 @@ const Sidebar = ({children}) => {
         {
             path:"/Login",
             name:"Login",
-            icon:<FaUserAlt/>
+            icon:<FaLock />
         },
         {
             path:"/Signup",
             name:"Signup",
-            icon:<FaUserAlt/>
+            icon:<FaUserPlus/>
         },
     ]
     return (
