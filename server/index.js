@@ -6,6 +6,7 @@ const cors = require("cors");
 const connection = require("./db");
 const usersRoutes = require("./routes/users");
 const userRoutes = require("./routes/user");
+const passwordResetRoutes = require("./routes/passwordReset");
 
 
 // database connection
@@ -20,6 +21,7 @@ app.use(cors());
 // Users routes
 app.use("/api/users", usersRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/password-reset", passwordResetRoutes);
 
 // Products routes
 app.get('/api/products', async (req, res) => {
