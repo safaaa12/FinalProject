@@ -47,6 +47,11 @@ const Sidebar = ({children}) => {
             name:"Login",
             icon:<FaUserAlt/>
         },
+        {
+            path:"/Signup",
+            name:"Signup",
+            icon:<FaUserAlt/>
+        },
     ]
     return (
         <div className="container">
