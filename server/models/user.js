@@ -9,10 +9,15 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
-  ratedBy: { type: [String], default: [] },
-  ratings: { type: [Number], default: [] },
-  comments: { type: [String], default: [] },
 });
+
+
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY, {
+    expiresIn: "7d",
+  });
+  return token;
+};
 
 
 const User = mongoose.model("user", userSchema);
