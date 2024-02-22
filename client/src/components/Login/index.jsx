@@ -8,7 +8,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   //new
-  const [successMessage, setSuccessMessage] = useState(""); // New state for success message
+  //const [successMessage, setSuccessMessage] = useState(""); // New state for success message
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -24,8 +24,7 @@ const Login = () => {
       localStorage.setItem("email", data.email);
       
       // Update success message state
-      setSuccessMessage("Login successful!");
-     window.location = "/";
+    window.location = "/";
     } catch (error) {
       if (
         error.response &&
