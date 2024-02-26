@@ -1,9 +1,8 @@
 import{ useState } from "react";
 import axios from "axios";
-import {useNavigate } from "react-router-dom";
+import {useNavigate,Link } from "react-router-dom";
 import "./styles.css";
 import emailjs from "@emailjs/browser";
-
 const Signup = () => {
   const [data, setData] = useState({
     firstName: "",
@@ -49,12 +48,9 @@ const Signup = () => {
   };
 
   return (
-    <div className='signup_container'>
-      <div className="signup_form_container">
-      
-        <div className="right">
+    <div id="login-form">
+      <h1>Sign up</h1>
           <form className="signup_form_container" onSubmit={handleSubmit}>
-            <h1>Create Account</h1>
             <input
               type="text"
               placeholder="First Name"
@@ -74,7 +70,7 @@ const Signup = () => {
               className='input'
             />
             <input
-              type="email"
+              type="text"
               placeholder="Email"
               name="email"
               onChange={handleChange}
@@ -83,7 +79,7 @@ const Signup = () => {
               className='input'
             />
             <input
-              type="password"
+              type="text"
               placeholder="Password"
               name="password"
               onChange={handleChange}
@@ -92,13 +88,12 @@ const Signup = () => {
               className='input'
             />
             {error && <div className='error_msg'>{error}</div>}
-            <button type="submit" className='green_btn'>
-              Sign Up
-            </button>
+            <input type="submit" value="Submit" />
           </form>
+          <div id="login-tap">
+            <h2>you have an account{" "} <Link to="/Login">Login</Link></h2>
+            </div>
         </div>
-      </div>
-    </div>
   );
 };
 
