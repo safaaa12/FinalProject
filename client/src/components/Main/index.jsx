@@ -4,7 +4,7 @@ const Main = ({ user }) => {
   return (
     <div className="home-page">
       <header>
-        <h1>Welcome to My React App</h1>
+        <h1>Welcome to My React App </h1>
       </header>
       <main>
         <p>This is the homepage of the application.</p>
