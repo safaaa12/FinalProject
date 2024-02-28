@@ -6,14 +6,9 @@ import "./styles.css";
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-
-  //new
-  //const [successMessage, setSuccessMessage] = useState(""); // New state for success message
-
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -38,50 +33,21 @@ const Login = () => {
   
 
   return (
-    <div className='login_container'>
-      <div className='login_form_container'>
-        <div className='left'>
+    <div id="login-form">
+      <h1>Login</h1>
           <form className='login_form_container' onSubmit={handleSubmit}>
-            <h1 style={{ color: '#3bb19b' }} >Login to Your Account</h1>
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              onChange={handleChange}
-              value={data.email}
-              required
-              className='input'
-              data-testid="email"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-              value={data.password}
-              required
-              className='input'
-            />
-
-            <Link to="/forgot-password" style={{ alignSelf: "flex-start" }}>
-              <p style={{ padding: "0 15px" }}>Forgot Password ?</p>
-            </Link>
-
+            <input type="text" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className='input' data-testid="email"/>
+            <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password}  required  className='input'/>
             {error && <div className='error_msg'>{error}</div>}
-            <button type="submit" className='green_btn' data-testid="login-button">
-              Sign In
-            </button>
+            <input type="submit" value="Submit" />
+
+            
+
           </form>
-        </div>
-        <div className='right'>
-          <h1>New Here ?</h1>
-          <Link to="/Signup">
-            <button type="button" className='white_btn'>
-              Sign Up
-            </button>
-          </Link>
-        </div>
-      </div>
+          <div id="login-tap">
+          <h2 className="forgot-password text-right"> Forgot <a href="/forgot-password">password?</a> </h2>
+            <h2>Don't have an accoun?{" "} <Link to="/Signup">Signup</Link></h2>
+            </div>
     </div>
   );
 };
