@@ -1,11 +1,9 @@
 const router = require("express").Router();
 const { User } = require("../models/user");
-const { json } = require("express");
 
 router.get("/email/:email", async (req, res) => {
   try {
     const email = req.params.email;
-    console.log(email);
     let user = await User.findOne({ email });
     user = user.toObject();
     delete user.password;

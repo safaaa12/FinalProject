@@ -8,7 +8,7 @@ function Profile() {
     const [lastName, setLastName] = useState("");
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
-    const [userId, setUserId] = useState(null);
+    const [loction, setUserId] = useState(null);
 
     useEffect(() => {
         const userEmail = localStorage.getItem('email');
@@ -24,7 +24,7 @@ function Profile() {
             setLastName(response.data.lastName);
             setemail(response.data.email);
             setpassword(response.data.email);
-            setUserId(response.data._id);
+            setUserId(response.data.loction);
         } catch (error) {
             console.log("fetchUser: ", error);
         }
@@ -39,6 +39,8 @@ function Profile() {
                         <p for="fname">First Name: {firstName}</p>
                         <p for="lname">Last Name: {lastName}</p>
                         <p for="lname">Email : {email}</p>
+                        <p for="loction">loction : {loction }</p>
+
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ const connection = require("./db");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const userRoutes = require("./routes/user");
+const locationRoutes = require("./routes/location");
 const passwordResetRoutes = require("./routes/passwordReset");
 
 
@@ -24,6 +25,11 @@ app.use("/api/users", usersRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/password-reset", passwordResetRoutes);
+app.use("/api/location", locationRoutes);
+
+
+// מסלול להבאת מיקום על פי כתובת
+
 
 // Products routes
 app.get('/api/products', async (req, res) => {

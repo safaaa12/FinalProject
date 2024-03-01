@@ -1,14 +1,41 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // שימוש ב-useNavigate
 import "./styles.css";
 
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const navigate = useNavigate(); // יצירת אינסטנס של useNavigate
+
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
+  const requestUserLocation = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(async function(position) {
+        try {
+          const url = "http://localhost:3000/api/auth/login"; // שינוי כתובת הנתיב ל-/api/auth/login
+          await axios.post(url, {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            email: data.email
+          }, {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+          });
+          console.log("Location saved successfully.");
+        } catch (error) {
+          console.error("Error saving location:", error);
+        }
+      });
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -17,9 +44,10 @@ const Login = () => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("isAdmin", res.data.isAdmin);
       localStorage.setItem("email", data.email);
-      
-      // Update success message state
-    window.location = "/";
+
+      requestUserLocation(); // Call location request after successful login
+
+      navigate("/"); // שימוש ב-navigate במקום window.location
     } catch (error) {
       if (
         error.response &&
@@ -30,24 +58,20 @@ const Login = () => {
       }
     }
   };
-  
 
   return (
     <div id="login-form">
       <h1>Login</h1>
-          <form className='login_form_container' onSubmit={handleSubmit}>
-            <input type="text" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className='input' data-testid="email"/>
-            <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password}  required  className='input'/>
-            {error && <div className='error_msg'>{error}</div>}
-            <input type="submit" value="Submit" />
-
-            
-
-          </form>
-          <div id="login-tap">
-          <h2 className="forgot-password text-right"> Forgot <a href="/forgot-password">password?</a> </h2>
-            <h2>Don't have an accoun?{" "} <Link to="/Signup">Signup</Link></h2>
-            </div>
+      <form className='login_form_container' onSubmit={handleSubmit}>
+        <input type="text" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className='input' data-testid="email"/>
+        <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className='input'/>
+        {error && <div className='error_msg'>{error}</div>}
+        <input type="submit" value="Submit" />
+      </form>
+      <div id="login-tap">
+        <h2 className="forgot-password text-right"> Forgot <a href="/forgot-password">password?</a> </h2>
+        <h2>Don't have an account? <Link to="/signup">Signup</Link></h2>
+      </div>
     </div>
   );
 };

@@ -3,10 +3,12 @@ mongoose.Promise = global.Promise;
 
 module.exports = async () => {
   try {
-    await mongoose.connect(process.env.DB, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const connectionUri = process.env.DB; // 
+    if (!connectionUri) {
+      throw new Error("DB connection string is missing in .env file");
+    }
+
+    await mongoose.connect(connectionUri);
 
     console.log("Connected to the database successfully");
   } catch (error) {
