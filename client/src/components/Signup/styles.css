@@ -1,67 +1,95 @@
-.signup_container {
-	display:flex ;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+
+#login-form {
+    width: 400px;
+    max-width: 100%;
+    margin: 50px auto;
+    background-color: lightblue;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins", sans-serif;
+  }
+  #login-tap{
+    width: 400px;
+    max-width: 100%;
+    margin: 10px auto;
+    background-color: lightblue;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins", sans-serif;
+  }
+  #login-tap h2{
+    text-align: center;
+    padding: 20px 5px 20px 5px;
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+  }
+  #login-form h1 {
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
   }
   
-  .signup_form_container {
-	display:flow-root;
-	max-width: 800px;
-	width: 100%;
-	border: 1px solid #ccc;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	overflow: hidden;
+  #login-form form {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
   }
   
-  .left {
-	flex: 1;
-	background-color: #f1f1f1;
-	padding: 20px;
+  #login-form form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: gray;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  #login-form form input[type="text"],
+  #login-form form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
+  
+  #login-form form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  #login-form form input[type="submit"]:hover {
+    background-color: deepskyblue;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+#error_msg,
+#success_msg {
+	width: 370px;
+	padding: 15px;
+	margin: 5px 0;
+	font-size: 14px;
+	background-color: #f34646;
+	color: white;
+	border-radius: 5px;
 	text-align: center;
-  }
+}
+
+#success_msg {
+	background-color: #5cdd5c;
+}
   
-  .left h1 {
-	color: #333;
-  }
-  
-  .right {
-	flex: 2;
-	padding: 20px;
-  }
-  
-  .form_container {
-	max-width: 400px;
-	margin: auto;
-  }
-  
-  .form_container h1 {
-	color: #3bb19b;
-  }
-  
-  .input {
-	width: 100%;
-	padding: 10px;
-	margin: 10px 0;
-	box-sizing: border-box;
-  }
-  
-  .white_btn {
-	background-color: #fff;
-	color: #333;
-	border: 1px solid #ccc;
-	padding: 10px;
-	cursor: pointer;
-  }
-  
-  .green_btn {
-	background-color: #3bb19b;
-	color: #fff;
-	padding: 10px;
-	cursor: pointer;
-  }
-  
-  .error_msg {
-	color: #ff0000;
-	margin-top: 10px;
-  }

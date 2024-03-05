@@ -1,60 +1,42 @@
 import{ useState } from "react";
 import axios from "axios";
-import {useNavigate } from "react-router-dom";
+import {Link } from "react-router-dom";
 import "./styles.css";
-import emailjs from "@emailjs/browser";
 
 const Signup = () => {
-  const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+	const [data, setData] = useState({
+		firstName: "",
+		lastName: "",
+		email: "",
+		password: "",
+	});
+	const [error, setError] = useState("");
+	const [msg, setMsg] = useState("");
 
-  const handleChange = ({ currentTarget: input }) => {
-    setData({ ...data, [input.name]: input.value });
-  };
+	const handleChange = ({ currentTarget: input }) => {
+		setData({ ...data, [input.name]: input.value });
+	};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const url = "http://localhost:3000/api/users";
-      const { data: res } = await axios.post(url, data);
-
-      // send welcome email to user
-      emailjs
-        .send("service_061uyjc", "template_qejy7ja", {
-          to_email: data.email,
-        }, "Ac1RL4TgJZVZgpMSY")
-        .then((result) => {
-          console.log(result.text);
-        }, (error) => {
-          console.log(error.text);
-        });
-
-      navigate("/login");
-      console.log(res.message);
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
-      }
-    }
-  };
-
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const url = "http://localhost:3000/api/users";
+			const { data: res } = await axios.post(url, data);
+			setMsg(res.message);
+		} catch (error) {
+			if (
+				error.response &&
+				error.response.status >= 400 &&
+				error.response.status <= 500
+			) {
+				setError(error.response.data.message);
+			}
+		}
+	};
   return (
-    <div className='signup_container'>
-      <div className="signup_form_container">
-      
-        <div className="right">
+    <div id="login-form">
+      <h1>Sign up</h1>
           <form className="signup_form_container" onSubmit={handleSubmit}>
-            <h1>Create Account</h1>
             <input
               type="text"
               placeholder="First Name"
@@ -74,7 +56,7 @@ const Signup = () => {
               className='input'
             />
             <input
-              type="email"
+              type="text"
               placeholder="Email"
               name="email"
               onChange={handleChange}
@@ -83,7 +65,7 @@ const Signup = () => {
               className='input'
             />
             <input
-              type="password"
+              type="text"
               placeholder="Password"
               name="password"
               onChange={handleChange}
@@ -92,13 +74,13 @@ const Signup = () => {
               className='input'
             />
             {error && <div className='error_msg'>{error}</div>}
-            <button type="submit" className='green_btn'>
-              Sign Up
-            </button>
+            {msg && <div className='success_msg'>{msg}</div>}
+            <input type="submit" value="Submit" />
           </form>
+          <div id="login-tap">
+            <h2>you have an account{" "} <Link to="/Login">Login</Link></h2>
+            </div>
         </div>
-      </div>
-    </div>
   );
 };
 

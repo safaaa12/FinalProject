@@ -7,8 +7,8 @@ const connection = require("./db");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const userRoutes = require("./routes/user");
+const locationRoutes = require("./routes/location");
 const passwordResetRoutes = require("./routes/passwordReset");
-
 
 // database connection
 connection();
@@ -17,25 +17,43 @@ connection();
 app.use(express.json());
 app.use(cors());
 
+// CORS middleware
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
+// Auth routes
+app.use("/api/auth", authRoutes);
+app.use("/api/password-reset", passwordResetRoutes);
 
 // Users routes
 app.use("/api/users", usersRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/password-reset", passwordResetRoutes);
+
+// מסלול להבאת מיקום על פי כתובת
+app.use("/api/location", locationRoutes);
 
 // Products routes
-app.get('/api/products', async (req, res) => {
-  // a product list with: Name, Price, Description, Availablity, Ratings, Deals, Cheapest stores near by
-  const url = "https://simple-grocery-store-api.glitch.me/products"
-  const response = await axios.get(url);
-  response.data.forEach(product => {
-    product.price = 100
-    product.location = 12312414
-  });
-  res.send(response.data);
-})
+app.post('/api/search', async (req, res) => {
+  try {
+    const searchQueries = req.body.products;
+    if (!searchQueries || searchQueries.length === 0) {
+      return res.status(400).send({ message: 'No search queries provided' });
+    }
+    const response = await axios.post('http://localhost:3002/search', req.body, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error during search:", error);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+});
 
 app.get('/api/product/{id}', async (req, res) => {
   // a product with: Name, Price, Description, Availablity, Ratings, Deals, Cheapest stores near by
