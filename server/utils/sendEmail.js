@@ -9,7 +9,7 @@ module.exports = async (email, subject, text) => {
 			secure: Boolean(process.env.SECURE),
 			auth: {
 				user: process.env.USER,
-				pass: process.env.PASS,
+				pass: 'tevq qzej eruo dgij',
 			},
 		});
 
@@ -22,6 +22,9 @@ module.exports = async (email, subject, text) => {
 		console.log("email sent successfully");
 	} catch (error) {
 		console.log("email not sent!");
+		console.log(process.env.USER)
+		console.log(process.env.PASS)
+
 		console.log(error);
 		return error;
 	}

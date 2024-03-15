@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { User } = require("../models/user");
 const locationRoutes = require('./location');
 const bcrypt = require("bcrypt");
+const axios = require("axios");
 const Joi = require("joi");
 const GEOLOCATION_API_KEY = process.env.GEOLOCATION_API_KEY;
 
@@ -18,9 +19,13 @@ router.post('/login', async (req, res) => {
     // אחרת, צור משתמש חדש ושמור את המיקום שלו
     const existingUser = await User.findOne({ email: req.body.email });
     if (existingUser) {
+      console.log('before request: exist user')
       // אם המשתמש כבר קיים, עדכן את המיקום שלו
-      const response = await axios.get(`https://www.googleapis.com/geolocation/v1/geolocate?key=${GEOLOCATION_API_KEY}`);
+      const response = await axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD7sThIqQdDD1bIe6t--VIpuS-cLOcQKJQ`);
+
       const location = response.data.location;
+      console.log(location)
+
       await User.findByIdAndUpdate(existingUser._id, { location }); 
     } else {
       // אחרת, צור משתמש חדש ושמור את המיקום שלו
@@ -28,9 +33,11 @@ router.post('/login', async (req, res) => {
         email: req.body.email,
         password: req.body.password // נאמנה שהסיסמה תתקבל מה-req.body, עליך לוודא אימות והצפנה מתאימים
       });
-      const response = await axios.get(`https://www.googleapis.com/geolocation/v1/geolocate?key=${GEOLOCATION_API_KEY}`);
+      console.log('before request: new user')
+      const response = await axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD7sThIqQdDD1bIe6t--VIpuS-cLOcQKJQ`);
       const location = response.data.location;
       newUser.location = location; // הגדרת המיקום של המשתמש החדש
+      console.log(location)
       await newUser.save();
     }
 

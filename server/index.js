@@ -7,7 +7,6 @@ const connection = require("./db");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const userRoutes = require("./routes/user");
-const locationRoutes = require("./routes/location");
 const passwordResetRoutes = require("./routes/passwordReset");
 
 // database connection
@@ -17,14 +16,6 @@ connection();
 app.use(express.json());
 app.use(cors());
 
-// CORS middleware
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 // Auth routes
 app.use("/api/auth", authRoutes);
 app.use("/api/password-reset", passwordResetRoutes);
@@ -33,12 +24,13 @@ app.use("/api/password-reset", passwordResetRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/user", userRoutes);
 
-// מסלול להבאת מיקום על פי כתובת
-app.use("/api/location", locationRoutes);
+
+
 
 // Products routes
 app.post('/api/search', async (req, res) => {
   try {
+    console.log(req.body)
     const searchQueries = req.body.products;
     if (!searchQueries || searchQueries.length === 0) {
       return res.status(400).send({ message: 'No search queries provided' });

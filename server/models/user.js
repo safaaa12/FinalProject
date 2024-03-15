@@ -10,17 +10,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
   verified: {type: Boolean, default: false},
-  location: { // שדה למיקום
-    type: {
-      type: String,
-      enum: ['Point'],
-      default: 'Point'
-    },
-    coordinates: {
-      type: [Number],
-      default: [0, 0]
-    }
-  },
+  location: {
+    lat: { type: Number, required: false },
+    lng: { type: Number, required: false }
+  }
+  ,
 });
 
 

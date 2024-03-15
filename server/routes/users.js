@@ -29,6 +29,11 @@ router.post("/", async (req, res) => {
 			token: crypto.randomBytes(32).toString("hex"),
 		}).save();
 		const url = `${process.env.BASE_URL}users/${user.id}/verify/${token.token}`;
+		/*
+		1- Define the path (url)
+		2- Once a user visit, chnge the 'verify''flag (in MongoDB) to 'true' (use user.id)
+		*/
+		definePath(url,user)
 		await sendEmail(user.email, "Verify Email", url);
 
 		res

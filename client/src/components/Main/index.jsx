@@ -1,20 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ProductSearch from '../Search/ProductSearchComponent.jsx'; 
+import ListComponent from './Search.js'; 
+import "./styles.css";
 
-const Main = ({ user }) => {
+const Main = () => {
+  const [productsList, setProductsList] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:3000/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ products: productsList.split('\n').map(item => item.trim()) }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSearchResults(data);
+        setShowSearchResults(true);
+      } else {
+        console.error('Failed to fetch search results:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
   return (
-    <div className="home-page">
-      <header>
-        <h1>Welcome to My React App </h1>
-      </header>
-      <main>
-        <p>This is the homepage of the application.</p>
-        <p>Feel free to explore and enjoy!</p>
-      </main>
-      <footer>
-        <p>&copy; 2024 My React App</p>
-      </footer>
+    <div className="main-container">
+      <ProductSearch /> {/* הוספת הקומפוננטה ProductSearch לתחילת הקונטיינר */}
+      <div className="products-input">
+        <form onSubmit={handleFormSubmit}>
+          <textarea
+            value={productsList}
+            onChange={(e) => setProductsList(e.target.value)}
+            placeholder="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"
+          ></textarea>
+          <button type="submit">הוספה לרשימת הקניות</button>
+        </form>
+      </div>
+      {showSearchResults && <ListComponent productsList={searchResults} />}
     </div>
   );
 };
 
+
+
 export default Main;
+

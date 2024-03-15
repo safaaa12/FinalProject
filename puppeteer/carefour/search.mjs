@@ -1,7 +1,7 @@
 const carefourSearch = async (browser, page, searchQueries) => {
     try {
         for (const searchQuery of searchQueries) {
-            const url = `https://www.carrefour.co.il/search-result/${encodeURIComponent(searchQuery)}?q=${encodeURIComponent(searchQuery)}`;
+            const url = `https://www.carrefour.co.il/search/${encodeURIComponent(searchQuery)}`;
             await navigateToUrl(page, url);
             console.log(`Searched for ${searchQuery} at ${url}`);
             const products = await collectProducts(page);
@@ -28,24 +28,24 @@ const navigateToUrl = async (page, url) => {
 
 const collectProducts = async (page) => {
     return await page.evaluate(() => {
-        const productElements = document.querySelectorAll('.product_Vun');
+        const productElements = document.querySelectorAll('.product-item clickable');
         const products = [];
         productElements.forEach(el => {
-            const nameEl = el.querySelector('.name__7t');
-            const priceMajorEl = el.querySelector('.promotionSumWrapper_A6f strong');
-            const priceMinorEls = el.querySelectorAll('.promotionSumWrapper_A6f small');
-            const imageEl = el.querySelector('.imageWrapper_XN8 img');
-            const brandEl = el.querySelector('.brand_aOz');
-            const unitEl = el.querySelector('.unitLabel_Gqb');
-            if (!nameEl || !priceMajorEl || priceMinorEls.length < 2 || !imageEl || !brandEl || !unitEl) {
+            const nameEl = el.querySelector('.product_name.name');
+            const priceEl = el.querySelector('.price');
+            const brandEl = el.querySelector('.brand');
+            const unitEl = el.querySelector('.weight');
+            const imageEl = el.querySelector('.image');
+
+            if (!nameEl || !priceEl || !brandEl || !unitEl || !imageEl) {
                 return;
             }
             const name = nameEl.innerText;
             const image = imageEl.src;
             const brand = brandEl.innerText;
             const unit = unitEl.innerText.replace(/[^\d.\/]+/g, '').trim();
-            const priceMinorEl = priceMinorEls[1];
-            const price = `${priceMajorEl.innerText}.${priceMinorEl.innerText}`;
+            const price = priceEl.innerText.trim();
+
             products.push({ name, price, brand, unit, image, source: 'carefour' });
         });
         return products;
