@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ProductSearch from '../Search/ProductSearchComponent.jsx'; 
-import ListComponent from './Search.js'; 
+import ListComponent from './List.js'; 
 import "./styles.css";
 
 const Main = () => {
@@ -12,7 +12,7 @@ const Main = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/api/search', {
+      const response = await fetch('http://localhost:3000/api/productsList', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -21,7 +21,9 @@ const Main = () => {
       });
 
       if (response.ok) {
+        console.log("ok");
         const data = await response.json();
+        console.log(data);
         setSearchResults(data);
         setShowSearchResults(true);
       } else {
@@ -45,7 +47,7 @@ const Main = () => {
           <button type="submit">הוספה לרשימת הקניות</button>
         </form>
       </div>
-      {showSearchResults && <ListComponent productsList={searchResults} />}
+      {showSearchResults && <ListComponent searchResults={searchResults} />}
     </div>
   );
 };
