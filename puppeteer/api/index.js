@@ -1,7 +1,7 @@
 import express from 'express';
-import { carefourSearch } from '../carefour/search.mjs'
+//import { carefourSearch } from '../carefour/search.mjs'
 import { shufersalSearch } from '../shufersal/search.mjs'
-import{ quikSearch } from '../quik/search.mjs'
+//import{ quikSearch } from '../quik/search.mjs'
 import { Puppeteer } from '../browser.mjs';
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -16,10 +16,10 @@ app.post('/search', async (req, res) => {
         }
         let resultsByQuery = {};
         for (let query of searchQueries) {
-            const quikProducts = await quikSearch(browser, page, [query]);
-            const carefourProducts = await carefourSearch(browser, page, [query]);
+            //const quikProducts = await quikSearch(browser, page, [query]);
+            //const carefourProducts = await carefourSearch(browser, page, [query]);
             const shufersalProducts = await shufersalSearch(browser, page, [query]);
-            const combinedProducts = [...carefourProducts, ...quikProducts,...shufersalProducts];
+            const combinedProducts = [...shufersalProducts];
             const sortedProducts = combinedProducts.sort((a, b) => {
                 const priceA = parseFloat(a.price);
                 const priceB = parseFloat(b.price);
