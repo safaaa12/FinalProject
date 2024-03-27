@@ -18,7 +18,7 @@ const Sidebar = ({ children }) => {
 
   const menuItem = [
     {
-      path: "/",
+      path: "/home",
       name: "Home",
       icon: <FaHome />
     },
@@ -43,7 +43,8 @@ const Sidebar = ({ children }) => {
       icon: <FaCommentAlt />
     },
   ];
-    // Add the profile button to the menu when logged in
+
+  // Add the profile button to the menu when logged in
   if (isLoggedIn) {
     menuItem.push({
       path: "/Profile",
@@ -52,38 +53,43 @@ const Sidebar = ({ children }) => {
     });
   }
 
+  // Render Sidebar only if the user is logged in
   return (
-    <div className="container">
-      <div style={{ width: isOpen ? "400px" : "50px" }} className="sidebar">
-        <div className="top_section">
-          <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">Smartshopping</h1>
+    <>
+      {isLoggedIn && (
+        <div className="container">
+          <div style={{ width: isOpen ? "400px" : "50px" }} className="sidebar">
+            <div className="top_section">
+              <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">Smartshopping</h1>
 
-          <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
-            <FaBars onClick={toggle} />
+              <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
+                <FaBars onClick={toggle} />
+              </div>
+            </div>
+            {menuItem.map((item, index) => (
+              <NavLink to={item.path} key={index} className="link" activeClassName="active-link">
+                <div className="icon">{item.icon}</div>
+                <div style={{ display: isOpen ? "block" : "none" }} className="link_text">{item.name}</div>
+              </NavLink>
+            ))}
+
+            {isLoggedIn ? (
+              <div className="link" onClick={handleLogout}>
+                <div className="icon"><FaLock /></div>
+                <div style={{ display: isOpen ? "block" : "none" }} className="link_text">Logout</div>
+              </div>
+            ) : (
+              <NavLink to="/Login" className="link" activeClassName="active-link">
+                <div className="icon"><FaUser /></div>
+                <div style={{ display: isOpen ? "block" : "none" }} className="link_text">Login</div>
+              </NavLink>
+            )}
           </div>
-        </div>
-        {menuItem.map((item, index) => (
-          <NavLink to={item.path} key={index} className="link" activeClassName="active-link">
-            <div className="icon">{item.icon}</div>
-            <div style={{ display: isOpen ? "block" : "none" }} className="link_text">{item.name}</div>
-          </NavLink>
-        ))}
-
-        {isLoggedIn ? (
+          <main>{children}</main>
           
-          <div className="link" onClick={handleLogout}>
-            <div className="icon"><FaLock /></div>
-            <div style={{ display: isOpen ? "block" : "none" }} className="link_text">Logout</div>
-          </div>
-        ) : (
-          <NavLink to="/Login" className="link" activeClassName="active-link">
-            <div className="icon"><FaUser /></div>
-            <div style={{ display: isOpen ? "block" : "none" }} className="link_text">Login</div>
-          </NavLink>
-        )}
-      </div>
-      <main>{children}</main>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 
