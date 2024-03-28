@@ -13,10 +13,8 @@ const userSchema = new mongoose.Schema({
   location: {
     lat: { type: Number, required: false },
     lng: { type: Number, required: false }
-  }
-  ,
+  },
 });
-
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY, {
@@ -25,9 +23,7 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 
-
 const User = mongoose.model("user", userSchema);
-
 const validate = (data) => {
   const schema = Joi.object({
     firstName: Joi.string()
@@ -46,5 +42,4 @@ const validate = (data) => {
   });
   return schema.validate(data);
 };
-
 module.exports = { User, validate };
