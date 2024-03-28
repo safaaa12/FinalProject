@@ -47,7 +47,7 @@ const Login = () => {
 
       requestUserLocation(); // Call location request after successful login
 
-      navigate("/home"); // שימוש ב-navigate במקום window.location
+      navigate("/"); // שימוש ב-navigate במקום window.location
     } catch (error) {
       if (
         error.response &&
