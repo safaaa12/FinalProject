@@ -97,7 +97,7 @@ app.post('/api/productsList', async (req, res) => {
       priceSum = 0;
       for (const [productName, product] of Object.entries(products)) {
         // sum the price for that source
-        priceSum += product.price;
+        priceSum += Number(parseFloat(product.price).toFixed(2));
       }
 
       console.log(`Basket from ${source} costs ${priceSum} shekels.`);
