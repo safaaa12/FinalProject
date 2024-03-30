@@ -50,89 +50,70 @@ app.post('/api/search', async (req, res) => {
 // ProductsList routes
 app.post('/api/productsList', async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const searchQueries = req.body.products;
     if (!searchQueries || searchQueries.length === 0) {
       return res.status(400).send({ message: 'No search queries provided' });
     }
+    
     const response = await axios.post('http://localhost:3002/search', req.body, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: { 'Content-Type': 'application/json' }
     });
 
-    // dictionary of sources
-    // in each source dictionary is a dictionary of products with lowest price
-    sources = {}
+    const sources = {};
 
-    // for every product
     for (const [key, value] of Object.entries(response.data)) {
       const productOptions = value;
       const productName = key;
-      // for every option for that product
-      for (let i = 0; i < productOptions.length; i++) {
 
-        // split these to sources, only one product option per source
+      for (let i = 0; i < productOptions.length; i++) {
         const option = productOptions[i];
         const source = option.source;
+
         if (!(source in sources)) {
           sources[source] = {};
         }
+
         if (!(productName in sources[source])) {
           sources[source][productName] = option;
           sources[source][productName].price = parseFloat(option.price.replace(/[^0-9.-]+/g, ""));
         }
       }
-      // for
-      // const itemWithLowestPrice = getItemWithLowestPrice(productOptions);
-
     }
 
-    sourceToPrice = {};
-    // for every source
+    let sourceToPrice = {};
+
     for (const [key, value] of Object.entries(sources)) {
-      const products = value;
-      const source = key;
-      // for every product 
-      priceSum = 0;
-      for (const [productName, product] of Object.entries(products)) {
-        // sum the price for that source
-        priceSum += Number(parseFloat(product.price).toFixed(2));
+      let priceSum = 0; // להגדיר כמשתנה לוקאלי בלולאה
+      for (const product of Object.values(value)) {
+        priceSum += product.price; // הוספת המחירים לסכום הכולל
       }
 
-      console.log(`Basket from ${source} costs ${priceSum} shekels.`);
-      sourceToPrice[source] = priceSum;
+      console.log(`Basket from ${key} costs ${priceSum} shekels.`);
+      sourceToPrice[key] = priceSum; // שמירת הסכום הכולל למקור
     }
 
-    // cheapestSource = min(sourceToPrice, key = sourceToPrice.get)
-    const [cheapestSource, cheapestPrice] = Object.entries(sourceToPrice).reduce((acc, [key, value]) => {
-      return value < acc[1] ? [key, value] : acc;
-    }, [null, Infinity]);
+    const [cheapestSource, cheapestPrice]    = Object.entries(sourceToPrice).reduce((acc, [source, price]) => {
+      return (acc[1] > price) ? [source, price] : acc;
+    }, ['', Infinity]); // חיפוש המקור עם המחיר הכולל הנמוך ביותר
 
-    console.log("sources");
-    console.log(sources);
-    console.log("sourceToPrice");
-    console.log(sourceToPrice);
-    res.json(
-      {
-        "sourcesProducts": sources,
-        "sourcesPrices": sourceToPrice,
-        // "name": cheapestSource,
-        // "totalPrice": cheapestPrice
-      }
-    );
+    console.log(`The cheapest basket comes from ${cheapestSource} and costs ${cheapestPrice} shekels.`);
 
+    // שליחת התוצאה חזרה ללקוח
+    res.json({
+      sourcesProducts: sources,
+      sourcesPrices: sourceToPrice,
+      cheapestSource: cheapestSource,
+      cheapestPrice: cheapestPrice
+    });
 
-    // cheapestProducs = {}
-    // for (const [key, value] of Object.entries(response.data)) {
-    //   cheapestProducs[key] = value[0];
-    // }
-    // res.json(cheapestProducs);
   } catch (error) {
     console.error("Error during search:", error);
     res.status(500).send({ message: 'Internal server error' });
   }
 });
+
+
 
 app.get('/api/product/{id}', async (req, res) => {
   // a product with: Name, Price, Description, Availablity, Ratings, Deals, Cheapest stores near by
