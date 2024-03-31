@@ -3,7 +3,6 @@ import { carefourSearch } from '../carefour/search.mjs';
 import { shufersalSearch } from '../shufersal/search.mjs';
 import { quikSearch } from '../quik/search.mjs';
 import { bigdabachSearch } from '../bigdabach/search.mjs';
-import { victorySearch } from '../victory/search.mjs';
 import { Puppeteer } from '../browser.mjs';
 
 const app = express();
