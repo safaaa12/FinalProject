@@ -5,17 +5,17 @@
 	right: 20px; 
 	display: flex;
 	flex-direction: column; /* מארגן את התוכן בכיוון אנכי */
-	max-width: 400px;
+	max-width: 450px;
 	margin: 20px auto; /* ממרכז את הקונטיינר ומוסיף מרווח מעלה ומטה */
-	padding: 20px;
+	padding: 10px;
 	background-color: #f7f7f7;
 	border-radius: 8px;
 	text-align: right; 
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	width:400px;
+	bottom: 0;
+    width:400px;
     height: 410px;
     z-index: 99999;
-	
   }
   .ProductSearch-container{
 	
@@ -28,7 +28,7 @@
 	margin-top: 10px; /* מוסיף מרווח מעלה בלבד, כדי לשמור על זרימה טובה */
 	border-radius: 25px;
 	border: 1px solid #ccc;
-	
+	box-sizing: border-box;
   }
   
   .products-input textarea {
@@ -44,14 +44,13 @@
 	cursor: pointer;
 	border: none;
 	transition: background-color 0.2s ease;
-	margin-top: 10px; /* מוסיף רווח מעל לכפתור */
+	/* margin-top: 20px; מוסיף רווח מעל לכפתור */
 	margin-bottom: 20px;
   }
   
   .products-input button:hover {
-    background-color: #0056b3; /* שינוי צבע רקע במרחף */
-    transform: scale(1.05); /* הגדלה קלה במרחף */
-}
+	background-color: #0056b3;
+  }
   
   /* עיצוב הרשימה שמתקבלת אחרי חיפוש */
   .list-component {
@@ -62,9 +61,6 @@
 	padding: 10px;
 	box-shadow: 0 4px 4px rgba(0,0,0,0.2);
   }
-  .products-input button:active {
-    transform: scale(0.95); /* כיווץ קל כאשר הכפתור נלחץ */
-}
   
   /* עיצוב פריטי המוצר ברשימה */
   .product-item {
