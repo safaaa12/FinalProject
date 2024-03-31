@@ -3,6 +3,9 @@ import { carefourSearch } from '../carefour/search.mjs';
 import { shufersalSearch } from '../shufersal/search.mjs';
 import { quikSearch } from '../quik/search.mjs';
 import { bigdabachSearch } from '../bigdabach/search.mjs';
+import { carefourCoupons } from '../carefour/coupons.mjs'
+import { shufersalCoupons } from '../shufersal/coupons.mjs'
+import { quikCoupons } from '../quik/coupons.mjs'
 import { Puppeteer } from '../browser.mjs';
 
 const app = express();
@@ -52,6 +55,31 @@ app.post('/search', async (req, res) => {
         res.status(500).send({ message: 'Internal server error' });
     }
 });
+app.get('/coupons', async (req, res) => {
+    try {
+        const quikProducts = await quikCoupons(browser, page);
+        console.log("quikProducts:");
+        console.log(quikProducts);
+
+        const carefourProducts = await carefourCoupons(browser, page);
+        console.log("carefourProducts");
+        console.log(carefourProducts);
+
+        const shufersalProducts = await shufersalCoupons(browser, page);
+        console.log("shufersalProducts:");
+        console.log(shufersalProducts);
+
+        const combinedProducts = { "quik": quikProducts, "carefour": carefourProducts, "shufersal": shufersalProducts };
+        console.log("combinedProducts:");
+        console.log(combinedProducts);
+
+        return res.json(combinedProducts);
+    } catch (error) {
+        console.error("Error during search:", error);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
 
 app.get('/health', (req, res) => res.send({ status: 'ok' }));
 

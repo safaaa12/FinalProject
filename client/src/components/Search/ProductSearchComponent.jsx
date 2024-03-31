@@ -38,7 +38,7 @@ const ProductSearch = () => {
   };
 
   return (
-    <div>
+<div>
       <input
         type="text"
         value={searchQuery}

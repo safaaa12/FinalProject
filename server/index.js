@@ -25,7 +25,22 @@ app.use("/api/users", usersRoutes);
 app.use("/api/user", userRoutes);
 
 
-
+// Products routes
+app.get('/api/coupons', async (req, res) => {
+  try {
+    const response = await axios.get('http://localhost:3002/coupons', {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(response.data);
+    res.json(response.data);
+  }
+  catch (error) {
+    console.error("Error during search:", error);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+});
 
 // Products routes
 app.post('/api/search', async (req, res) => {
