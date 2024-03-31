@@ -1,62 +1,78 @@
+/* עיצוב כללי ובסיסי לקונטיינר הראשי */
 .main-container {
-	font-family: 'Arial', sans-serif; /* קובע את סוג הגופן לכל האלמנטים בתוך ה-container */
-	max-width: 600px; /* מגביל את הרוחב המרבי של ה-container ל-600 פיקסלים */
-	margin: 0 auto; /* ממרכז את ה-container באמצעות יצירת שוליים אוטומטיים משני הצדדים */
-	padding: 20px; /* מוסיף שוליים פנימיים מכל הכיוונים ל-container */
-	direction: rtl; /* קובע כיווניות מימין לשמאל לטקסט ולאלמנטים */
-	text-align: right; /* מיישר את הטקסט לימין */
-}
-
-.products-input textarea {
-	width: 70%; /* הגדרת רוחב ה-textarea ל-70% מרוחב האב שלו */
-	height: 300px; /* הגדרת גובה קבוע ל-textarea */
-	margin-bottom: 10px; /* יוצר שוליים תחתונים של 10 פיקסלים */
-	padding: 10px; /* מוסיף שוליים פנימיים מכל הכיוונים ל-textarea */
-	font-size: 16px; /* קובע את גודל הגופן ל-16 פיקסלים */
-	border: 2px solid #ddd; /* מגדיר גבול של 2 פיקסלים מסוג קו סולידי בצבע אפור */
-	border-radius: 4px; /* מעגל את הפינות של ה-textarea */
-	resize: none; /* מונע את האפשרות לשנות את גודל ה-textarea */
-}
-
-.products-input button {
-	background-color: #007bff; /* צבע רקע כחול בהיר */
-	color: white; /* צבע הטקסט לבן */
-	border: none; /* הסרת הגבול */
-	padding: 10px 20px; /* שוליים פנימיים: 10 פיקסלים מלמעלה ומלמטה, 20 פיקסלים מהצדדים - יש להתאים ע"פ רוחב ה-textarea אם נדרש */
-	width: calc(77% - 20px); /* רוחב של 70% מהאב, פחות 20px של ה-padding משני הצדדים */
-	text-align: center; /* מיישר את הטקסט למרכז */
-	text-decoration: none; /* מסיר קישוטי טקסט, כמו קו תחתי */
-	display: inline-block; /* הפיכת האלמנט לבלוק אך מאפשר שימוש ב-width ו-height */
-	font-size: 16px; /* גודל גופן */
-	border-radius: 4px; /* מעגל את הפינות של הכפתור */
-	cursor: pointer; /* הפוך את העכבר לסמן כאשר הוא מעל הכפתור */
-	margin-bottom: 10px; /* מוסיף שוליים תחתונים להפרדה מהאלמנטים שלמטה */
-}
-
-.products-input button:hover {
-	background-color: #0056b3; /* שינוי צבע הרקע של הכפתור בעת העברת העכבר מעליו לכחול כהה יותר */
-}
-
-
-.list-component {
-	margin-top: 20px; /* יוצר שוליים עליונים של 20 פיקסלים לרשימת המוצרים */
-}
-
-.product-item {
-	display: flex; /* הגדרת האלמנט כפלקס כדי לארגן את התת-אלמנטים בתוכו באופן אופקי */
-	align-items: center; /* מיישר את התת-אלמנטים במרכז אנכית */
-	justify-content: space-between; /* מפזר את התת-אלמנטים באופן שווה לאורך הציר הראשי */
-	padding: 10px; /* שוליים פנימיים מכל הכיוונים */
-	margin-bottom: 10px; /* יוצר שוליים תחתונים */
-	background-color: #f9f9f9; /* רקע בצבע אפור קל */
-	border-radius: 4px; /* מעגל את הפינות */
-	box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* יוצר צל קל */
-}
-
-.product-name {
-	font-weight: bold; /* מבליט את שם המוצר */
-}
-
-.product-price {
-	color: #28a745; /* צבע הטקסט ירוק */
-}
+	position: fixed; /* מקבע את המיקום של ה- .main-container */
+	right: 20px; 
+	display: flex;
+	flex-direction: column; /* מארגן את התוכן בכיוון אנכי */
+	max-width: 400px;
+	margin: 20px auto; /* ממרכז את הקונטיינר ומוסיף מרווח מעלה ומטה */
+	padding: 20px;
+	background-color: #f7f7f7;
+	border-radius: 8px;
+	text-align: right; 
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .ProductSearch-container{
+	
+  }
+  
+  /* עיצוב טקסטאריה וכפתור להזנת מידע */
+  .products-input textarea, .products-input button {
+	width: 100%;
+	padding: 10px;
+	margin-top: 10px; /* מוסיף מרווח מעלה בלבד, כדי לשמור על זרימה טובה */
+	border-radius: 25px;
+	border: 1px solid #ccc;
+  }
+  
+  .products-input textarea {
+	height: 150px; /* הגדלת גובה הטקסטאריה לנוחות כתיבה */
+	resize: vertical; /* מאפשר שינוי גודל רק בכיוון אנכי */
+	margin-bottom: 10px; /* מוסיף מרווח מתחת */
+	text-align: right; 
+  }
+  
+  .products-input button {
+	background-color: #007bff;
+	color: white;
+	cursor: pointer;
+	border: none;
+	transition: background-color 0.2s ease;
+	margin-top: 20px; /* מוסיף רווח מעל לכפתור */
+	margin-bottom: 20px;
+  }
+  
+  .products-input button:hover {
+	background-color: #0056b3;
+  }
+  
+  /* עיצוב הרשימה שמתקבלת אחרי חיפוש */
+  .list-component {
+	width: 100%; /* מתאים את הרוחב לרוחב הקונטיינר האב */
+	margin-top: 20px; /* מרווח מהקומפוננטה שלמעלה */
+	background-color: white;
+	border: 1px solid #ccc;
+	padding: 10px;
+	box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+  }
+  
+  /* עיצוב פריטי המוצר ברשימה */
+  .product-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	margin: 10px 0;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 1px 310px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-name, .product-price {
+	margin: 0 5px;
+  }
+  
+  .product-price {
+	color: #28a745; /* צבע ירוק למחירים */
+  }
+  
