@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import './Sidebar.css'; // הנח ששמת את כל הסגנונות בקובץ CSS בשם Sidebar.css
 
 const Sidebar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(window.innerWidth < 1220 ? false : true);
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const Sidebar = ({ children }) => {
 
   return (
     <div className="container">
-      <div className="sidebar" style={{ width: isOpen ? "400px" : "50px" }}>
+      <div className="sidebar" style={{ width: isOpen ? "320px" : "50px" }}>
         <div className="top_section">
           <h1 className="logo" style={{ display: isOpen ? "block" : "none" }}>Smartshopping</h1>
           <div className="bars" style={{ marginLeft: isOpen ? "50px" : "0px" }}>

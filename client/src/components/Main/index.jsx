@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ProductSearch from '../Search/ProductSearchComponent.jsx'; 
-import ListComponent from '../List/List.js'; 
+import ProductSearch from '../Search/ProductSearchComponent.jsx';
+import ListComponent from '../List/List.js';
 import "./styles.css";
 
 const Main = () => {
@@ -35,11 +35,11 @@ const Main = () => {
   };
 
   return (
-    <div >
-      <div  className="ProductSearch-container" >
+    <div>
+      <div className="ProductSearch-container" >
         <ProductSearch /> {/* הוספת הקומפוננטה ProductSearch לתחילת הקונטיינר */}
       </div>
-      <div  className="main-container">
+      {/* <div className="main-container"> */}
       <div className="products-input">
         <form onSubmit={handleFormSubmit}>
           <textarea
@@ -52,7 +52,7 @@ const Main = () => {
         </form>
       </div>
       {showSearchResults && <ListComponent searchResults={searchResults} />}
-      </div>
+      {/* </div> */}
     </div>
   );
 };
