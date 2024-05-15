@@ -7,6 +7,7 @@ const connection = require("./db");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const userRoutes = require("./routes/user");
+const articleRoutes = require("./routes/article");
 const passwordResetRoutes = require("./routes/passwordReset");
 
 // database connection
@@ -23,6 +24,9 @@ app.use("/api/password-reset", passwordResetRoutes);
 // Users routes
 app.use("/api/users", usersRoutes);
 app.use("/api/user", userRoutes);
+
+//articles routes
+app.use("/api/article", articleRoutes);
 
 
 // Products routes
@@ -70,7 +74,7 @@ app.post('/api/productsList', async (req, res) => {
     if (!searchQueries || searchQueries.length === 0) {
       return res.status(400).send({ message: 'No search queries provided' });
     }
-    
+
     const response = await axios.post('http://localhost:3002/search', req.body, {
       headers: { 'Content-Type': 'application/json' }
     });
@@ -108,7 +112,7 @@ app.post('/api/productsList', async (req, res) => {
       sourceToPrice[key] = priceSum; // שמירת הסכום הכולל למקור
     }
 
-    const [cheapestSource, cheapestPrice]    = Object.entries(sourceToPrice).reduce((acc, [source, price]) => {
+    const [cheapestSource, cheapestPrice] = Object.entries(sourceToPrice).reduce((acc, [source, price]) => {
       return (acc[1] > price) ? [source, price] : acc;
     }, ['', Infinity]); // חיפוש המקור עם המחיר הכולל הנמוך ביותר
 

@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
-  verified: {type: Boolean, default: false},
+  isTzunai: { type: Boolean, default: false },
+  verified: { type: Boolean, default: false },
   location: {
     lat: { type: Number, required: false },
     lng: { type: Number, required: false }

@@ -47,7 +47,7 @@ const MyNav = ({ children }) => {
     if (isLoggedIn) {
         menuItem.push({
             path: "/Profile",
-            name: "Profile",
+            name: "פרופיל",
             icon: <FaUser />
         });
     }
@@ -79,7 +79,7 @@ const MyNav = ({ children }) => {
                                     <div className="link_text">התנתק</div>
                                 </div>
                             ) : (
-                                <Nav.Link to="/Login" className="link" activeClassName="active-link">
+                                <Nav.Link href="/Login" className="link" activeClassName="active-link">
                                     <div className="icon"><FaUser /></div>
                                     <div className="link_text">התחבר</div>
                                 </Nav.Link>

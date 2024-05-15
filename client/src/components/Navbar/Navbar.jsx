@@ -49,7 +49,7 @@ const Sidebar = ({ children }) => {
   if (isLoggedIn) {
     menuItem.push({
       path: "/Profile",
-      name: "Profile",
+      name: "פרופיל",
       icon: <FaUser />
     });
   }
