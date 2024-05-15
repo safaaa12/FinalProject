@@ -20,27 +20,27 @@ const Sidebar = ({ children }) => {
   const menuItem = [
     {
       path: "/",
-      name: "Home",
+      name: "בית",
       icon: <FaHome />
     },
     {
       path: "/Shopes",
-      name: "Shopes",
+      name: "חנויות",
       icon: <FaShoppingCart />
     },
     {
       path: "/coupons",
-      name: "coupons",
+      name: "קופונים",
       icon: <FaTicketAlt />
     },
     {
       path: "/AboutUs",
-      name: "About Us",
+      name: "עלינו",
       icon: <FaInfoCircle />
     },
     {
       path: "/comment",
-      name: "Comment",
+      name: "הערות",
       icon: <FaCommentAlt />
     },
   ];
@@ -72,12 +72,12 @@ const Sidebar = ({ children }) => {
         {isLoggedIn ? (
           <div className="link" onClick={handleLogout}>
             <div className="icon"><FaLock /></div>
-            <div className="link_text" style={{ display: isOpen ? "block" : "none" }}>Logout</div>
+            <div className="link_text" style={{ display: isOpen ? "block" : "none" }}>התנתק</div>
           </div>
         ) : (
           <NavLink to="/Login" className="link" activeClassName="active-link">
             <div className="icon"><FaUser /></div>
-            <div className="link_text" style={{ display: isOpen ? "block" : "none" }}>Login</div>
+            <div className="link_text" style={{ display: isOpen ? "block" : "none" }}>התחבר</div>
           </NavLink>
         )}
       </div>
