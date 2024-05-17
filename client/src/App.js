@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import MyNav from './components/Navbar/NewNav';
 import "./App.css";
 import Main from "./components/Main";
+import Articles from "./components/Articles";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import AboutUs from "./components/AboutUs";
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/Signup" element={<Signup />} />
           <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
           <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/articles" element={<Articles />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
           <Route path="/Coupons" element={<Coupons />} />

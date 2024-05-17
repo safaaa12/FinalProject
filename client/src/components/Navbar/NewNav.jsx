@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
-import { FaBars, FaCommentAlt, FaShoppingCart, FaInfoCircle, FaTicketAlt, FaHome, FaLock, FaUser } from "react-icons/fa";
+import { FaBars, FaCommentAlt, FaShoppingCart, FaInfoCircle, FaTicketAlt, FaHome, FaLock, FaUser, FaNewspaper } from "react-icons/fa";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -74,10 +74,17 @@ const MyNav = ({ children }) => {
                                 </Nav.Link>
                             ))}
                             {isLoggedIn ? (
-                                <div className="link" onClick={handleLogout}>
-                                    <div className="icon"><FaLock /></div>
-                                    <div className="link_text">התנתק</div>
-                                </div>
+                                <>
+                                    <Nav.Link href="/articles" color="black" className="link" activeClassName="active-link">
+                                        <div className="icon"><FaNewspaper /></div>
+                                        <div className="link_text">כתבות ומתכונים</div>
+                                    </Nav.Link>
+
+                                    <div className="link" onClick={handleLogout}>
+                                        <div className="icon"><FaLock /></div>
+                                        <div className="link_text">התנתק</div>
+                                    </div>
+                                </>
                             ) : (
                                 <Nav.Link href="/Login" className="link" activeClassName="active-link">
                                     <div className="icon"><FaUser /></div>

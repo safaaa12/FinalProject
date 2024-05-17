@@ -17,7 +17,8 @@ function Profile() {
     const [isTzunai, setTzunai] = useState("");
     const [password, setpassword] = useState("");
     const [loction, setUserId] = useState(null);
-    const [success, setsuccess] = useState("");
+    const [articleSuccess, setArticleSuccess] = useState("");
+    const [recipeSuccess, setRecipeSuccess] = useState("");
 
 
     useEffect(() => {
@@ -25,14 +26,27 @@ function Profile() {
         fetchUser(userEmail);
     }, []);
 
-    const handleSubmit = async (e) => {
+    const handleArticleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const formDataobj = Object.fromEntries(formData.entries());
         try {
             const url = "http://localhost:3000/api/article/add";
             const { data: res } = await axios.post(url, formDataobj);
-            setsuccess(true);
+            setArticleSuccess(true);
+            e.target.reset();
+        } catch (error) {
+        }
+    };
+
+    const handleRecipeSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const formDataobj = Object.fromEntries(formData.entries());
+        try {
+            const url = "http://localhost:3000/api/recipe/add";
+            const { data: res } = await axios.post(url, formDataobj);
+            setRecipeSuccess(true);
             e.target.reset();
         } catch (error) {
         }
@@ -72,7 +86,7 @@ function Profile() {
             </div>
             {isTzunai ? (
                 <>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleArticleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label>שם הכתבה</Form.Label>
                             <Form.Control required name="title" type="text" placeholder="שם הכתבה" />
@@ -87,9 +101,35 @@ function Profile() {
                             שלח
                         </Button>
                     </Form>
-                    {success ? (<>
+                    {articleSuccess ? (<>
                         <Alert variant="primary">
                             הכתבה נשלחה בהצלחה.
+                        </Alert>
+                    </>) : (<></>)}
+
+                    <Form onSubmit={handleRecipeSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>שם המתכון</Form.Label>
+                            <Form.Control required name="title" type="text" placeholder="שם המתכון" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>מצרכים</Form.Label>
+                            <Form.Control required name="products" as="textarea" rows={3} placeholder="5 מלפפונים, 2 גמבות..." />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>המתכון</Form.Label>
+                            <Form.Control required name="text" as="textarea" rows={3} placeholder="מערבבים הכל יחד ויוצא!..." />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit" className="mb-3">
+                            שלח
+                        </Button>
+                    </Form>
+                    {recipeSuccess ? (<>
+                        <Alert variant="primary">
+                            המתכון נשלח בהצלחה.
                         </Alert>
                     </>) : (<></>)}
                 </>

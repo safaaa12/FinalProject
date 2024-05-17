@@ -8,6 +8,9 @@ const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const userRoutes = require("./routes/user");
 const articleRoutes = require("./routes/article");
+const articlesRoutes = require("./routes/articles");
+const recipeRoutes = require("./routes/recipe");
+const recipesRoutes = require("./routes/recipes");
 const passwordResetRoutes = require("./routes/passwordReset");
 
 // database connection
@@ -27,7 +30,11 @@ app.use("/api/user", userRoutes);
 
 //articles routes
 app.use("/api/article", articleRoutes);
+app.use("/api/articles", articlesRoutes);
 
+//articles routes
+app.use("/api/recipe", recipeRoutes);
+app.use("/api/recipes", recipesRoutes);
 
 // Products routes
 app.get('/api/coupons', async (req, res) => {
