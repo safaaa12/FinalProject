@@ -32,4 +32,22 @@ router.put("/id/:id", async (req, res) => {
   }
 });
 
+router.post("/tzunai/toggle", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await User.findById(id);
+    if (!user)
+      return res
+        .status(404)
+        .send({ message: "User with given ID doesn't exist!" });
+    currentIsTzunai = user.isTzunai;
+    user.isTzunai = !currentIsTzunai;
+    await user.save();
+    res.status(200).send({ message: "User updated successfully", user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
 module.exports = router;

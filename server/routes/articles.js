@@ -4,7 +4,6 @@ const router = require("express").Router();
 router.get("/list/", async (req, res) => {
 	try {
 		res
-			.status(201)
 			.send({
 				articles: await Article.find({}),
 			});

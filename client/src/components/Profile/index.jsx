@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom"; // שימוש ב-useNavigate
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
+import AdminManagement from "./adminMangment";
 
 function Profile() {
     const [data, setData] = useState({});
@@ -15,6 +16,7 @@ function Profile() {
     const [lastName, setLastName] = useState("");
     const [email, setemail] = useState("");
     const [isTzunai, setTzunai] = useState("");
+    const [isAdmin, setAdmin] = useState("");
     const [password, setpassword] = useState("");
     const [loction, setUserId] = useState(null);
     const [articleSuccess, setArticleSuccess] = useState("");
@@ -30,6 +32,7 @@ function Profile() {
         e.preventDefault();
         const formData = new FormData(e.target);
         const formDataobj = Object.fromEntries(formData.entries());
+        formDataobj.tzunaiName = firstName + " " + lastName;
         try {
             const url = "http://localhost:3000/api/article/add";
             const { data: res } = await axios.post(url, formDataobj);
@@ -43,6 +46,7 @@ function Profile() {
         e.preventDefault();
         const formData = new FormData(e.target);
         const formDataobj = Object.fromEntries(formData.entries());
+        formDataobj.tzunaiName = firstName + " " + lastName;
         try {
             const url = "http://localhost:3000/api/recipe/add";
             const { data: res } = await axios.post(url, formDataobj);
@@ -61,6 +65,7 @@ function Profile() {
             setLastName(response.data.lastName);
             setemail(response.data.email);
             setTzunai(response.data.isTzunai);
+            setAdmin(response.data.isAdmin);
             setpassword(response.data.email);
             setUserId(response.data.loction);
         } catch (error) {
@@ -135,7 +140,12 @@ function Profile() {
                 </>
             ) : (
                 <></>)
-            }</>
+            }
+            {isAdmin ? (<>
+                <AdminManagement />
+            </>) : (<></>)}
+
+        </>
     )
 
 }

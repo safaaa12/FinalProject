@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import "./styles.css";
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
+import { FaHeart } from "react-icons/fa";
+
 
 const Articles = () => {
   const [articles, setArticles] = useState(null);
@@ -39,9 +41,14 @@ const Articles = () => {
               {articles.map((article, index) => (
                 <Card className='mb-3'>
                   <Card.Body>
-                    <Card.Title>{article.title}</Card.Title>
+                    <Card.Title>{article.title}
+                      <br></br>
+                      מאת: {article.tzunaiName}
+                    </Card.Title>
                     <Card.Text>
                       {article.text}
+                      <br></br>
+                      <button><FaHeart /><span>{article.heartCount}</span></button>
                     </Card.Text>
                   </Card.Body>
                 </Card>

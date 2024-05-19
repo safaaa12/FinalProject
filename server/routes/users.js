@@ -68,4 +68,14 @@ router.get("/:id/verify/:token/", async (req, res) => {
 	}
 });
 
+router.get("/list/", async (req, res) => {
+	try {
+		let users = await User.find({}).lean();
+		res.json(users);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send({ message: "Internal Server Error" });
+	}
+});
+
 module.exports = router;

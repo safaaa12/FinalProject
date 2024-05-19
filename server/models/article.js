@@ -4,6 +4,8 @@ const Joi = require("joi");
 const userSchema = new mongoose.Schema({
   title: { type: String, required: true },
   text: { type: String, required: true },
+  heartCount: { type: Number, default: 0 },
+  tzunaiName: { type: String, required: true },
 });
 
 const Article = mongoose.model("article", userSchema);
@@ -15,6 +17,11 @@ const validate = (data) => {
     text: Joi.string()
       .required()
       .label("Text"),
+    heartCount: Joi.number()
+      .label("Heart Count"),
+    tzunaiName: Joi.string()
+      .required()
+      .label("Tzunai Name"),
   });
   return schema.validate(data);
 };
