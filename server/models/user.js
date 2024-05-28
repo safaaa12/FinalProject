@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
   isTzunai: { type: Boolean, default: false },
-  favoriteArticles: { type: String, default: "" },
+  favoriteContents: { type: String, default: "" },
   verified: { type: Boolean, default: false },
   location: {
     lat: { type: Number, required: false },
