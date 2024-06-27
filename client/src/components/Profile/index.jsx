@@ -7,6 +7,7 @@ function Profile() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setemail] = useState("");
+    const [isTzunai, setTzunai] = useState("");
     const [password, setpassword] = useState("");
     const [loction, setUserId] = useState(null);
 
@@ -23,6 +24,7 @@ function Profile() {
             setFirstName(response.data.firstName);
             setLastName(response.data.lastName);
             setemail(response.data.email);
+            setTzunai(response.data.isTzunai);
             setpassword(response.data.email);
             setUserId(response.data.loction);
         } catch (error) {
@@ -31,21 +33,35 @@ function Profile() {
     }
 
     return (
-        <div className="profile">
-            <div className="card_container">
-                <div className="_card">
-                    <h2>Edit Profile</h2>
-                    <div className="form-group">
-                        <p for="fname">First Name: {firstName}</p>
-                        <p for="lname">Last Name: {lastName}</p>
-                        <p for="lname">Email : {email}</p>
-                        <p for="loction">loction : {loction }</p>
+        <>
+            <div className="profile">
+                <div className="card_container">
+                    <div className="_card">
+                        <h2>פרופיל</h2>
+                        <div className="form-group">
+                            <p for="fname">שם פרטי: {firstName}</p>
+                            <p for="lname">שם משפחה: {lastName}</p>
+                            <p for="lname">אימייל : {email}</p>
+                            <p for="loction">מיקום : {loction}</p>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-}
+            {isTzunai ? (
+        <>
+          {/* Add your content here */}
+          <p>Tzunai is true!</p>
+        </>
+      ) : (
+        <>
+          {/* Add content for the false case if needed */}
+          <p>Tzunai is false!</p>
+        </>
+      )}
 
+            </>
+    )
+
+}
 export default Profile;
