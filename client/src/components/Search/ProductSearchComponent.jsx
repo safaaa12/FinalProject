@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import './ProductSearch.css'; // Importing the CSS for styles
 
 const ProductSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,7 +17,7 @@ const ProductSearch = () => {
       const response = await fetch('http://localhost:3000/api/search', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ products: [searchQuery] }),
       });
@@ -38,14 +40,19 @@ const ProductSearch = () => {
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Enter product name..."
+        placeholder="הכנס שם מוצר..."
       />
-      <button onClick={searchProducts}>Search</button>
-      <div id="results">
+      <Button onClick={searchProducts}>חפש</Button>
+      <div className="cards-container" id="results"> {/* Use cards-container for grid layout */}
         {error && <p>{error}</p>}
         {results.map((product, index) => (
-          <div key={index}>
-            <p>{product.name} - {product.price}- {product.imge} </p>
+          <div key={index} className="product-card">
+            <img src={product.image} alt={product.name} className="product-image" />
+            <div className="product-info">
+              <h5>{product.source}</h5>
+              <h5>{product.name}</h5>
+              <p>₪{product.price}</p>
+            </div>
           </div>
         ))}
       </div>

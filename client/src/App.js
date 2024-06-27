@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import MyNav from './components/Navbar/NewNav';
 import "./App.css";
 import Main from "./components/Main";
 import Signup from "./components/Signup";
@@ -9,12 +10,11 @@ import AboutUs from "./components/AboutUs";
 import Profile from "./components/Profile";
 import PasswordReset from "./components/PasswordReset";
 import EmailVerify from "./components/EmailVerify";
-//import StartPage from "./components/StartPage";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Navbar>
+      <MyNav>
       <Routes>
         <Route path="/" element={<Main />}/>
         <Route path="/Login"  element={<Login />} />
@@ -24,7 +24,7 @@ const App = () => {
         <Route path="/Profile"  element={<Profile />} />
         <Route path="/users/:id/verify/:token" element={<EmailVerify/>}/>
         </Routes>
-      </Navbar>
+      </MyNav>
     </BrowserRouter>
   );
 }
