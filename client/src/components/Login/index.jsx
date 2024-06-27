@@ -13,7 +13,7 @@ const Login = () => {
   };
   const requestUserLocation = () => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(async function(position) {
+      navigator.geolocation.getCurrentPosition(async function (position) {
         try {
           const url = "http://localhost:3000/api/auth/login"; // שינוי כתובת הנתיב ל-/api/auth/login
           await axios.post(url, {
@@ -34,14 +34,18 @@ const Login = () => {
       console.error("Geolocation is not supported by this browser.");
     }
   };
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const url = "http://localhost:3000/api/auth";
       const { data: res } = await axios.post(url, data);
+
+
+
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("id", res.data._id);
       localStorage.setItem("isAdmin", res.data.isAdmin);
       localStorage.setItem("email", data.email);
 
@@ -61,16 +65,16 @@ const Login = () => {
 
   return (
     <div id="login-form">
-      <h1>Login</h1>
+      <h1>התחבר</h1>
       <form className='login_form_container' onSubmit={handleSubmit}>
-        <input type="text" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className='input' data-testid="email"/>
-        <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className='input'/>
+        <input type="text" placeholder="אימייל" name="email" onChange={handleChange} value={data.email} required className='input' data-testid="email" />
+        <input type="password" placeholder="סיסמא" name="password" onChange={handleChange} value={data.password} required className='input' />
         {error && <div className='error_msg'>{error}</div>}
-        <input type="submit" value="Submit" />
+        <input type="submit" value="התחבר" />
       </form>
       <div id="login-tap">
-        <h2 className="forgot-password text-right"> Forgot <a href="/forgot-password">password?</a> </h2>
-        <h2>Don't have an account? <Link to="/signup">Signup</Link></h2>
+        <h2 className="forgot-password text-right"> שכחת <a href="/forgot-password">סיסמא?</a> </h2>
+        <h2>אין לך חשבון? <Link to="/signup">הירשם</Link></h2>
       </div>
     </div>
   );
