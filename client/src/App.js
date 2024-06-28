@@ -31,6 +31,7 @@ const App = () => {
         <Route path="/AboutUs"  element={<AboutUs />} />
         <Route path="/Profile"  element={<Profile />} />
         <Route path="/users/:id/verify/:token" element={<EmailVerify/>}/>
+        <Route path="/Coupons" element={<Coupons />} />
         </Routes>
     </MyNav>
     </BrowserRouter>
