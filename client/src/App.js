@@ -5,7 +5,6 @@ import MyNav from './components/Navbar/NewNav';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Navbar from "./components/Navbar/Navbar";
 
 import Main from "./components/Main";
 import Signup from "./components/Signup";
@@ -23,7 +22,7 @@ const App = () => {
   return (
     <BrowserRouter>
 
-      <NewNav>
+      <MyNav>
       <Routes>
         <Route path="/" element={<Main />}/>
         <Route path="/Login"  element={<Login />} />
@@ -33,7 +32,7 @@ const App = () => {
         <Route path="/Profile"  element={<Profile />} />
         <Route path="/users/:id/verify/:token" element={<EmailVerify/>}/>
         </Routes>
-    </NewNav>
+    </MyNav>
     </BrowserRouter>
   );
 }

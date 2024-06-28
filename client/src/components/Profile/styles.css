@@ -9,14 +9,13 @@
   margin: 20px auto; /* ממרכז את הקונטיינר ומוסיף מרווח מעלה ומטה */
   padding: 20px;
   border-radius: 8px;
-  text-align:left; 
+  text-align: left; /* כיוון הטקסט משמאל */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card_container {
   position: relative; /* שיניתי ל- relative */
   top: 20px; /* ניתן לשנות ערך זה להתאמה מדויקת */
- 
   margin: 0 auto; /* ממרכז את הקונטיינר */
   background-color: rgb(118, 174, 238);
   border-radius: 8px;
@@ -45,8 +44,4 @@
 
 .form-group p label {
   font-weight: bold;
-
 }
-
-}
-

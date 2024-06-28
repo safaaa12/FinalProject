@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import Button from 'react-bootstrap/Button';
-=======
->>>>>>> f1d3a54 (css)
+import Button from 'react-bootstrap/Button'
 import './ProductSearch.css'; // Importing the CSS for styles
 
 const ProductSearch = () => {
@@ -45,11 +42,8 @@ const ProductSearch = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="הכנס שם מוצר..."
       />
-<<<<<<< HEAD
-      <Button onClick={searchProducts}>חפש</Button>
-=======
       <button onClick={searchProducts}>Search</button>
->>>>>>> f1d3a54 (css)
+
       <div className="cards-container" id="results"> {/* Use cards-container for grid layout */}
         {error && <p>{error}</p>}
         {results.map((product, index) => (
