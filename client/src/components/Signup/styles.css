@@ -3,7 +3,7 @@
     width: 400px;
     max-width: 100%;
     margin: 50px auto;
-    background-color: rgb(199, 214, 79);
+    background-color: lightblue;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     font-family: "Poppins", sans-serif;
@@ -12,7 +12,7 @@
     width: 400px;
     max-width: 100%;
     margin: 10px auto;
-    background-color:rgb(199, 214, 79);
+    background-color: lightblue;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     font-family: "Poppins", sans-serif;
@@ -77,19 +77,19 @@
     background-color: deepskyblue;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
+
 #error_msg,
 #success_msg {
-	width: 370px;
-	padding: 15px;
-	margin: 5px 0;
-	font-size: 14px;
-	background-color: #f34646;
-	color: white;
-	border-radius: 5px;
-	text-align: center;
+width: 370px;
+padding: 15px;
+margin: 5px 0;
+font-size: 14px;
+background-color: #f34646;
+color: white;
+border-radius: 5px;
+text-align: center;
 }
 
 #success_msg {
-	background-color: #5cdd5c;
+background-color: #5cdd5c;
 }
-  
