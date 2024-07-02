@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ProductSearch from '../Search/ProductSearchComponent.jsx'; 
-import ListComponent from './List.js'; 
+import ListComponent from '../List/List.js'; 
 import "./styles.css";
 
 const Main = () => {
@@ -35,8 +35,11 @@ const Main = () => {
   };
 
   return (
-    <div className="main-container">
-      <ProductSearch /> {/* הוספת הקומפוננטה ProductSearch לתחילת הקונטיינר */}
+    <div >
+      <div  className="ProductSearch-container" >
+        <ProductSearch /> {/* הוספת הקומפוננטה ProductSearch לתחילת הקונטיינר */}
+      </div>
+      <div  className="main-container">
       <div className="products-input">
         <form onSubmit={handleFormSubmit}>
           <textarea
@@ -45,9 +48,11 @@ const Main = () => {
             placeholder="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"
           ></textarea>
           <button type="submit">הוספה לרשימת הקניות</button>
+          <br></br>
         </form>
       </div>
       {showSearchResults && <ListComponent searchResults={searchResults} />}
+      </div>
     </div>
   );
 };
