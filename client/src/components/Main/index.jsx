@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ProductSearch from '../Search/ProductSearchComponent.jsx';
 import ListComponent from '../List/List.js';
 import "./styles.css";
 
