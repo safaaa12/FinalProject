@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import ProductSearch from '../Search/ProductSearchComponent.jsx'; 
-import ListComponent from '../List/List.js'; 
+import ListComponent from '../List/List.js';
 import "./styles.css";
 
 const Main = () => {
@@ -35,14 +34,15 @@ const Main = () => {
   };
 
   return (
-    <div >
-      <div  className="ProductSearch-container" >
+    <div>
+      <div className="ProductSearch-container" >
         <ProductSearch /> {/* הוספת הקומפוננטה ProductSearch לתחילת הקונטיינר */}
       </div>
-      <div  className="main-container">
+      {/* <div className="main-container"> */}
       <div className="products-input">
         <form onSubmit={handleFormSubmit}>
           <textarea
+            id="productsListText"
             value={productsList}
             onChange={(e) => setProductsList(e.target.value)}
             placeholder="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"
@@ -52,7 +52,7 @@ const Main = () => {
         </form>
       </div>
       {showSearchResults && <ListComponent searchResults={searchResults} />}
-      </div>
+      {/* </div> */}
     </div>
   );
 };
