@@ -91,18 +91,62 @@ function Profile() {
                 </div>
             </div>
             {isTzunai ? (
-        <>
-          {/* Add your content here */}
-          <p>Tzunai is true!</p>
-        </>
-      ) :  (
-        <></>)
-    }
-    {isAdmin ? (<>
-        <AdminManagement />
-    </>) : (<></>)}
+                <>
+                    <Form onSubmit={handleArticleSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>שם הכתבה</Form.Label>
+                            <Form.Control required name="title" type="text" placeholder="שם הכתבה" />
+                        </Form.Group>
 
-</>
+                        <Form.Group className="mb-3">
+                            <Form.Label>הכתבה</Form.Label>
+                            <Form.Control required name="text" as="textarea" rows={3} placeholder="משהו מעניין על אוכל!" />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit" className="mb-3">
+                            שלח
+                        </Button>
+                    </Form>
+                    {articleSuccess ? (<>
+                        <Alert variant="primary">
+                            הכתבה נשלחה בהצלחה.
+                        </Alert>
+                    </>) : (<></>)}
+
+                    <Form onSubmit={handleRecipeSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>שם המתכון</Form.Label>
+                            <Form.Control required name="title" type="text" placeholder="שם המתכון" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>מצרכים</Form.Label>
+                            <Form.Control required name="products" as="textarea" rows={3} placeholder="5 מלפפונים, 2 גמבות..." />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>המתכון</Form.Label>
+                            <Form.Control required name="text" as="textarea" rows={3} placeholder="מערבבים הכל יחד ויוצא!..." />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit" className="mb-3">
+                            שלח
+                        </Button>
+                    </Form>
+                    {recipeSuccess ? (<>
+                        <Alert variant="primary">
+                            המתכון נשלח בהצלחה.
+                        </Alert>
+                    </>) : (<></>)}
+                </>
+            ) : (
+                <></>)
+            }
+            {isAdmin ? (<>
+                <AdminManagement />
+            </>) : (<></>)}
+
+        </>
     )
 
 }
