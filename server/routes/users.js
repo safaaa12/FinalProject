@@ -28,17 +28,19 @@ router.post("/", async (req, res) => {
 			userId: user._id,
 			token: crypto.randomBytes(32).toString("hex"),
 		}).save();
-		const url = `${process.env.BASE_URL}users/${user.id}/verify/${token.token}`;
+		const url = `${process.env.BASE_URL}/api/users/${user.id}/verify/${token.token}`;
 		/*
 		1- Define the path (url)
 		2- Once a user visit, chnge the 'verify''flag (in MongoDB) to 'true' (use user.id)
 		*/
-		definePath(url,user)
+		// definePath(url, user)
+		console.log("users sendEmail");
 		await sendEmail(user.email, "Verify Email", url);
+		console.log("users sendEmail done");
 
 		res
 			.status(201)
-			.send({ message: "An Email sent to your account please verify" });
+			.send({ message: "מייל נשלח אליך, אנא אשר את המייל שלך" });
 	} catch (error) {
 		console.log(error);
 		res.status(500).send({ message: "Internal Server Error" });
@@ -57,14 +59,15 @@ router.get("/:id/verify/:token/", async (req, res) => {
 		});
 		if (!token) return res.status(400).send({ message: "Invalid link" });
 
-		await User.updateOne({ _id: user._id, verified: true });
-		await token.remove();
+		await User.updateOne({ _id: user._id }, { verified: true });
+		await Token.deleteOne(token);
 
 		res.status(200).send({ message: "Email verified successfully" });
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
+
 router.get("/list/", async (req, res) => {
 	try {
 		let users = await User.find({}).lean();
