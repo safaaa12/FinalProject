@@ -18,5 +18,23 @@ router.post("/add/", async (req, res) => {
 	}
 });
 
+// router.post("/heart/plus/", async (req, res) => {
+// 	try {
+// 		const { articleId } = req.body;
+// 		const article = await Article.findById(articleId);
+// 		if (!article)
+// 			return res
+// 				.status(404)
+// 				.send({ message: "Article with given ID doesn't exist!" });
+// 		article.heartCount += 1;
+// 		await article.save();
+// 		res.status(200).send({ message: "הכתבה קיבלה לב" });
+// 	} catch (error) {
+// 		console.log(error);
+// 		res.status(500).send({ message: "Internal Server Error" });
+// 	}
+// });
+
+
 
 module.exports = router;

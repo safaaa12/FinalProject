@@ -81,7 +81,7 @@ app.post('/api/productsList', async (req, res) => {
     if (!searchQueries || searchQueries.length === 0) {
       return res.status(400).send({ message: 'No search queries provided' });
     }
-    
+
     const response = await axios.post('http://localhost:3002/search', req.body, {
       headers: { 'Content-Type': 'application/json' }
     });
@@ -119,7 +119,7 @@ app.post('/api/productsList', async (req, res) => {
       sourceToPrice[key] = priceSum; // שמירת הסכום הכולל למקור
     }
 
-    const [cheapestSource, cheapestPrice]    = Object.entries(sourceToPrice).reduce((acc, [source, price]) => {
+    const [cheapestSource, cheapestPrice] = Object.entries(sourceToPrice).reduce((acc, [source, price]) => {
       return (acc[1] > price) ? [source, price] : acc;
     }, ['', Infinity]); // חיפוש המקור עם המחיר הכולל הנמוך ביותר
 

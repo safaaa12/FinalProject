@@ -7,6 +7,32 @@ import axios from 'axios';
 
 const ListComponent = ({ searchResults }) => {
 
+  const handleToggleFavorite = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(e.target);
+      let button = null;
+
+      if (!e.target.matches("button"))
+        button = e.target.closest("button");
+      else
+        button = e.target;
+
+      const url = "http://localhost:3000/api/user/favorites/update";
+      const res = await axios.post(url, {
+        id: localStorage.getItem("id"),
+        contentId: button.id
+      });
+
+      const diff = res.data.diff;
+      let countObj = button.querySelector("span")
+      countObj.innerText = parseInt(countObj.innerText) + diff;
+      let heart = button.querySelector("path")
+      heart.style.color = diff === 1 ? "red" : "white";
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   const handleSave = ({ currentTarget: btn }) => {
     let jsonProductsText = document.getElementById("productsListText").innerHTML;
     let jsonProducts = jsonProductsText.split('\n').map(item => item.trim());
