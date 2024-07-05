@@ -7,6 +7,7 @@ import MyNav from './components/Navbar/NewNav';
 import "./App.css";
 import Main from "./components/Main";
 import Articles from "./components/Articles";
+import MyLists from "./components/MyLists";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import AboutUs from "./components/AboutUs";
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/lists" element={<MyLists />} />
           <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
           <Route path="/Coupons" element={<Coupons />} />
         </Routes>

@@ -97,4 +97,103 @@ router.post("/favorites/list", async (req, res) => {
 });
 
 
+router.post("/basket/list", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await User.findById(id);
+    if (!user)
+      return res
+        .status(404)
+        .send({ message: "User with given ID doesn't exist!" });
+
+    res.status(200).send({ message: "added basket", baskets: user.baskets });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
+
+router.post("/basket/add", async (req, res) => {
+  try {
+    const { id, basket } = req.body;
+    const user = await User.findById(id);
+    if (!user)
+      return res
+        .status(404)
+        .send({ message: "User with given ID doesn't exist!" });
+
+    user.baskets.push(basket);
+    await user.save();
+
+    res.status(200).send({ message: "added basket" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
+
+router.post("/basket/update", async (req, res) => {
+  try {
+    const { id, basket, basketId } = req.body;
+    const user = await User.findById(id);
+    if (!user)
+      return res
+        .status(404)
+        .send({ message: "User with given ID doesn't exist!" });
+
+    let updatedBasket = false;
+    let baskets = user.baskets;
+    for (let i = 0; i < baskets.length; i++) {
+      if (baskets[i]._id == basketId) {
+        baskets[i] = basket;
+        updatedBasket = true;
+        break;
+      }
+    }
+
+    if (!updatedBasket) {
+      return res
+        .status(404)
+        .send({ message: "Basket with given ID doesn't exist!" });
+    } else {
+      user.baskets = baskets;
+      await user.save();
+      return res.status(200).send({ message: "Basket updated" });
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
+
+router.post("/basket/delete", async (req, res) => {
+  try {
+    const { id, basketIndex } = req.body;
+    const user = await User.findById(id);
+    if (!user)
+      return res
+        .status(404)
+        .send({ message: "User with given ID doesn't exist!" });
+
+    if (basketIndex >= 0 && basketIndex < user.baskets.length) {
+      user.baskets.splice(basketIndex, 1);
+      await user.save();
+      return res.status(200).send({ message: "removed basket" });
+    } else {
+      return res
+        .status(404)
+        .send({ message: "Basket with given ID doesn't exist!", basketIndex: basketIndex });
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
+
 module.exports = router;

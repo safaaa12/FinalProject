@@ -43,6 +43,7 @@ const Main = () => {
       <div className="products-input">
         <form onSubmit={handleFormSubmit}>
           <textarea
+            id="productsListText"
             value={productsList}
             onChange={(e) => setProductsList(e.target.value)}
             placeholder="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"
