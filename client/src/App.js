@@ -12,9 +12,13 @@ import AboutUs from "./components/AboutUs";
 import Profile from "./components/Profile";
 import PasswordReset from "./components/PasswordReset";
 import EmailVerify from "./components/EmailVerify";
+import Coupons from "./components/Coupons";
+//import StartPage from "./components/StartPage";
+
 
 const App = () => {
   return (
+
     <BrowserRouter>
       <MyNav>
         <Routes>
@@ -27,9 +31,12 @@ const App = () => {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/lists" element={<MyLists />} />
           <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
+          <Route path="/Coupons" element={<Coupons />} />
         </Routes>
       </MyNav>
+
     </BrowserRouter>
+
   );
 }
 export default App;
