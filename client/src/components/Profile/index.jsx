@@ -73,7 +73,6 @@ function Profile() {
         }
     }
 
-
     return (
         <>
             <div className="profile">
@@ -150,4 +149,5 @@ function Profile() {
     )
 
 }
+
 export default Profile;
