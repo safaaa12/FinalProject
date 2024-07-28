@@ -46,6 +46,16 @@ const AdminManagement = () => {
             console.error("Error toggling Admin status:", error);
         }
     };
+    const handleDeleteUser = async (userId) => {
+        try {
+            const url = `http://localhost:3000/api/user/delete/${userId}`;
+            await axios.delete(url);
+            console.log(`Deleted user ${userId}`);
+            setUsers(users.filter((user) => user._id !== userId));
+        } catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    };
     return (
         <>
             <h1>ניהול אדמין</h1>
@@ -88,6 +98,10 @@ const AdminManagement = () => {
                                                 label={user.isAdmin ? "כן" : "לא"}
                                                 onChange={() => handleUpdateAdmin(user._id)}
                                             />
+                                        </td>
+                                        
+                                        <td>
+                                            <Button variant="danger" onClick={() => handleDeleteUser(user._id)}>מחק</Button>
                                         </td>
                                     
                                             </tr>
