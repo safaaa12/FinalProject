@@ -32,7 +32,20 @@ const AdminManagement = () => {
             console.error("Error:", error);
         }
     };
-
+    const handleUpdateAdmin = async (userId) => {
+        try {
+            const url = "http://localhost:3000/api/user/admin/toggle";
+            await axios.post(url, { id: userId });
+            console.log(`Toggled Admin status for user ${userId}`);
+            setUsers((prevUsers) =>
+                prevUsers.map((user) =>
+                    user._id === userId ? { ...user, isAdmin: !user.isAdmin } : user
+                )
+            );
+        } catch (error) {
+            console.error("Error toggling Admin status:", error);
+        }
+    };
     return (
         <>
             <h1>ניהול אדמין</h1>
@@ -69,8 +82,14 @@ const AdminManagement = () => {
                                                     />
                                                 </td>
                                                 <td>
-                                                    {user.isAdmin ? "כן" : "לא"}
-                                                </td>
+                                            <Form.Check
+                                                type="switch"
+                                                checked={user.isAdmin}
+                                                label={user.isAdmin ? "כן" : "לא"}
+                                                onChange={() => handleUpdateAdmin(user._id)}
+                                            />
+                                        </td>
+                                    
                                             </tr>
 
                                             {/* <Button id={user._id} onClick={handleUpdateTzunai}><h4>הפוך את {user.firstName} {user.lastName} לתזונאי</h4></Button> */}
