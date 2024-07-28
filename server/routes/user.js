@@ -195,6 +195,15 @@ router.post("/basket/delete", async (req, res) => {
   }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+  try {
+      const user = await User.findByIdAndDelete(req.params.id);
+      if (!user) return res.status(404).send('User not found');
+      res.send({ message: 'User deleted successfully' });
+  } catch (error) {
+      res.status(500).send(error);
+  }
+});
 router.post('/admin/toggle', async (req, res) => {
   try {
       const user = await User.findById(req.body.id);
