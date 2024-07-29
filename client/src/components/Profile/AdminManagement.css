@@ -1,0 +1,47 @@
+.admin-management-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.admin-management-container h1{
+    text-align:right;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    max-width: 400px;
+}
+
+.add-user-btn {
+    margin-left: auto;
+    
+}
+
+.user-table {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.user-table thead {
+    background-color: #e9ecef;
+    font-size: 16px;
+    text-align: center;
+}
+
+.user-table tbody tr {
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.user-table .btn {
+    margin-right: 10px;
+}
