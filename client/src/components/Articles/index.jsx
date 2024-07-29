@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import "./styles.css";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Card } from 'react-bootstrap';
-import { FaHeart } from "react-icons/fa";
+import { Row, Col, Form, Card } from 'react-bootstrap';
 import ContentMap from "./contentMap";
-import { Form } from "react-bootstrap";
-
+import "./styles.css";
 
 const Articles = () => {
   const [articles, setArticles] = useState(null);
@@ -14,82 +11,69 @@ const Articles = () => {
   const [recipesShowOnlyFavourites, setRecipesShowOnlyFavourites] = useState(false);
   const [articlesShowOnlyFavourites, setArticlesShowOnlyFavourites] = useState(false);
 
-  React.useEffect(() => {
-    axios
-      .post('http://localhost:3000/api/user/favorites/list', { id: localStorage.getItem("id") })
-      .then((res) => {
-        setFavouriteContents(res.data.favouriteContents)
-      })
-      .catch((err) => {
-        console.log('Error: ' + err)
-      })
-  }, [setFavouriteContents])
+  useEffect(() => {
+    axios.post('http://localhost:3000/api/user/favorites/list', { id: localStorage.getItem("id") })
+      .then((res) => setFavouriteContents(res.data.favouriteContents))
+      .catch((err) => console.error('Error:', err));
+  }, []);
 
-  React.useEffect(() => {
-    axios
-      .get('http://localhost:3000/api/articles/list')
-      .then((res) => {
-        setArticles(res.data.articles)
-      })
-      .catch((err) => {
-        console.log('Error: ' + err)
-      })
-  }, [setArticles])
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/articles/list')
+      .then((res) => setArticles(res.data.articles))
+      .catch((err) => console.error('Error:', err));
+  }, []);
 
-  React.useEffect(() => {
-    axios
-      .get('http://localhost:3000/api/recipes/list')
-      .then((res) => {
-        setRecipes(res.data.recipes)
-      })
-      .catch((err) => {
-        console.log('Error: ' + err)
-      })
-  }, [setRecipes])
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/recipes/list')
+      .then((res) => setRecipes(res.data.recipes))
+      .catch((err) => console.error('Error:', err));
+  }, []);
 
   return (
-    <>
-      {articles != null ?
-        (
-          <>
-            <h1>הכתבות שלנו</h1>
-            <Form.Check
-              style={{ display: 'inline-block' }}
-              type="switch"
-              checked={articlesShowOnlyFavourites}
-              label="הצג רק את הכתבות המועדפות שלי"
-              onClick={() => setArticlesShowOnlyFavourites(!articlesShowOnlyFavourites)}
-            />
-            <div>
-              <ContentMap contents={articles}
-                favouriteContents={favouriteContents} onlyFavourites={articlesShowOnlyFavourites} />
-            </div>
-          </>
-        )
-        : (<>
-          <h1>אין כתבות עדיין...</h1>
-        </>)}
-      {recipes != null ?
-        (
-          <>
-            <h1>המתכונים שלנו</h1>
-            <Form.Check
-              style={{ display: 'inline-block' }}
-              type="switch"
-              checked={recipesShowOnlyFavourites}
-              label="הצג רק את המתכונים המועדפים שלי"
-              onClick={() => setRecipesShowOnlyFavourites(!recipesShowOnlyFavourites)}
-            />
-            <div>
-              <ContentMap contents={articles}
-                favouriteContents={favouriteContents} onlyFavourites={recipesShowOnlyFavourites} />
-            </div>
-          </>
-        )
-        : (<>
-          <h1>אין מתכונים עדיין...</h1>
-        </>)}
-    </>
+    <Row>
+      <Col md={6}>
+        <Card className="mb-3">
+          <Card.Body>
+            {articles ? (
+              <>
+                <h1 className="custom-header">כתבות </h1>
+                <Form.Check
+                  style={{ display: 'inline-block' }}
+                  type="switch"
+                  checked={articlesShowOnlyFavourites}
+                  label="הצג רק את הכתבות המועדפות שלי"
+                  onChange={() => setArticlesShowOnlyFavourites(!articlesShowOnlyFavourites)}
+                />
+                <ContentMap contents={articles} favouriteContents={favouriteContents} onlyFavourites={articlesShowOnlyFavourites} />
+              </>
+            ) : (
+              <h1>אין כתבות עדיין...</h1>
+            )}
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col md={6}>
+        <Card className="mb-3">
+          <Card.Body>
+            {recipes ? (
+              <>
+                <h1 className="custom-header">מתכונים </h1>
+                <Form.Check
+                  style={{ display: 'inline-block' }}
+                  type="switch"
+                  checked={recipesShowOnlyFavourites}
+                  label="הצג רק את המתכונים המועדפים שלי"
+                  onChange={() => setRecipesShowOnlyFavourites(!recipesShowOnlyFavourites)}
+                />
+                <ContentMap contents={recipes} favouriteContents={favouriteContents} onlyFavourites={recipesShowOnlyFavourites} />
+              </>
+            ) : (
+              <h1>אין מתכונים עדיין...</h1>
+            )}
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 

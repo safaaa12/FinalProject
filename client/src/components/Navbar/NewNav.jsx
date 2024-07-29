@@ -77,10 +77,6 @@ const MyNav = ({ children }) => {
                             ))}
                             {isLoggedIn ? (
                                 <>
-                                    <Nav.Link href="/lists" color="black" className="link" activeClassName="active-link">
-                                        <div className="icon"><FaList /></div>
-                                        <div className="link_text">הרשימות שלי</div>
-                                    </Nav.Link>
 
                                     <Nav.Link href="/articles" color="black" className="link" activeClassName="active-link">
                                         <div className="icon"><FaNewspaper /></div>

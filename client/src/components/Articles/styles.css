@@ -1,0 +1,30 @@
+.row {
+    margin-top: 20px;
+  }
+  
+  .col-md-6 {
+    padding: 15px;
+  }
+  
+  .custom-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .card {
+    border: 2px solid #007bff;
+  }
+  
+  .form-check {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  

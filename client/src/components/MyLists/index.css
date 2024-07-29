@@ -1,0 +1,41 @@
+.user-management-container {
+  padding: 20px;
+  margin-top: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-management-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.list-container {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #174b7e;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.list-container h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.list-container ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.list-container ul li {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.user-management-container button {
+  font-size: 14px;
+  margin-top: 10px;
+}
