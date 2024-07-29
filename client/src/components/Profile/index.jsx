@@ -5,7 +5,9 @@ import axios from 'axios';
 import AdminManagement from './adminMangment';
 import MyLists from '../MyLists';
 import TzunaiManagement from './TzunaiMangment';
-import './styles.css';
+import MessageManagement from './MessageManagement';
+import UserProfile from './UserProfile';
+import './index.css';
 
 const Profile = () => {
     const [data, setData] = useState({});
@@ -38,30 +40,30 @@ const Profile = () => {
         }
     };
 
+    const renderContent = () => {
+        if (currentTab == 'profile') {
+            return <UserProfile firstName={firstName} lastName={lastName} email={email} isTzunai={isTzunai} isAdmin={isAdmin} />;
+        } else if (currentTab == 'tasks') {
+            return <div>משימות</div>;
+        } else if (currentTab == 'calendar') {
+            return <div>לוח שנה</div>;
+        } else if (currentTab == 'files') {
+            return <div>קבצים</div>;
+        } else if (isTzunai && currentTab == 'tzunaiManagement') {
+            return <TzunaiManagement firstName={firstName} lastName={lastName} />;
+        } else if (isAdmin && currentTab == 'adminManagement') {
+            return <AdminManagement />;
+        } else if (isAdmin && currentTab == 'messageManagement') {
+            return <MessageManagement />;
+        } else if (isAdmin == false && isTzunai == false && currentTab == 'MyLists') {
+            return <MyLists />;
+        }
+    };
     const getUserRole = () => {
         if (isTzunai) return "תזונאי";
         if (isAdmin) return "מנהל";
         return "צרכן";
     };
-
-    const renderContent = () => {
-        if (currentTab === 'profile') {
-            return <div>פרטי המשתמש</div>;
-        } else if (currentTab === 'tasks') {
-            return <div>משימות</div>;
-        } else if (currentTab === 'calendar') {
-            return <div>לוח שנה</div>;
-        } else if (currentTab === 'files') {
-            return <div>קבצים</div>;
-        } else if (isTzunai && currentTab === 'tzunaiManagement') {
-            return <TzunaiManagement firstName={firstName} lastName={lastName} />;
-        } else if (isAdmin && currentTab === 'adminManagement') {
-            return <AdminManagement />;
-        } else if(isAdmin==false &&isTzunai==false && currentTab === 'MyLists'){
-            return <MyLists />;
-        }
-    };
-
     return (
         <div className="Main-container">
             <div className="profile-sidebar">
@@ -73,12 +75,11 @@ const Profile = () => {
                 <div className="profile-menu">
                     <ul>
                         <li><Button variant="link" onClick={() => setCurrentTab('profile')}>פרופיל</Button></li>
-                        <li><Button variant="link" onClick={() => setCurrentTab('tasks')}>משימות</Button></li>
-                        <li><Button variant="link" onClick={() => setCurrentTab('calendar')}>לוח שנה</Button></li>
-                        <li><Button variant="link" onClick={() => setCurrentTab('files')}>קבצים</Button></li>
+                        <li><Button variant="link" onClick={() => setCurrentTab('files')}>עדכון פרטים</Button></li>
                         {isTzunai && <li><Button variant="link" onClick={() => setCurrentTab('tzunaiManagement')}>ניהול תזונאי</Button></li>}
                         {isAdmin && <li><Button variant="link" onClick={() => setCurrentTab('adminManagement')}>ניהול מנהל</Button></li>}
-                        {isAdmin==false && isTzunai==false && <li><Button variant="link" onClick={() => setCurrentTab('MyLists')}>הרשימות שלי</Button></li>}
+                        {isAdmin && <li><Button variant="link" onClick={() => setCurrentTab('messageManagement')}>ניהול הודעות</Button></li>}
+                        {isAdmin == false && isTzunai == false && <li><Button variant="link" onClick={() => setCurrentTab('MyLists')}>הרשימות שלי</Button></li>}
                     </ul>
                 </div>
             </div>

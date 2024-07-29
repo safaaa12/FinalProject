@@ -37,8 +37,8 @@ const MyNav = ({ children }) => {
             icon: <FaInfoCircle />
         },
         {
-            path: "/comment",
-            name: "הערות",
+            path: "/ContactUs",
+            name: "דבר איתנו",
             icon: <FaCommentAlt />
         },
     ];
