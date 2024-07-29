@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const { Content } = require("../models/content");
 const { User } = require("../models/user");
+const multer = require('multer');
+const path = require('path');
+const { Message } = require('../models/message'); // ייבוא מודל ההודעה
 
 router.get("/email/:email", async (req, res) => {
   try {
@@ -194,7 +197,33 @@ router.post("/basket/delete", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
+// Set up multer for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
 
+const upload = multer({ storage: storage });
+
+// נתיב לקבלת הודעות מהטופס
+router.post('/api/contact', upload.array('files'), async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+    const files = req.files.map(file => file.path);
+
+    const newMessage = new Message({ name, email, message, files });
+    await newMessage.save();
+
+    res.status(200).json({ message: 'Message received' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error receiving message' });
+  }
+});
 router.delete('/delete/:id', async (req, res) => {
   try {
       const user = await User.findByIdAndDelete(req.params.id);

@@ -1,8 +1,8 @@
 require("dotenv").config();
-const axios = require("axios");
 const express = require("express");
-const app = express();
 const cors = require("cors");
+const path = require("path");
+const axios = require("axios");
 const connection = require("./db");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
@@ -12,13 +12,26 @@ const articlesRoutes = require("./routes/articles");
 const recipeRoutes = require("./routes/recipe");
 const recipesRoutes = require("./routes/recipes");
 const passwordResetRoutes = require("./routes/passwordReset");
+const contactRoutes = require("./routes/contact");
+const fs = require('fs');
 
 // database connection
 connection();
 
 // middlewares
+const app = express();
 app.use(express.json());
 app.use(cors());
+// Ensure the message-uploads directory exists
+const uploadDir = path.join(__dirname, 'message-uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/message-uploads', express.static(uploadDir));
+
+// contact routes
+app.use("/api/contact", contactRoutes);
 
 // Auth routes
 app.use("/api/auth", authRoutes);

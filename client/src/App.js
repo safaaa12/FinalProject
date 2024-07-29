@@ -14,6 +14,7 @@ import Profile from "./components/Profile";
 import PasswordReset from "./components/PasswordReset";
 import EmailVerify from "./components/EmailVerify";
 import Coupons from "./components/Coupons";
+import ContactUs from "./components/ContactUs";
 //import StartPage from "./components/StartPage";
 
 
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
           <Route path="/Coupons" element={<Coupons />} />
+          <Route path="/ContactUs" element={<ContactUs />} /> 
         </Routes>
       </MyNav>
       {/* <Navbar>
