@@ -224,6 +224,16 @@ router.post('/api/contact', upload.array('files'), async (req, res) => {
     res.status(500).json({ message: 'Error receiving message' });
   }
 });
+// נתיב להצגת ההודעות למנהל
+router.get('/api/messages', async (req, res) => {
+  try {
+    const messages = await Message.find().sort({ date: -1 });
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching messages' });
+  }
+});
 router.delete('/delete/:id', async (req, res) => {
   try {
       const user = await User.findByIdAndDelete(req.params.id);

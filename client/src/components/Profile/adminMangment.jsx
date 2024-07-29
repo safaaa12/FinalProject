@@ -11,26 +11,26 @@ const AdminManagement = () => {
         axios
             .get('http://localhost:3000/api/users/list')
             .then((res) => {
+                console.log('Fetched users:', res.data);
                 setUsers(res.data);
             })
             .catch((err) => {
-                console.log('Error: ' + err);
+                console.log('Error fetching users:', err);
             });
     }, []);
 
-    const handleUpdateTzunai = async (e) => {
-        e.preventDefault();
-        const userId = e.target.id;
+    const handleUpdateTzunai = async (userId) => {
         try {
             const url = "http://localhost:3000/api/user/tzunai/toggle";
             await axios.post(url, { id: userId });
+            console.log(`Toggled Tzunai status for user ${userId}`);
             setUsers((prevUsers) =>
                 prevUsers.map((user) =>
                     user._id === userId ? { ...user, isTzunai: !user.isTzunai } : user
                 )
             );
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error toggling Tzunai status:", error);
         }
     };
 
@@ -38,6 +38,7 @@ const AdminManagement = () => {
         try {
             const url = "http://localhost:3000/api/user/admin/toggle";
             await axios.post(url, { id: userId });
+            console.log(`Toggled Admin status for user ${userId}`);
             setUsers((prevUsers) =>
                 prevUsers.map((user) =>
                     user._id === userId ? { ...user, isAdmin: !user.isAdmin } : user
@@ -52,6 +53,7 @@ const AdminManagement = () => {
         try {
             const url = `http://localhost:3000/api/user/delete/${userId}`;
             await axios.delete(url);
+            console.log(`Deleted user ${userId}`);
             setUsers(users.filter((user) => user._id !== userId));
         } catch (error) {
             console.error("Error deleting user:", error);
@@ -94,7 +96,7 @@ const AdminManagement = () => {
                                         type="switch"
                                         checked={user.isTzunai}
                                         label="תזונאי"
-                                        onClick={handleUpdateTzunai}
+                                        onChange={() => handleUpdateTzunai(user._id)}
                                         id={user._id}
                                     />
                                     <Form.Check
