@@ -1,8 +1,9 @@
-const router = require("express").Router();
-const { Content } = require("../models/content");
-const { User } = require("../models/user");
+const express = require('express');
+const router = express.Router();
+const { User } = require('../models/user');
 const multer = require('multer');
 const path = require('path');
+const { Content } = require("../models/content");
 const { Message } = require('../models/message'); // ייבוא מודל ההודעה
 
 router.get("/email/:email", async (req, res) => {
@@ -135,42 +136,30 @@ router.post("/basket/add", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
-
-
 router.post("/basket/update", async (req, res) => {
+  console.log("Basket update route hit");
   try {
     const { id, basket, basketId } = req.body;
+    console.log("Request body:", req.body);
     const user = await User.findById(id);
-    if (!user)
-      return res
-        .status(404)
-        .send({ message: "User with given ID doesn't exist!" });
-
-    let updatedBasket = false;
-    let baskets = user.baskets;
-    for (let i = 0; i < baskets.length; i++) {
-      if (baskets[i]._id == basketId) {
-        baskets[i] = basket;
-        updatedBasket = true;
-        break;
-      }
+    if (!user) {
+      return res.status(404).send({ message: "User with given ID doesn't exist!" });
     }
 
-    if (!updatedBasket) {
-      return res
-        .status(404)
-        .send({ message: "Basket with given ID doesn't exist!" });
-    } else {
-      user.baskets = baskets;
+    // נוודא שהאינדקס תקין
+    if (basketId >= 0 && basketId < user.baskets.length) {
+      user.baskets[basketId] = basket; // עדכון הסל לפי אינדקס
       await user.save();
-      return res.status(200).send({ message: "Basket updated" });
+      return res.status(200).send({ message: "Basket updated", baskets: user.baskets });
+    } else {
+      return res.status(404).send({ message: "Basket with given ID doesn't exist!" });
     }
-
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
+
 
 
 router.post("/basket/delete", async (req, res) => {
@@ -197,6 +186,8 @@ router.post("/basket/delete", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
+
+
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -224,6 +215,7 @@ router.post('/api/contact', upload.array('files'), async (req, res) => {
     res.status(500).json({ message: 'Error receiving message' });
   }
 });
+
 // נתיב להצגת ההודעות למנהל
 router.get('/api/messages', async (req, res) => {
   try {
@@ -234,14 +226,18 @@ router.get('/api/messages', async (req, res) => {
     res.status(500).json({ message: 'Error fetching messages' });
   }
 });
+
+
+
+
 router.delete('/delete/:id', async (req, res) => {
-  try {
-      const user = await User.findByIdAndDelete(req.params.id);
-      if (!user) return res.status(404).send('User not found');
-      res.send({ message: 'User deleted successfully' });
-  } catch (error) {
-      res.status(500).send(error);
-  }
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+        if (!user) return res.status(404).send('User not found');
+        res.send({ message: 'User deleted successfully' });
+    } catch (error) {
+        res.status(500).send(error);
+    }
 });
 router.post('/admin/toggle', async (req, res) => {
   try {
@@ -254,4 +250,7 @@ router.post('/admin/toggle', async (req, res) => {
       res.status(500).send(error);
   }
 });
+
+
+
 module.exports = router;
