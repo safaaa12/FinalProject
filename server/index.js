@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const fs = require("fs");
 const axios = require("axios");
 const connection = require("./db");
 const authRoutes = require("./routes/auth");
@@ -13,7 +14,6 @@ const recipeRoutes = require("./routes/recipe");
 const recipesRoutes = require("./routes/recipes");
 const passwordResetRoutes = require("./routes/passwordReset");
 const contactRoutes = require("./routes/contact");
-const fs = require('fs');
 
 // database connection
 connection();
@@ -22,6 +22,7 @@ connection();
 const app = express();
 app.use(express.json());
 app.use(cors());
+
 // Ensure the message-uploads directory exists
 const uploadDir = path.join(__dirname, 'message-uploads');
 if (!fs.existsSync(uploadDir)) {
@@ -29,6 +30,13 @@ if (!fs.existsSync(uploadDir)) {
 }
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/message-uploads', express.static(uploadDir));
+
+// Ensure the product_images directory exists
+const productImagesDir = path.join(__dirname, 'product_images');
+if (!fs.existsSync(productImagesDir)) {
+    fs.mkdirSync(productImagesDir);
+}
+app.use('/product_images', express.static(productImagesDir));
 
 // contact routes
 app.use("/api/contact", contactRoutes);
@@ -45,9 +53,39 @@ app.use("/api/user", userRoutes);
 app.use("/api/article", articleRoutes);
 app.use("/api/articles", articlesRoutes);
 
-//articles routes
+//recipes routes
 app.use("/api/recipe", recipeRoutes);
 app.use("/api/recipes", recipesRoutes);
+
+// פונקציה לקריאת כל קבצי ה-JSON מהתיקייה
+const readJsonFiles = (directory) => {
+    console.log(`Reading JSON files from directory: ${directory}`);
+    const files = fs.readdirSync(directory);
+    let products = [];
+    files.forEach(file => {
+        console.log(`Reading file: ${file}`);
+        const data = fs.readFileSync(path.join(directory, file), 'utf8');
+        const json = JSON.parse(data);
+        console.log(`JSON data: ${JSON.stringify(json)}`);
+        if (json.root && json.root.Items && json.root.Items.Item) {
+            products = products.concat(json.root.Items.Item);
+        }
+    });
+    console.log(`Total products read: ${products.length}`);
+    return products;
+};
+
+// נתיב לחיפוש מוצרים
+app.get('/api/search', (req, res) => {
+  const query = req.query.q.toLowerCase();
+  console.log(`Search query received: ${query}`);
+  const products = readJsonFiles(path.join(__dirname, 'json_files_directory')); // ודא שהתיקייה נכונה
+  const results = products
+      .filter(product => product.ItemName.toLowerCase().includes(query))
+      .sort((a, b) => parseFloat(a.ItemPrice) - parseFloat(b.ItemPrice)); // מיון לפי מחיר מהנמוך לגבוה
+  console.log(`Number of results: ${results.length}`);
+  res.json(results);
+});
 
 // Products routes
 app.get('/api/coupons', async (req, res) => {
@@ -65,27 +103,6 @@ app.get('/api/coupons', async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 });
-
-// Products routes
-app.post('/api/search', async (req, res) => {
-  try {
-    console.log(req.body)
-    const searchQueries = req.body.products;
-    if (!searchQueries || searchQueries.length === 0) {
-      return res.status(400).send({ message: 'No search queries provided' });
-    }
-    const response = await axios.post('http://localhost:3002/search', req.body, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error("Error during search:", error);
-    res.status(500).send({ message: 'Internal server error' });
-  }
-});
-
 // ProductsList routes
 app.post('/api/productsList', async (req, res) => {
   try {
@@ -151,26 +168,24 @@ app.post('/api/productsList', async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 });
-
-
-
-app.get('/api/product/{id}', async (req, res) => {
-  // a product with: Name, Price, Description, Availablity, Ratings, Deals, Cheapest stores near by
-})
+// Products routes
+app.get('/api/product/:id', (req, res) => {
+  // Implement your logic here
+});
 
 // Cart routes
-app.get('/api/cart', async (req, res) => {
-  // a list of items in the cart
-})
-app.post('/api/cart/add', async (req, res) => {
-  // add an item to the cart
-})
-app.post('/api/cart/remove', async (req, res) => {
-  // remove an item from the cart
-})
-app.post('/api/cart/checkout', async (req, res) => {
-  // checkout the cart
-})
+app.get('/api/cart', (req, res) => {
+  // Implement your logic here
+});
+app.post('/api/cart/add', (req, res) => {
+  // Implement your logic here
+});
+app.post('/api/cart/remove', (req, res) => {
+  // Implement your logic here
+});
+app.post('/api/cart/checkout', (req, res) => {
+  // Implement your logic here
+});
 
 const port = process.env.PORT || 3000;
-app.listen(port, console.log(`Listening on port ${port}...`));
+app.listen(port, () => console.log(`Listening on port ${port}...`));
