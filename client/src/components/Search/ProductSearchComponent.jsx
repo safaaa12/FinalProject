@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Card, CardContent, CardMedia, Typography, Button, TextField, Grid, Container } from '@mui/material';
+import './ProductSearch.css';
 
 const ProductSearch = () => {
   const [query, setQuery] = useState('');
@@ -18,18 +19,20 @@ const ProductSearch = () => {
   };
 
   return (
-    <Container style={{ marginTop: '40px' }}>
-      <TextField
-        label="חפש מוצר"
-        variant="outlined"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        style={{ marginBottom: '20px', width: '100%' }}
-      />
-      <Button variant="contained" color="primary" onClick={handleSearch} style={{ marginBottom: '20px' }}>
-        חפש
-      </Button>
-      <Grid container spacing={4}>
+    <Container>
+      <div className="product-search-container">
+        <TextField
+          className="search-input"
+          label="חפש מוצר"
+          variant="outlined"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <Button variant="contained" color="primary" onClick={handleSearch}>
+          חפש
+        </Button>
+      </div>
+      <Grid container spacing={4} style={{ marginTop: '20px' }}>
         {results.map((product, index) => (
           <Grid item key={index} xs={12} sm={6} md={4}>
             <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -38,19 +41,18 @@ const ProductSearch = () => {
                 height="200"
                 image={`http://localhost:3000/product_images/${product.ImageUrl}`}
                 alt={product.ItemName}
-                style={{ objectFit: 'contain' }} // שינוי כאן כדי לשמור על פרופורציה נכונה של התמונה
+                style={{ objectFit: 'contain' }}
               />
               <CardContent style={{ flexGrow: 1 }}>
                 <Typography gutterBottom variant="h6" component="div" align="center">
                   {product.ItemName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" align="center">
-                  מחיר: {product.ItemPrice} 
+                  מחיר: {product.ItemPrice}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" align="center">
                   ספק: {product.ManufacturerName}
                 </Typography>
-               
                 <Typography variant="body2" color="text.secondary" align="center">
                   מקור: {product.Source}
                 </Typography>

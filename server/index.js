@@ -3,8 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
-const axios = require("axios");
-const connection = require("./db");
+const connection = require("./db"); // Ensure this is the correct path to your DB connection file
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const userRoutes = require("./routes/user");
@@ -75,6 +74,33 @@ const readJsonFiles = (directory) => {
     return products;
 };
 
+// פונקציה למציאת המוצרים הזולים ביותר לכל סופר
+const findCheapestProductsByStore = (productList, stores) => {
+    let results = {};
+
+    productList.forEach(product => {
+        stores.forEach(store => {
+            let storeName = store.name;
+            if (!results[storeName]) {
+                results[storeName] = [];
+            }
+            
+            let cheapestProduct = store.products.reduce((cheapest, currentProduct) => {
+                if (currentProduct.ItemName.toLowerCase().includes(product) && (!cheapest || parseFloat(currentProduct.ItemPrice) < parseFloat(cheapest.ItemPrice))) {
+                    return currentProduct;
+                }
+                return cheapest;
+            }, null);
+
+            if (cheapestProduct) {
+                results[storeName].push(cheapestProduct);
+            }
+        });
+    });
+
+    return results;
+};
+
 // נתיב לחיפוש מוצרים
 app.get('/api/search', (req, res) => {
   const query = req.query.q.toLowerCase();
@@ -87,87 +113,55 @@ app.get('/api/search', (req, res) => {
   res.json(results);
 });
 
-// Products routes
-app.get('/api/coupons', async (req, res) => {
-  try {
-    const response = await axios.get('http://localhost:3002/coupons', {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    console.log(response.data);
-    res.json(response.data);
-  }
-  catch (error) {
-    console.error("Error during search:", error);
-    res.status(500).send({ message: 'Internal server error' });
-  }
-});
-// ProductsList routes
 app.post('/api/productsList', async (req, res) => {
-  try {
-    console.log(req.body);
-    const searchQueries = req.body.products;
-    if (!searchQueries || searchQueries.length === 0) {
-      return res.status(400).send({ message: 'No search queries provided' });
-    }
-
-    const response = await axios.post('http://localhost:3002/search', req.body, {
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    const sources = {};
-
-    for (const [key, value] of Object.entries(response.data)) {
-      const productOptions = value;
-      const productName = key;
-
-      for (let i = 0; i < productOptions.length; i++) {
-        const option = productOptions[i];
-        const source = option.source;
-
-        if (!(source in sources)) {
-          sources[source] = {};
+    try {
+        console.log(req.body);
+        const searchQueries = req.body.products;
+        if (!searchQueries || searchQueries.length === 0) {
+            return res.status(400).send({ message: 'No search queries provided' });
         }
 
-        if (!(productName in sources[source])) {
-          sources[source][productName] = option;
-          sources[source][productName].price = parseFloat(option.price.replace(/[^0-9.-]+/g, ""));
-        }
-      }
+        const products = readJsonFiles(path.join(__dirname, 'json_files_directory'));
+        
+        // קיבוץ מוצרים לפי סופר
+        const stores = {};
+        products.forEach(product => {
+            if (!stores[product.Source]) {
+                stores[product.Source] = {
+                    name: product.Source,
+                    products: []
+                };
+            }
+            stores[product.Source].products.push(product);
+        });
+
+        const storeArray = Object.values(stores);
+        const results = findCheapestProductsByStore(searchQueries, storeArray);
+
+        const sourceToPrice = {};
+        Object.keys(results).forEach(source => {
+            sourceToPrice[source] = results[source].reduce((total, product) => total + parseFloat(product.ItemPrice.replace(/[^0-9.-]+/g, "")), 0);
+        });
+
+        const [cheapestSource, cheapestPrice] = Object.entries(sourceToPrice).reduce((acc, [source, price]) => {
+            return (acc[1] > price) ? [source, price] : acc;
+        }, ['', Infinity]);
+
+        console.log(`The cheapest basket comes from ${cheapestSource} and costs ${cheapestPrice} shekels.`);
+
+        res.json({
+            sourcesProducts: results,
+            sourcesPrices: sourceToPrice,
+            cheapestSource: cheapestSource,
+            cheapestPrice: cheapestPrice
+        });
+
+    } catch (error) {
+        console.error("Error during search:", error);
+        res.status(500).send({ message: 'Internal server error' });
     }
-
-    let sourceToPrice = {};
-
-    for (const [key, value] of Object.entries(sources)) {
-      let priceSum = 0; // להגדיר כמשתנה לוקאלי בלולאה
-      for (const product of Object.values(value)) {
-        priceSum += product.price; // הוספת המחירים לסכום הכולל
-      }
-
-      console.log(`Basket from ${key} costs ${priceSum} shekels.`);
-      sourceToPrice[key] = priceSum; // שמירת הסכום הכולל למקור
-    }
-
-    const [cheapestSource, cheapestPrice] = Object.entries(sourceToPrice).reduce((acc, [source, price]) => {
-      return (acc[1] > price) ? [source, price] : acc;
-    }, ['', Infinity]); // חיפוש המקור עם המחיר הכולל הנמוך ביותר
-
-    console.log(`The cheapest basket comes from ${cheapestSource} and costs ${cheapestPrice} shekels.`);
-
-    // שליחת התוצאה חזרה ללקוח
-    res.json({
-      sourcesProducts: sources,
-      sourcesPrices: sourceToPrice,
-      cheapestSource: cheapestSource,
-      cheapestPrice: cheapestPrice
-    });
-
-  } catch (error) {
-    console.error("Error during search:", error);
-    res.status(500).send({ message: 'Internal server error' });
-  }
 });
+
 // Products routes
 app.get('/api/product/:id', (req, res) => {
   // Implement your logic here

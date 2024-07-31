@@ -947,27 +947,7 @@
           "Source": "carrefour",
           "ItemPrice": "15.90₪"
         },
-        {
-          "PriceUpdateDate": "2024-07-27",
-          "ItemCode": "047",
-          "ItemType": "1",
-          "ItemName": "סוכר וניל",
-          "ManufacturerName": "מי עדן",
-          "ManufactureCountry": "IL",
-          "ManufacturerItemDescription": "סוכר וניל",
-          "UnitQty": "גרם",
-          "Quantity": "100",
-          "bIsWeighted": "0",
-          "UnitOfMeasure": "100 גרם",
-          "QtyInPackage": "1",
-          "UnitOfMeasurePrice": "1.90",
-          "AllowDiscount": "1",
-          "ItemStatus": "1",
-          "ImageUrl": "product_images/sugar5.jpg",
-          "Category": "שמנים וסוכרים",
-          "Source": "carrefour",
-          "ItemPrice": "1.90₪"
-        },
+    
         {
           "PriceUpdateDate": "2024-07-27",
           "ItemCode": "048",
