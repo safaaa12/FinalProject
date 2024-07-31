@@ -1,62 +1,67 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import './ProductSearch.css'; // Importing the CSS for styles
+import axios from 'axios';
+import { Card, CardContent, CardMedia, Typography, Button, TextField, Grid, Container } from '@mui/material';
+import './ProductSearch.css';
 
 const ProductSearch = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-  const [error, setError] = useState('');
 
-  const searchProducts = async () => {
-    if (!searchQuery) {
-      alert('Please enter a search query.');
-      return;
-    }
-
+  const handleSearch = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ products: [searchQuery] }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setResults(data[searchQuery] || []);
+      console.log(`Sending search query: ${query}`);
+      const response = await axios.get(`http://localhost:3000/api/search?q=${query}`);
+      console.log(`Received search results: ${response.data.length} items`);
+      setResults(response.data);
     } catch (error) {
-      console.error('Error during search:', error);
-      setError('Failed to fetch results.');
+      console.error("Error searching for products", error);
     }
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="הכנס שם מוצר..."
-      />
-      <Button onClick={searchProducts}>חפש</Button>
-      <div className="cards-container" id="results"> {/* Use cards-container for grid layout */}
-        {error && <p>{error}</p>}
-        {results.map((product, index) => (
-          <div key={index} className="product-card">
-            <img src={product.image} alt={product.name} className="product-image" />
-            <div className="product-info">
-              <h5>{product.source}</h5>
-              <h5>{product.name}</h5>
-              <p>₪{product.price}</p>
-            </div>
-          </div>
-        ))}
+    <Container>
+      <div className="product-search-container">
+        <TextField
+          className="search-input"
+          label="חפש מוצר"
+          variant="outlined"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <Button variant="contained" color="primary" onClick={handleSearch}>
+          חפש
+        </Button>
       </div>
-    </div>
+      <Grid container spacing={4} style={{ marginTop: '20px' }}>
+        {results.map((product, index) => (
+          <Grid item key={index} xs={12} sm={6} md={4}>
+            <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <CardMedia
+                component="img"
+                height="200"
+                image={`http://localhost:3000/product_images/${product.ImageUrl}`}
+                alt={product.ItemName}
+                style={{ objectFit: 'contain' }}
+              />
+              <CardContent style={{ flexGrow: 1 }}>
+                <Typography gutterBottom variant="h6" component="div" align="center">
+                  {product.ItemName}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                  מחיר: {product.ItemPrice}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                  ספק: {product.ManufacturerName}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                  מקור: {product.Source}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 

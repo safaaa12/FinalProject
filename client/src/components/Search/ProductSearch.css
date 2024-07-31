@@ -1,3 +1,14 @@
+.product-search-container {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.product-search-container .search-input {
+  flex: 1;
+  margin-right: 10px;
+}
+
 .cards-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Creates two columns of equal width */
@@ -5,8 +16,6 @@
   padding: 20px; /* Adds some padding around the grid */
   justify-content: center; /* Center-aligns the items if they don't fill the full width */
   max-width: 600px; /* Maximum width of the container */
-  
-  
 }
 
 .product-card {
@@ -19,7 +28,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%; /* Card will fill the column width */
   box-sizing: border-box; /* Ensures padding is included in the width */
-  
 }
 
 .product-image {
