@@ -2,16 +2,22 @@ const router = require("express").Router();
 const { User, validate } = require("../models/user");
 const bcrypt = require("bcrypt");
 const Token = require("../models/token");
+
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
+
 
 router.post("/", async (req, res) => {
 	try {
 		const { error } = validate(req.body);
-		if (error) return res.status(400).send({ message: error.details[0].message });
+		if (error)
+			return res.status(400).send({ message: error.details[0].message });
 
 		let user = await User.findOne({ email: req.body.email });
-		if (user) return res.status(409).send({ message: "User with given email already exists!" });
+		if (user)
+			return res
+				.status(409)
+				.send({ message: "User with given email already Exist!" });
 
 		const salt = await bcrypt.genSalt(Number(process.env.SALT));
 		const hashPassword = await bcrypt.hash(req.body.password, salt);
@@ -22,18 +28,25 @@ router.post("/", async (req, res) => {
 			userId: user._id,
 			token: crypto.randomBytes(32).toString("hex"),
 		}).save();
-
-		const url = `${process.env.BASE_URL}/api/users/${user._id}/verify/${token.token}`;
-		console.log("users sendEmail", url);
+		const url = `${process.env.BASE_URL}/api/users/${user.id}/verify/${token.token}`;
+		/*
+		1- Define the path (url)
+		2- Once a user visit, chnge the 'verify''flag (in MongoDB) to 'true' (use user.id)
+		*/
+		// definePath(url, user)
+		console.log("users sendEmail");
 		await sendEmail(user.email, "Verify Email", url);
 		console.log("users sendEmail done");
 
-		res.status(201).send({ message: "מייל נשלח אליך, אנא אשר את המייל שלך" });
+		res
+			.status(201)
+			.send({ message: "מייל נשלח אליך, אנא אשר את המייל שלך" });
 	} catch (error) {
 		console.log(error);
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
+
 
 router.get("/:id/verify/:token", async (req, res) => {
 	try {
@@ -56,7 +69,7 @@ router.get("/:id/verify/:token", async (req, res) => {
 	}
 });
 
-router.get("/list", async (req, res) => {
+router.get("/list/", async (req, res) => {
 	try {
 		let users = await User.find({}).lean();
 		res.json(users);

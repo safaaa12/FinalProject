@@ -228,7 +228,24 @@ router.get('/api/messages', async (req, res) => {
 });
 
 
-
+router.put('/update/:id', upload.single('profilePicture'), async (req, res) => {
+    try {
+        const updateData = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            location: JSON.parse(req.body.location),
+        };
+        if (req.file) {
+            updateData.profilePictureUrl = `/uploads/${req.file.filename}`;
+        }
+        const user = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
+        if (!user) return res.status(404).send('User not found');
+        res.send(user);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 router.delete('/delete/:id', async (req, res) => {
     try {
