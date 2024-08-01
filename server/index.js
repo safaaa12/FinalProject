@@ -13,6 +13,7 @@ const recipeRoutes = require("./routes/recipe");
 const recipesRoutes = require("./routes/recipes");
 const passwordResetRoutes = require("./routes/passwordReset");
 const contactRoutes = require("./routes/contact");
+const adminRoutes = require("./routes/admin");
 
 // database connection
 connection();
@@ -39,6 +40,7 @@ app.use('/product_images', express.static(productImagesDir));
 
 // contact routes
 app.use("/api/contact", contactRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Auth routes
 app.use("/api/auth", authRoutes);
@@ -56,6 +58,22 @@ app.use("/api/articles", articlesRoutes);
 app.use("/api/recipe", recipeRoutes);
 app.use("/api/recipes", recipesRoutes);
 
+// Products routes
+app.get('/api/coupons', async (req, res) => {
+    try {
+      const response = await axios.get('http://localhost:3002/coupons', {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log(response.data);
+      res.json(response.data);
+    }
+    catch (error) {
+      console.error("Error during search:", error);
+      res.status(500).send({ message: 'Internal server error' });
+    }
+  }); 
 // פונקציה לקריאת כל קבצי ה-JSON מהתיקייה
 const readJsonFiles = (directory) => {
     console.log(`Reading JSON files from directory: ${directory}`);

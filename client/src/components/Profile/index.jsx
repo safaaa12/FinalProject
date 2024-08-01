@@ -7,6 +7,7 @@ import MyLists from '../MyLists';
 import TzunaiManagement from './TzunaiMangment';
 import MessageManagement from './MessageManagement';
 import UserProfile from './UserProfile';
+import ProfileUpdate from './ProfileUpdate';
 import './index.css';
 
 const Profile = () => {
@@ -19,7 +20,8 @@ const Profile = () => {
     const [isTzunai, setTzunai] = useState(false);
     const [isAdmin, setAdmin] = useState(false);
     const [currentTab, setCurrentTab] = useState('profile');
-
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [location, setLocation] = useState({ lat: '', lng: '' });
     useEffect(() => {
         const userEmail = localStorage.getItem('email');
         fetchUser(userEmail);
@@ -35,6 +37,8 @@ const Profile = () => {
             setEmail(response.data.email);
             setTzunai(response.data.isTzunai);
             setAdmin(response.data.isAdmin);
+            setLocation(response.data.location);
+            setProfilePicture(response.data.profilePictureUrl);
         } catch (error) {
             console.log('fetchUser: ', error);
         }
@@ -48,7 +52,7 @@ const Profile = () => {
         } else if (currentTab == 'calendar') {
             return <div>לוח שנה</div>;
         } else if (currentTab == 'files') {
-            return <div>קבצים</div>;
+            return <ProfileUpdate firstName={firstName} lastName={lastName} email={email} isTzunai={isTzunai} isAdmin={isAdmin} />;
         } else if (isTzunai && currentTab == 'tzunaiManagement') {
             return <TzunaiManagement firstName={firstName} lastName={lastName} />;
         } else if (isAdmin && currentTab == 'adminManagement') {
@@ -59,16 +63,18 @@ const Profile = () => {
             return <MyLists />;
         }
     };
+
     const getUserRole = () => {
         if (isTzunai) return "תזונאי";
         if (isAdmin) return "מנהל";
         return "צרכן";
     };
+
     return (
         <div className="Main-container">
             <div className="profile-sidebar">
                 <div className="profile-card">
-                    <img src="/start.jpg" alt="Profile" className="profile-pic" />
+                {profilePicture && <img src={`http://localhost:3000${profilePicture}`} alt="Profile" className="img-thumbnail profile-img" />}
                     <h2>{firstName} {lastName}</h2>
                     <p className="profile-role">{getUserRole()}</p>
                 </div>
