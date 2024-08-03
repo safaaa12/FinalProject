@@ -1,41 +1,42 @@
 /* עיצוב כללי ובסיסי לקונטיינר הראשי */
 .main-container {
 	top: 20px;
-	position: fixed; /* מקבע את המיקום של ה- .main-container */
-	right: 20px; 
+	position: fixed;
+	right: 20px;
 	display: flex;
-	flex-direction: column; /* מארגן את התוכן בכיוון אנכי */
+	flex-direction: column;
 	max-width: 400px;
-	margin: 20px auto; /* ממרכז את הקונטיינר ומוסיף מרווח מעלה ומטה */
+	margin: 20px auto;
 	padding: 20px;
 	background-color: #f7f7f7;
 	border-radius: 8px;
-	text-align: right; 
+	text-align: right;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	width:400px;
-    height: 410px;
-    z-index: 99999;
-	
+	width: 400px;
+	height: 410px;
+	z-index: 99999;
   }
-  .ProductSearch-container{
-	
+  
+  .ProductSearch-container {
+	margin: 0px auto;
+	margin-right: -20px;
   }
   
   /* עיצוב טקסטאריה וכפתור להזנת מידע */
-  .products-input textarea, .products-input button {
+  .products-input textarea,
+  .products-input button {
 	width: 100%;
 	padding: 10px;
-	margin-top: 10px; /* מוסיף מרווח מעלה בלבד, כדי לשמור על זרימה טובה */
+	margin-top: 10px;
 	border-radius: 25px;
 	border: 1px solid #ccc;
-	
   }
   
   .products-input textarea {
-	height: 150px; /* הגדלת גובה הטקסטאריה לנוחות כתיבה */
-	resize: vertical; /* מאפשר שינוי גודל רק בכיוון אנכי */
-	margin-bottom: 10px; /* מוסיף מרווח מתחת */
-	text-align: right; 
+	height: 150px;
+	resize: vertical;
+	margin-bottom: 10px;
+	text-align: right;
   }
   
   .products-input button {
@@ -44,27 +45,32 @@
 	cursor: pointer;
 	border: none;
 	transition: background-color 0.2s ease;
-	margin-top: 10px; /* מוסיף רווח מעל לכפתור */
+	margin-top: 10px;
 	margin-bottom: 20px;
   }
   
   .products-input button:hover {
-    background-color: #0056b3; /* שינוי צבע רקע במרחף */
-    transform: scale(1.05); /* הגדלה קלה במרחף */
-}
+	background-color: #0056b3;
+	transform: scale(1.05);
+  }
+  
+  .products-input button:active {
+	transform: scale(0.95);
+  }
   
   /* עיצוב הרשימה שמתקבלת אחרי חיפוש */
   .list-component {
-	width: 100%; /* מתאים את הרוחב לרוחב הקונטיינר האב */
-	margin-top: 20px; /* מרווח מהקומפוננטה שלמעלה */
+	width: 100%;
+	margin-top: 20px;
 	background-color: white;
 	border: 1px solid #ccc;
 	padding: 10px;
-	box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   }
-  .products-input button:active {
-    transform: scale(0.95); /* כיווץ קל כאשר הכפתור נלחץ */
-}
+  
+  .d-inline-block-align-top {
+	margin-right: 20px;
+  }
   
   /* עיצוב פריטי המוצר ברשימה */
   .product-item {
@@ -78,11 +84,66 @@
 	box-shadow: 0 1px 310px rgba(0, 0, 0, 0.1);
   }
   
-  .product-name, .product-price {
+  .product-name,
+  .product-price {
 	margin: 0 5px;
   }
   
   .product-price {
-	color: #28a745; /* צבע ירוק למחירים */
+	color: #28a745;
+  }
+
+  .custom-carousel-caption {
+	color: #000000; /* צבע הטקסט */
+	padding: 10px;
+	border-radius: 5px;
+  }
+  
+  .custom-carousel-caption h3 {
+	color: #ffcc00; /* צבע הכותרת */
+  }
+  
+  .custom-carousel-caption p {
+	color: #00ffcc; /* צבע הפסקה */
+  }
+  
+  .image-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 300px; /* גובה הקרוסלה */
+  }
+  
+  .image-container img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain; /* שמירה על יחס הממדים של התמונה */
+  }
+  
+  .bordered-image {
+	border: 5px solid #16a9d6; /* צבע הגבול */
+	border-radius: 10px; /* פינות מעוגלות */
+  }
+  
+  /* שינוי צבע החצים בקרוסלה */
+  .custom-carousel-control {
+	background-color: #ed1c24; /* צבע החץ */
+	width: 30px;
+	height: 30px;
+	background-size: 30px 30px;
+  }
+  
+  /* הזזת הקרוסלה ימינה */
+  .carousel-container {
+	margin-left: 70px; /* הזזת הקרוסלה ימינה */
+	position: relative;
+  }
+  
+  .custom-carousel-control-next {
+	right: -10px; /* הזזת החץ הבא ימינה */
+  }
+  
+  .custom-carousel-control-prev {
+	left: -10px; /* הזזת החץ הקודם ימינה */
   }
   

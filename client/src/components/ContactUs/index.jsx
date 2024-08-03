@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
-import './ContactUs.css'; // Import the CSS file
+import './style.css'; // Import the CSS file
 
 const ContactUs = () => {
     const { control, handleSubmit, formState: { errors }, setValue } = useForm();
@@ -41,12 +41,10 @@ const ContactUs = () => {
 
     return (
         <Container className="contact-container">
-            <Row className="justify-content-md-center">
-                <Col md={6}>
-                    <h2 className="text-center">דבר איתנו</h2>
+            <h2>דבר איתנו</h2>
                     <Form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data" className="contact-form">
                         <Form.Group controlId="formName">
-                            <Form.Label>שם</Form.Label>
+                            <Form.Label>שם:</Form.Label>
                             <Controller
                                 name="name"
                                 control={control}
@@ -60,7 +58,7 @@ const ContactUs = () => {
                         </Form.Group>
 
                         <Form.Group controlId="formEmail">
-                            <Form.Label>דוא"ל</Form.Label>
+                            <Form.Label>דוא"ל:</Form.Label>
                             <Controller
                                 name="email"
                                 control={control}
@@ -74,7 +72,7 @@ const ContactUs = () => {
                         </Form.Group>
 
                         <Form.Group controlId="formMessage">
-                            <Form.Label>הודעה</Form.Label>
+                            <Form.Label>הודעה:</Form.Label>
                             <Controller
                                 name="message"
                                 control={control}
@@ -88,7 +86,7 @@ const ContactUs = () => {
                         </Form.Group>
 
                         <Form.Group controlId="formFile">
-                            <Form.Label>צרף מסמכים</Form.Label>
+                            <Form.Label>צרף מסמכים:</Form.Label>
                             <Form.Control type="file" multiple onChange={handleFileChange} />
                         </Form.Group>
 
@@ -96,8 +94,6 @@ const ContactUs = () => {
                             שלח
                         </Button>
                     </Form>
-                </Col>
-            </Row>
         </Container>
     );
 }

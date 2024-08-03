@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Component } from 'react';
-import "./styles.css";
+import React, { Component } from 'react';
+import './styles.css';
 import axios from 'axios';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
@@ -8,51 +7,51 @@ export default class Coupons extends Component {
   state = {};
 
   componentDidMount() {
-    this.getData()
+    this.getData();
   }
 
   getData() {
     axios
       .get('http://localhost:3000/api/coupons')
       .then(({ data }) => {
-        this.setState({ data })
-        console.log(data)
+        this.setState({ data });
+        console.log(data);
       })
-      .catch(err => {
-        this.setState({ error: err.message })
-      })
+      .catch((err) => {
+        this.setState({ error: err.message });
+      });
   }
 
-  // constructor(props) {
-  //   super(props);
-  //   this.initialize();
-  // }
   render() {
-    return this.state.data
-      ? <div class="text-center">
-        <h1>Sales</h1>
-        <div class="d-flex">
-          {Object.entries(this.state.data).map(([source, products]) =>
-            <div style={{ width: 'max-content' }}>
-              <h2>{source}</h2>
-              <ListGroup class="d-inline-flex">
-                {products.map((product) =>
-                  <ListGroupItem>
-                    <img
-                      src={product.image}
-                    />
-                    <p>{product.pricetext}</p>
-                    <p>{product.description}</p>
-                    <code>{product.until}</code>
-                  </ListGroupItem>
-                )}
-              </ListGroup>
+    return (
+      <div>
+        <h1 className="text-center">קופונים</h1>
+        {this.state.data ? (
+          <div className="text-center">
+            <div className="d-flex justify-content-center">
+              {Object.entries(this.state.data).map(([source, products]) => (
+                <div style={{ width: 'max-content', margin: '10px' }} key={source}>
+                  <h2>{source}</h2>
+                  <ListGroup className="d-inline-flex">
+                    {products.map((product, index) => (
+                      <ListGroupItem key={index}>
+                        <img src={product.image} alt={product.description} style={{ width: '100px', height: 'auto' }} />
+                        <p>{product.pricetext}</p>
+                        <p>{product.description}</p>
+                        <code>{product.until}</code>
+                      </ListGroupItem>
+                    ))}
+                  </ListGroup>
+                </div>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
+        ) : this.state.error ? (
+          <div className="text-center">{this.state.error}</div>
+        ) : (
+          <div className="text-center">Loading...</div>
+        )}
       </div>
-      : this.state.error
-        ? <div>{this.state.error}</div>
-        : <div>Loading...</div>
+    );
   }
 }

@@ -1,49 +1,85 @@
 .product-search-container {
   display: flex;
   align-items: center;
-  margin-top: 40px;
+  justify-content: flex-start; /* מצמיד לשמאל */
+  margin-bottom: 20px; /* מרווח תחתון בין בלוק החיפוש לתוצאות */
+  gap: 10px; /* מרווח בין השדה לכפתור */
 }
 
 .product-search-container .search-input {
-  flex: 1;
-  margin-right: 10px;
+  flex: 1; /* מגדיר גמישות לשדה החיפוש */
+  max-width: 800px; /* מגביל את הרוחב המרבי של השדה */
+  min-width: 300px; /* מגביל את הרוחב המינימלי של השדה */
+}
+
+.product-search-container .search-button {
+  flex-shrink: 0; /* מונע מהכפתור להתכווץ */
 }
 
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Creates two columns of equal width */
-  gap: 20px; /* Adjust the space between the cards */
-  padding: 20px; /* Adds some padding around the grid */
-  justify-content: center; /* Center-aligns the items if they don't fill the full width */
-  max-width: 600px; /* Maximum width of the container */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* יוצר עמודות בהתאם לרוחב המסך */
+  gap: 20px; /* מרווח בין הקלפים */
+  padding: 20px; /* ריווח פנימי */
+  justify-content: center; /* ממרכז את הקלפים */
+  max-width: 1000px; /* רוחב מרבי */
+  margin: 0 auto; /* ממרכז את המכולה */
 }
 
 .product-card {
   display: flex;
+  flex-direction: column; /* סידור אלמנטים בצורה אנכית */
   align-items: center;
   border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px; /* Maintains spacing between the cards */
+  padding: 20px; /* ריווח פנימי */
+  margin-bottom: 10px; /* מרווח תחתון בין הקלפים */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Card will fill the column width */
-  box-sizing: border-box; /* Ensures padding is included in the width */
+  box-sizing: border-box; /* כולל את הריווח הפנימי ברוחב */
+  background-color: #fff; /* צבע רקע לבן */
+  transition: transform 0.2s; /* אנימציה לקלף */
+  width: 100%; /* קובע רוחב מלא */
+  max-width: 300px; /* מגביל את הרוחב המרבי של הקלף */
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* אפקט הגדלה בעת ריחוף */
 }
 
 .product-image {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: auto;
   object-fit: cover;
-  margin-right: 15px;
+  margin-bottom: 15px; /* מרווח תחתון */
   border-radius: 4px;
 }
 
+.product-info {
+  text-align: center; /* מרכז את הטקסט */
+}
+
 .product-info h5 {
-  margin: 0;
+  margin: 10px 0 5px; /* ריווח פנימי מעל ומתחת לכותרת */
   color: #333;
 }
 
 .product-info p {
-  margin: 5px 0 0;
+  margin: 5px 0; /* ריווח פנימי מעל ומתחת לפסקאות */
   color: #666;
+}
+
+/* עיצוב רספונסיבי */
+@media (max-width: 600px) {
+  .cards-container {
+    grid-template-columns: 1fr; /* עמודה אחת למסכים קטנים */
+  }
+
+  .product-search-container {
+    flex-direction: column; /* סידור אנכי למסכים קטנים */
+  }
+
+  .product-search-container .search-input {
+    margin-right: 0;
+    margin-bottom: 10px; /* מרווח תחתון בין השדה לכפתור */
+  }
 }

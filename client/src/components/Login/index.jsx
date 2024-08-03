@@ -11,6 +11,7 @@ const Login = () => {
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
+
   const requestUserLocation = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(async function (position) {
@@ -35,14 +36,11 @@ const Login = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const url = "http://localhost:3000/api/auth";
       const { data: res } = await axios.post(url, data);
-
-
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("id", res.data._id);
@@ -64,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <div id="login-form">
+    <div className="login-form">
       <h1>התחבר</h1>
       <form className='login_form_container' onSubmit={handleSubmit}>
         <input type="text" placeholder="אימייל" name="email" onChange={handleChange} value={data.email} required className='input' data-testid="email" />
@@ -72,7 +70,7 @@ const Login = () => {
         {error && <div className='error_msg'>{error}</div>}
         <input type="submit" value="התחבר" />
       </form>
-      <div id="login-tap">
+      <div className="login-tap">
         <h2 className="forgot-password text-right"> שכחת <a href="/forgot-password">סיסמא?</a> </h2>
         <h2>אין לך חשבון? <Link to="/signup">הירשם</Link></h2>
       </div>

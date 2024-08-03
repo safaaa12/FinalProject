@@ -30,6 +30,13 @@
 	resize: none;
 	/* מונע את האפשרות לשנות את גודל ה-textarea */
 }
+h1 {
+	color: #2c3e50;
+	font-size: 2.5em;
+	text-align: center;
+	margin-bottom: 20px;
+	font-weight: bolder;
+  }
 
 .products-input button {
 	max-width: 200px;

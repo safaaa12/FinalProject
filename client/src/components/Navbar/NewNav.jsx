@@ -1,30 +1,22 @@
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
-import {
-    FaBars, FaList, FaCommentAlt, FaShoppingCart, FaInfoCircle, FaTicketAlt, FaHome, FaLock, FaUser, FaNewspaper
-} from "react-icons/fa";
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Image } from 'react-bootstrap';
+import { FaHome, FaShoppingCart, FaTicketAlt, FaInfoCircle, FaCommentAlt, FaUser, FaNewspaper, FaLock } from "react-icons/fa";
+import { useState } from 'react';
+import './style.css'; // קישור לקובץ העיצוב החדש
 
 const MyNav = ({ children }) => {
-    // const [isOpen, setIsOpen] = useState(window.innerWidth < 1220 ? false : true);
     const navigate = useNavigate();
+    const [activeLink, setActiveLink] = useState('/');
 
     const menuItem = [
         {
             path: "/",
             name: "בית",
             icon: <FaHome />
-        },
-        {
-            path: "/Shopes",
-            name: "חנויות",
-            icon: <FaShoppingCart />
         },
         {
             path: "/coupons",
@@ -45,7 +37,6 @@ const MyNav = ({ children }) => {
 
     const isLoggedIn = localStorage.getItem('token');
 
-    // Add the profile button to the menu when logged in
     if (isLoggedIn) {
         menuItem.push({
             path: "/Profile",
@@ -61,40 +52,62 @@ const MyNav = ({ children }) => {
         navigate('/Login');
     };
 
+    const handleLinkClick = (path) => {
+        setActiveLink(path);
+        navigate(path);
+    };
+
     return (
         <>
-            <Navbar expand="lg" className="bg-body-tertiary">
+            <Navbar expand="lg" className="bg-body-tertiary navbar-custom">
                 <Container>
-                    <Navbar.Brand href="#home">Smartshopping</Navbar.Brand>
+                    <Navbar.Brand href="/" className="navbar-custom_1">
+                        <Image
+                            src="logos.png"
+                            width="200"
+                            height="200"
+                            className="d-inline-block align-top navbar-logo"
+                            alt="Smart Shopping logo"
+                        />
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             {menuItem.map((item, index) => (
-                                <Nav.Link href={item.path} key={index} color="black" className="link" activeClassName="active-link">
+                                <Nav.Link
+                                    key={index}
+                                    className={`link ${activeLink === item.path ? 'active' : ''}`}
+                                    onClick={() => handleLinkClick(item.path)}
+                                >
                                     <div className="icon">{item.icon}</div>
                                     <div className="link_text">{item.name}</div>
                                 </Nav.Link>
                             ))}
                             {isLoggedIn ? (
                                 <>
-
-                                    <Nav.Link href="/articles" color="black" className="link" activeClassName="active-link">
+                                    <Nav.Link
+                                        className={`link ${activeLink === '/articles' ? 'active' : ''}`}
+                                        onClick={() => handleLinkClick('/articles')}
+                                    >
                                         <div className="icon"><FaNewspaper /></div>
                                         <div className="link_text">כתבות ומתכונים</div>
                                     </Nav.Link>
-
-                                    <div className="link" onClick={handleLogout}>
+                                    <Nav.Link
+                                        className="link" onClick={handleLogout}
+                                    >
                                         <div className="icon"><FaLock /></div>
                                         <div className="link_text">התנתק</div>
-                                    </div>
+                                    </Nav.Link>
                                 </>
                             ) : (
-                                <Nav.Link href="/Login" className="link" activeClassName="active-link">
+                                <Nav.Link
+                                    className={`link ${activeLink === '/Login' ? 'active' : ''}`}
+                                    onClick={() => handleLinkClick('/Login')}
+                                >
                                     <div className="icon"><FaUser /></div>
                                     <div className="link_text">התחבר</div>
                                 </Nav.Link>
                             )}
-
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

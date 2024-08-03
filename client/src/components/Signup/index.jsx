@@ -34,7 +34,7 @@ const Signup = () => {
     }
   };
   return (
-    <div id="login-form">
+    <div className="login-form">
       <h1>הירשם</h1>
       <form className="signup_form_container" onSubmit={handleSubmit}>
         <input
@@ -77,7 +77,7 @@ const Signup = () => {
         {msg && <div className='success_msg'>{msg}</div>}
         <input type="submit" value="הירשם" />
       </form>
-      <div id="login-tap">
+      <div className="login-tap">
         <h2>יש לי חשבון{" "} <Link to="/Login">התחבר</Link></h2>
       </div>
     </div>

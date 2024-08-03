@@ -1,81 +1,113 @@
 import React, { useState } from 'react';
-import { Box, TextField, Button } from '@mui/material';
+import { Row, Col, Carousel } from 'react-bootstrap';
 import ProductSearch from '../Search/ProductSearchComponent.jsx';
 import ListComponent from '../List/List.js';
-import './styles.css';
+import "./styles.css";
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
-  const [queries, setQueries] = useState('');
+  const [productsList, setProductsList] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
+  const navigate = useNavigate();
 
-  const handleSearch = async () => {
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert("עליך להתחבר לפני שתוכל להוסיף לרשימה.");
+      navigate('/Login');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/api/productsList', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ products: queries.split('\n').map(item => item.trim()) }),
+        body: JSON.stringify({ products: productsList.split('\n').map(item => item.trim()) }),
       });
 
       if (response.ok) {
+        console.log("ok");
         const data = await response.json();
+        console.log(data);
         setSearchResults(data);
+        setShowSearchResults(true);
       } else {
         console.error('Failed to fetch search results:', response.status);
       }
     } catch (error) {
-      console.error('Error searching for products', error);
-    }
-  };
-
-  const handleSave = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/user/basket/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: localStorage.getItem("id"), basket: queries.split('\n').map(item => item.trim()) }),
-      });
-
-      if (response.ok) {
-        console.log("List saved successfully");
-      } else {
-        console.error('Failed to save list:', response.status);
-      }
-    } catch (error) {
-      console.error('Error saving list', error);
+      console.error('Error fetching search results:', error);
     }
   };
 
   return (
     <div>
-      <div className="ProductSearch-container">
-        <ProductSearch /> {/* הוספת הקומפוננטה ProductSearch לתחילת הקונטיינר */}
-      </div>
-      <div>
-        <Box my={4}>
-          <TextField
-            label="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"
-            variant="outlined"
-            multiline
-            rows={6}
-            value={queries}
-            onChange={(e) => setQueries(e.target.value)}
-            style={{ marginBottom: '20px', width: '80%' }}
-          />
-          <Box display="flex" justifyContent="center" style={{ width: '80%' }}>
-            <Button variant="contained" color="primary" onClick={handleSearch} style={{ marginRight: '10px' }}>
-              חפש
-            </Button>
-            <Button variant="contained" color="secondary" onClick={handleSave}>
-              שמור רשימה
-            </Button>
-          </Box>
-        </Box>
-        {searchResults && <ListComponent searchResults={searchResults} />}
-      </div>
+      <Row style={{ justifyContent: 'space-between' }}>
+        <Col md={12} lg={7}>
+          <div className="ProductSearch-container">
+            <ProductSearch />
+          </div>
+          <div className="products-input">
+            <form onSubmit={handleFormSubmit}>
+              <textarea
+                id="productsListText"
+                value={productsList}
+                onChange={(e) => setProductsList(e.target.value)}
+                placeholder="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"
+              ></textarea>
+              <button type="submit">הוספה לרשימת הקניות</button>
+            </form>
+          </div>
+          {showSearchResults && <ListComponent searchResults={searchResults} />}
+        </Col>
+        <Col md={12} lg={4} className="carousel-container">
+          <Carousel nextIcon={<span aria-hidden="true" className="carousel-control-next-icon custom-carousel-control" />} prevIcon={<span aria-hidden="true" className="carousel-control-prev-icon custom-carousel-control" />}>
+            <Carousel.Item>
+              <div className="image-container">
+                <img
+                  className="d-block bordered-image"
+                  src="hlogo2.png"
+                  alt="First slide"
+                  style={{ width: '700px', height: '500px' }}
+                />
+              </div>
+              <Carousel.Caption className="custom-carousel-caption">
+                <h3></h3>
+                <p></p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div className="image-container">
+              <img
+                  className="d-block bordered-image"
+                  src="logo.png"
+                  alt="First slide"
+                  style={{ width: '700px', height: '500px' }}
+                />
+              </div>
+              <Carousel.Caption className="custom-carousel-caption">
+               </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div className="image-container">
+              <img
+                  className="d-block bordered-image"
+                  src="logo2.png"
+                  alt="First slide"
+                  style={{ width: '700px', height: '500px' }}
+                />
+              </div>
+              <Carousel.Caption className="custom-carousel-caption">
+               </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+        </Col>
+      </Row>
     </div>
   );
 };
