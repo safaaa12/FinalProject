@@ -17,6 +17,7 @@ const adminRoutes = require("./routes/admin");
 
 // database connection
 connection();
+const axios = require('axios');
 
 // middlewares
 const app = express();
@@ -73,7 +74,8 @@ app.get('/api/coupons', async (req, res) => {
       console.error("Error during search:", error);
       res.status(500).send({ message: 'Internal server error' });
     }
-  }); 
+}); 
+
 // פונקציה לקריאת כל קבצי ה-JSON מהתיקייה
 const readJsonFiles = (directory) => {
     console.log(`Reading JSON files from directory: ${directory}`);
@@ -91,6 +93,17 @@ const readJsonFiles = (directory) => {
     console.log(`Total products read: ${products.length}`);
     return products;
 };
+
+// Category routes
+app.get('/api/category/:category', (req, res) => {
+  const category = req.params.category.toLowerCase();
+  console.log(`Fetching category: ${category}`);
+  const products = readJsonFiles(path.join(__dirname, 'json_files_directory'));
+  console.log(`Total products found: ${products.length}`);
+  const categoryProducts = products.filter(product => product.Category && product.Category.toLowerCase() === category);
+  console.log(`Category products found: ${categoryProducts.length}`);
+  res.json(categoryProducts);
+});
 
 // פונקציה למציאת המוצרים הזולים ביותר לכל סופר
 const findCheapestProductsByStore = (productList, stores) => {
@@ -125,7 +138,7 @@ app.get('/api/search', (req, res) => {
   console.log(`Search query received: ${query}`);
   const products = readJsonFiles(path.join(__dirname, 'json_files_directory')); // ודא שהתיקייה נכונה
   const results = products
-      .filter(product => product.ItemName.toLowerCase().includes(query))
+      .filter(product => product.ItemName && product.ItemName.toLowerCase().includes(query))
       .sort((a, b) => parseFloat(a.ItemPrice) - parseFloat(b.ItemPrice)); // מיון לפי מחיר מהנמוך לגבוה
   console.log(`Number of results: ${results.length}`);
   res.json(results);
