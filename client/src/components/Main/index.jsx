@@ -3,6 +3,7 @@ import { Row, Col, Carousel } from 'react-bootstrap';
 import ProductSearch from '../Search/ProductSearchComponent.jsx';
 import ListComponent from '../List/List.js';
 import "./styles.css";
+import Sidebar from '../Sidebar/index.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
@@ -32,9 +33,7 @@ const Main = () => {
       });
 
       if (response.ok) {
-        console.log("ok");
         const data = await response.json();
-        console.log(data);
         setSearchResults(data);
         setShowSearchResults(true);
       } else {
@@ -83,29 +82,32 @@ const Main = () => {
             </Carousel.Item>
             <Carousel.Item>
               <div className="image-container">
-              <img
+                <img
                   className="d-block bordered-image"
                   src="logo.png"
-                  alt="First slide"
+                  alt="Second slide"
                   style={{ width: '700px', height: '500px' }}
                 />
               </div>
               <Carousel.Caption className="custom-carousel-caption">
-               </Carousel.Caption>
+              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <div className="image-container">
-              <img
+                <img
                   className="d-block bordered-image"
                   src="logo2.png"
-                  alt="First slide"
+                  alt="Third slide"
                   style={{ width: '700px', height: '500px' }}
                 />
               </div>
               <Carousel.Caption className="custom-carousel-caption">
-               </Carousel.Caption>
+              </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
+        </Col>
+        <Col md={12} lg={4}>
+          <Sidebar />
         </Col>
       </Row>
     </div>

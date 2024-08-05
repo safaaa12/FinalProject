@@ -14,7 +14,7 @@ const ListComponent = ({ searchResults }) => {
             else
                 button = e.target;
 
-            const url = "http://localhost:3000/api/user/favorites/update";
+            const url = "http://localhost:3000/api/user/ffavorites/update";
             const res = await axios.post(url, {
                 id: localStorage.getItem("id"),
                 contentId: button.id
@@ -52,6 +52,14 @@ const ListComponent = ({ searchResults }) => {
 
     const { sourcesProducts, sourcesPrices, cheapestSource, cheapestPrice } = searchResults;
 
+    const getImageUrl = (url) => {
+        if (url.startsWith('http')) {
+            return url;
+        } else {
+            return `http://localhost:3000/product_images/${url}`;
+        }
+    };
+
     return (
         <Container>
             {cheapestPrice !== null && cheapestSource && (
@@ -72,7 +80,7 @@ const ListComponent = ({ searchResults }) => {
                                     <CardMedia
                                         component="img"
                                         height="200"
-                                        image={`http://localhost:3000/product_images/${product.ImageUrl}`}
+                                        image={getImageUrl(product.ImageUrl)}
                                         alt={product.ItemName}
                                         style={{ objectFit: 'contain' }}
                                     />
@@ -89,7 +97,6 @@ const ListComponent = ({ searchResults }) => {
                                         <Typography variant="body2" color="text.secondary" align="center">
                                             מקור: {product.Source}
                                         </Typography>
-                                        
                                     </CardContent>
                                 </Card>
                             </Grid>

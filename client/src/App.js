@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNav from './components/Navbar/NewNav';
 import "./App.css";
@@ -14,10 +14,10 @@ import EmailVerify from "./components/EmailVerify";
 import Coupons from "./components/Coupons";
 import ContactUs from "./components/ContactUs";
 import SearchResults from './components/Search/SearchResults.jsx';
+import CategoryPage from './components/category/CategoryPage';
 
 const App = () => {
   return (
-
     <BrowserRouter>
       <MyNav>
         <Routes>
@@ -32,11 +32,11 @@ const App = () => {
           <Route path="/Coupons" element={<Coupons />} />
           <Route path="/ContactUs" element={<ContactUs />} /> 
           <Route path="/search-results" element={<SearchResults />} />
+          <Route path="/category/:name" element={<CategoryPage />} />
         </Routes>
       </MyNav>
-
     </BrowserRouter>
-
   );
-}
+};
+
 export default App;
