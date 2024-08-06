@@ -1,0 +1,23 @@
+.categories-container {
+    text-align: center;
+    padding: 20px;
+    float: right; /* הוספת float על מנת להזיז את הקטגוריות לימינה */
+}
+
+.categories-container h3 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.category-container {
+    margin-bottom: 20px;
+}
+
+.category-container:hover {
+    transform: scale(1.5); /* מגדיל את כל הקטגוריה */
+}
+
+.category-link {
+    text-decoration: none;
+    color: inherit;
+}
