@@ -48,10 +48,12 @@ const Main = () => {
   return (
     <div>
       <Row style={{ justifyContent: 'space-between' }}>
-        <Col md={12} lg={7}>
+      <Col md={12} lg={7} className='ProductSearchContainer'>
           <div className="ProductSearch-container">
             <ProductSearch />
           </div>
+        </Col>
+        <Col md={12} lg={7} className='listContainer'>
           <div className="products-input">
             <form onSubmit={handleFormSubmit}>
               <textarea
