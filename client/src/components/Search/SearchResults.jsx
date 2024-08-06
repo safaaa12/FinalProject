@@ -22,6 +22,14 @@ const SearchResults = () => {
     fetchResults();
   }, []);
 
+  const getImageUrl = (url) => {
+    if (url.startsWith('http')) {
+      return url;
+    } else {
+      return `http://localhost:3000/product_images/${url}`;
+    }
+  };
+
   return (
     <Container>
       <div className="cards-container">
@@ -29,7 +37,7 @@ const SearchResults = () => {
           <div className="product-card" key={index}>
             <img
               className="product-image"
-              src={`http://localhost:3000/product_images/${product.ImageUrl}`}
+              src={getImageUrl(product.ImageUrl)}
               alt={product.ItemName}
             />
             <div className="product-info">

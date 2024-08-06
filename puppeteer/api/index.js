@@ -7,6 +7,7 @@ import { carefourCoupons } from '../carefour/coupons.mjs'
 import { shufersalCoupons } from '../shufersal/coupons.mjs'
 import { quikCoupons } from '../quik/coupons.mjs'
 import { Puppeteer } from '../browser.mjs';
+import { productsFromUrl } from "../allSupers/helpers.mjs"
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -26,8 +27,8 @@ app.post('/search', async (req, res) => {
 
         for (let query of searchQueries) {
             // Ensure each search function returns an iterable array (even if it's empty)
-            const quikProducts = await quikSearch(browser, page, [query]) ;
-            const carefourProducts = await carefourSearch(browser, page, [query]) ;
+            const quikProducts = await quikSearch(browser, page, [query]);
+            const carefourProducts = await carefourSearch(browser, page, [query]);
             const shufersalProducts = await shufersalSearch(browser, page, [query]);
             const bigdabachProducts = await bigdabachSearch(browser, page, [query]);
             //const victoryProducts = await victorySearch(browser, page, [query]) ;
@@ -80,6 +81,36 @@ app.get('/coupons', async (req, res) => {
     }
 });
 
+app.get('/category/:name', async (req, res) => {
+    const name = req.params.name;
+    const productSelector = "li.miglog-prod"
+    const selectors = {
+        productDescriptionSelector: ".description",
+        productImageSelector: ".pic",
+        productPriceTextSelector: ".price span"
+    }
+    console.log(name);
+    const categories =
+    {
+        "bread": "https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%9C%D7%97%D7%9E%D7%99%D7%9D-%D7%95%D7%9E%D7%95%D7%A6%D7%A8%D7%99-%D7%9E%D7%90%D7%A4%D7%94/c/A10",
+        "meat": "https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%9E%D7%95%D7%A6%D7%A8%D7%99-%D7%91%D7%A9%D7%A8%2C-%D7%A2%D7%95%D7%A3-%D7%95%D7%93%D7%92%D7%99%D7%9D-/c/A07",
+        "milk": "https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%97%D7%9C%D7%91-%D7%95%D7%91%D7%99%D7%A6%D7%99%D7%9D/c/A01",
+        "fruits": "https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%99%D7%A8%D7%95%D7%AA-%D7%95%D7%99%D7%A8%D7%A7%D7%95%D7%AA/c/A04",
+        "organic": "https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%90%D7%95%D7%A8%D7%92%D7%A0%D7%99-%D7%95%D7%91%D7%A8%D7%99%D7%90%D7%95%D7%AA/c/A28",
+        "wine": "https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA-%D7%90%D7%9C%D7%9B%D7%95%D7%94%D7%95%D7%9C-%D7%95%D7%99%D7%99%D7%9F/c/A13",
+    };
+
+    if (name in categories) {
+        const url = categories[name];
+        console.log(`Navigating to ${url}`);
+        const products = await productsFromUrl(browser, page, url, productSelector, selectors);
+        console.log(`Found ${products.length} products`);
+        console.log(products);
+        return res.json(products); // Return the products;
+    } else {
+        return res.json([]); // Return an empty array if the category is not found[];
+    }
+});
 
 app.get('/health', (req, res) => res.send({ status: 'ok' }));
 

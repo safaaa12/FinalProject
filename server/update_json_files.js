@@ -16,8 +16,8 @@ const readJsonFilesAndUpdate = (directory) => {
 
         console.log(`Original JSON data: ${JSON.stringify(json, null, 2)}`);
 
-        if (json.root && json.root.Items && json.root.Items.Item) {
-            json.root.Items.Item.forEach(item => {
+        const updateItems = (items) => {
+            items.forEach(item => {
                 // Update 'category' to 'Category'
                 if (item.category) {
                     item.Category = item.category;
@@ -38,12 +38,24 @@ const readJsonFilesAndUpdate = (directory) => {
                     delete item.ItemPrice;
                     item.ItemPrice = `${originalPrice}₪`;
                 }
+                // Update 'image' to 'ImageUrl'
+                if (item.image) {
+                    item.ImageUrl = item.image;
+                    delete item.image;
+                }
             });
-            fs.writeFileSync(filePath, JSON.stringify(json, null, 2), 'utf8');
-            console.log(`Updated JSON data: ${JSON.stringify(json, null, 2)}`);
-            console.log(`Updated file: ${file}`);
-            updatedFiles++;
+        };
+
+        if (json.root && json.root.Items && json.root.Items.Item) {
+            updateItems(json.root.Items.Item);
+        } else if (Array.isArray(json)) {
+            updateItems(json);
         }
+
+        fs.writeFileSync(filePath, JSON.stringify(json, null, 2), 'utf8');
+        console.log(`Updated JSON data: ${JSON.stringify(json, null, 2)}`);
+        console.log(`Updated file: ${file}`);
+        updatedFiles++;
     });
 
     console.log(`All files have been updated. Total updated files: ${updatedFiles}`);
