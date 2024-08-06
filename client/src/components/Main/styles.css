@@ -146,4 +146,33 @@
   .custom-carousel-control-prev {
 	left: -10px; /* הזזת החץ הקודם ימינה */
   }
-  
+  .categories-column {
+    display: flex;
+    justify-content: flex-end; /* מיישר את ה-Categories לימינה */
+	margin-left: 50px;
+}
+.pricechartcontainer{
+	margin-right: 0px;
+	width: 740px;
+}
+.price-chart-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 100%; /* Ensure container doesn't overflow */
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 400px; /* Set a fixed height */
+    width: 100%; /* Make the chart take full width */
+}
+
+@media (max-width: 768px) {
+    .chart-wrapper {
+        height: 300px; /* Adjust height for smaller screens */
+    }
+}

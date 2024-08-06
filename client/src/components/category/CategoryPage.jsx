@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Product from "./product";
+import { Container } from "react-bootstrap";
+import "./CategoryPage.css";
 
 const CategoryPage = () => {
     const { name } = useParams();
@@ -18,7 +20,6 @@ const CategoryPage = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    // Sorting products by price (ascending)
                     const sortedProducts = data.sort((a, b) => {
                         const priceA = parseFloat(a.ItemPrice.replace(/[^0-9.-]+/g, ""));
                         const priceB = parseFloat(b.ItemPrice.replace(/[^0-9.-]+/g, ""));
@@ -36,10 +37,9 @@ const CategoryPage = () => {
     }, [name]);
 
     return (
-        <>
+        <Container>
             <h1>המוצרים של קטוגריית {name}</h1>
-
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
+            <div className="cards-container">
                 {products.length === 0 ? (
                     <h2>טוען מוצרים...</h2>
                 ) : (
@@ -54,7 +54,7 @@ const CategoryPage = () => {
                     ))
                 )}
             </div>
-        </>
+        </Container>
     );
 }
 

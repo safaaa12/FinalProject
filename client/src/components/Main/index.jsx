@@ -3,8 +3,9 @@ import { Row, Col, Carousel } from 'react-bootstrap';
 import ProductSearch from '../Search/ProductSearchComponent.jsx';
 import ListComponent from '../List/List.js';
 import "./styles.css";
-import Sidebar from '../Sidebar/index.jsx';
+import Categories from "../category/categories";
 import { useNavigate } from 'react-router-dom';
+import PriceChart from './PriceChart'; // ייבוא הקומפוננטה החדשה
 
 const Main = () => {
   const [productsList, setProductsList] = useState('');
@@ -64,6 +65,12 @@ const Main = () => {
           </div>
           {showSearchResults && <ListComponent searchResults={searchResults} />}
         </Col>
+        <Col md={12} lg={4} className="categories-column">
+        <Categories />
+        </Col>
+        <Col md={12} lg={4} className='pricechartcontainer'>
+          <PriceChart /> {/* הוספת תרשים המחירים */}
+        </Col>
         <Col md={12} lg={4} className="carousel-container">
           <Carousel nextIcon={<span aria-hidden="true" className="carousel-control-next-icon custom-carousel-control" />} prevIcon={<span aria-hidden="true" className="carousel-control-prev-icon custom-carousel-control" />}>
             <Carousel.Item>
@@ -105,9 +112,6 @@ const Main = () => {
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
-        </Col>
-        <Col md={12} lg={4}>
-          <Sidebar />
         </Col>
       </Row>
     </div>

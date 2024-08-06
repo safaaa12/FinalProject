@@ -24,7 +24,7 @@ export default class Coupons extends Component {
 
   render() {
     return (
-      <div>
+      <div className='Coupons'>
         <h1 className="text-center">קופונים</h1>
         {this.state.data ? (
           <div className="text-center">
