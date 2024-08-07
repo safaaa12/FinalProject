@@ -24,9 +24,7 @@ router.put("/id/:id", async (req, res) => {
     const { firstName, lastName } = req.body;
     const user = await User.findById(req.params.id);
     if (!user)
-      return res
-        .status(404)
-        .send({ message: "User with given ID doesn't exist!" });
+      return res.status(404).send({ message: "User with given ID doesn't exist!" });
     user.firstName = firstName;
     user.lastName = lastName;
     await user.save();
@@ -42,9 +40,7 @@ router.post("/tzunai/toggle", async (req, res) => {
     const { id } = req.body;
     const user = await User.findById(id);
     if (!user)
-      return res
-        .status(404)
-        .send({ message: "User with given ID doesn't exist!" });
+      return res.status(404).send({ message: "User with given ID doesn't exist!" });
     currentIsTzunai = user.isTzunai;
     user.isTzunai = !currentIsTzunai;
     await user.save();
@@ -60,14 +56,10 @@ router.post("/favorites/update", async (req, res) => {
     const { id, contentId } = req.body;
     const user = await User.findById(id);
     if (!user)
-      return res
-        .status(404)
-        .send({ message: "User with given ID doesn't exist!" });
+      return res.status(404).send({ message: "User with given ID doesn't exist!" });
     const content = await Content.findById(contentId);
     if (!content)
-      return res
-        .status(404)
-        .send({ message: "content with given ID doesn't exist!" });
+      return res.status(404).send({ message: "content with given ID doesn't exist!" });
 
     const diff = user.favoriteContents.includes(contentId) ? -1 : 1;
     user.favoriteContents = user.favoriteContents.includes(contentId) ? user.favoriteContents.replace(` ${contentId}`, "") : user.favoriteContents + ` ${contentId}`;
@@ -83,15 +75,12 @@ router.post("/favorites/update", async (req, res) => {
   }
 });
 
-
 router.post("/favorites/list", async (req, res) => {
   try {
     const { id } = req.body;
     const user = await User.findById(id);
     if (!user)
-      return res
-        .status(404)
-        .send({ message: "User with given ID doesn't exist!" });
+      return res.status(404).send({ message: "User with given ID doesn't exist!" });
 
     res.status(200).send({ message: "returned favorites", favouriteContents: user.favoriteContents.split(" ") });
   } catch (error) {
@@ -101,91 +90,9 @@ router.post("/favorites/list", async (req, res) => {
 });
 
 
-router.post("/basket/list", async (req, res) => {
-  try {
-    const { id } = req.body;
-    const user = await User.findById(id);
-    if (!user)
-      return res
-        .status(404)
-        .send({ message: "User with given ID doesn't exist!" });
-
-    res.status(200).send({ message: "added basket", baskets: user.baskets });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Internal Server Error" });
-  }
-});
-
-
-router.post("/basket/add", async (req, res) => {
-  try {
-    const { id, basket } = req.body;
-    const user = await User.findById(id);
-    if (!user)
-      return res
-        .status(404)
-        .send({ message: "User with given ID doesn't exist!" });
-
-    user.baskets.push(basket);
-    await user.save();
-
-    res.status(200).send({ message: "added basket" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Internal Server Error" });
-  }
-});
-router.post("/basket/update", async (req, res) => {
-  console.log("Basket update route hit");
-  try {
-    const { id, basket, basketId } = req.body;
-    console.log("Request body:", req.body);
-    const user = await User.findById(id);
-    if (!user) {
-      return res.status(404).send({ message: "User with given ID doesn't exist!" });
-    }
-
-    // נוודא שהאינדקס תקין
-    if (basketId >= 0 && basketId < user.baskets.length) {
-      user.baskets[basketId] = basket; // עדכון הסל לפי אינדקס
-      await user.save();
-      return res.status(200).send({ message: "Basket updated", baskets: user.baskets });
-    } else {
-      return res.status(404).send({ message: "Basket with given ID doesn't exist!" });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Internal Server Error" });
-  }
-});
 
 
 
-router.post("/basket/delete", async (req, res) => {
-  try {
-    const { id, basketIndex } = req.body;
-    const user = await User.findById(id);
-    if (!user)
-      return res
-        .status(404)
-        .send({ message: "User with given ID doesn't exist!" });
-
-    if (basketIndex >= 0 && basketIndex < user.baskets.length) {
-      user.baskets.splice(basketIndex, 1);
-      await user.save();
-      return res.status(200).send({ message: "removed basket" });
-    } else {
-      return res
-        .status(404)
-        .send({ message: "Basket with given ID doesn't exist!", basketIndex: basketIndex });
-    }
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Internal Server Error" });
-  }
-});
 
 
 // Set up multer for file uploads
@@ -227,44 +134,194 @@ router.get('/api/messages', async (req, res) => {
   }
 });
 
-
 router.put('/update/:id', upload.single('profilePicture'), async (req, res) => {
-    try {
-        const updateData = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            location: JSON.parse(req.body.location),
-        };
-        if (req.file) {
-            updateData.profilePictureUrl = `/uploads/${req.file.filename}`;
-        }
-        const user = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
-        if (!user) return res.status(404).send('User not found');
-        res.send(user);
-    } catch (error) {
-        res.status(500).send(error);
+  try {
+    const updateData = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      location: JSON.parse(req.body.location),
+    };
+    if (req.file) {
+      updateData.profilePictureUrl = `/uploads/${req.file.filename}`;
     }
+    const user = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    if (!user) return res.status(404).send('User not found');
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 router.delete('/delete/:id', async (req, res) => {
-    try {
-        const user = await User.findByIdAndDelete(req.params.id);
-        if (!user) return res.status(404).send('User not found');
-        res.send({ message: 'User deleted successfully' });
-    } catch (error) {
-        res.status(500).send(error);
-    }
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) return res.status(404).send('User not found');
+    res.send({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
+
 router.post('/admin/toggle', async (req, res) => {
   try {
-      const user = await User.findById(req.body.id);
-      if (!user) return res.status(404).send('User not found');
-      user.isAdmin = !user.isAdmin;
-      await user.save();
-      res.send(user);
+    const user = await User.findById(req.body.id);
+    if (!user) return res.status(404).send('User not found');
+    user.isAdmin = !user.isAdmin;
+    await user.save();
+    res.send(user);
   } catch (error) {
-      res.status(500).send(error);
+    res.status(500).send(error);
+  }
+});
+
+router.post("/basket/update", async (req, res) => {
+  console.log("Basket update route hit");
+  try {
+    const { id, basket, basketId } = req.body;
+    console.log("Request body:", req.body);
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).send({ message: "User with given ID doesn't exist!" });
+    }
+
+    if (basketId >= 0 && basketId < user.baskets.length) {
+      user.baskets[basketId].products = basket; // עדכן את שדה ה-products בלבד
+      await user.save();
+      return res.status(200).send({ message: "Basket updated", baskets: user.baskets });
+    } else {
+      return res.status(404).send({ message: "Basket with given ID doesn't exist!" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
+
+
+
+
+// מסלול להוספת רשימה חדשה
+router.post('/basket/add', async (req, res) => {
+  const { id, basket } = req.body;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    user.baskets.push(basket);
+    await user.save();
+
+    res.status(200).send('Basket added successfully');
+  } catch (error) {
+    console.error('Error adding basket:', error);
+    res.status(500).send('Server error');
+  }
+});
+// Delete basket
+router.post("/basket/delete", async (req, res) => {
+  try {
+    const { id, basketIndex } = req.body;
+    const user = await User.findById(id);
+    if (!user) return res.status(404).send({ message: "User with given ID doesn't exist!" });
+
+    if (basketIndex >= 0 && basketIndex < user.baskets.length) {
+      user.baskets.splice(basketIndex, 1);
+      await user.save();
+      return res.status(200).send({ message: "Basket removed", baskets: user.baskets });
+    } else {
+      return res.status(404).send({ message: "Basket with given ID doesn't exist!" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});// Get user lists
+// נתיב לקבלת כל הרשימות של המשתמש
+router.post('/basket/list', async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+    res.status(200).send({ baskets: user.baskets });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+
+router.get('/lists', async (req, res) => {
+  const userId = req.query.userId;
+  if (!userId) {
+    return res.status(400).send('User ID is required');
+  }
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    // הדפסת הרשימות לקבלת מידע נוסף על המבנה
+    console.log('Fetched lists:', user.baskets); 
+    res.status(200).json(user.baskets);
+  } catch (error) {
+    console.error('Error fetching lists:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+
+
+const fetchListsForUser = async (userId) => {
+    // Your logic to fetch lists from database for the given userId
+    // Return lists as an array
+};
+
+
+
+// Add product to list
+// Server-side code
+
+
+
+
+// נתיב להוספת מוצר לרשימה קיימת
+
+router.post("/add-to-list", async (req, res) => {
+  try {
+    const { userId, listId, product } = req.body;
+    console.log("Add to list route hit");
+    console.log("Request body:", req.body);
+
+    const user = await User.findById(userId);
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    let basket = user.baskets.id(listId);
+    if (basket) {
+      // Update existing list
+      basket.products.push(product);
+      console.log(`Added product to existing list: ${basket.name}`);
+    } else {
+      // Create new list
+      const newBasket = { name: listId, products: [product] };
+      user.baskets.push(newBasket);
+      console.log(`Created new list: ${listId}`);
+      basket = newBasket;
+    }
+
+    await user.save();
+    res.status(200).send({ message: "Product added to list successfully", baskets: user.baskets, newListId: basket._id });
+  } catch (error) {
+    console.error("Error adding product to list", error);
+    res.status(500).send({ message: "Internal Server Error" });
   }
 });
 
