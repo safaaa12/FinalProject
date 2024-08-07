@@ -69,6 +69,7 @@ router.get("/:id/verify/:token", async (req, res) => {
 	}
 });
 
+
 router.get("/list/", async (req, res) => {
 	try {
 		let users = await User.find({}).lean();

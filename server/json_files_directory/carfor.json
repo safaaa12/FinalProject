@@ -2218,7 +2218,28 @@
           "Category": "ירקות",
           "Source": "carrefour",
           "ItemPrice": "10.90₪"
-        }
+        },
+        {
+          "PriceUpdateDate": "2024-02-09 01:15",
+          "ItemCode": "40093005303366",
+          "ItemType": "1",
+          "ItemName": "חליטת צמחים נענע 20 שק'",
+          "ManufacturerName": "---",
+          "ManufactureCountry": "DE",
+          "ManufacturerItemDescription": "פומפדור",
+          "UnitQty": "גרמים",
+          "Quantity": "15.00",
+          "bIsWeighted": "0",
+          "UnitOfMeasure": "36 גרם",
+          "QtyInPackage": "1",
+          "ItemPrice": "17.20",
+          "UnitOfMeasurePrice": "44.49",
+          "AllowDiscount": "1",
+          "ItemStatus": "1",
+          "Category":"Beverage",
+          "Source": "carrefour",
+          "ImageUrl": "https://res.cloudinary.com/shufersal/image/upload/f_auto,q_auto/v1551800922/prod/product_images/products_large/PGJ36_L_P_4009300530336_1.png"
+      }
       ]
     }
   }

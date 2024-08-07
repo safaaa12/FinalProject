@@ -3,6 +3,11 @@ const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const passwordComplexity = require("joi-password-complexity");
 
+const basketSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  products: { type: Array, default: [] },
+});
+
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -10,7 +15,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
   isTzunai: { type: Boolean, default: false },
-  baskets: { type: Array, default: [] },
+  baskets: [basketSchema],
   favoriteContents: { type: String, default: "" },
   verified: { type: Boolean, default: false },
   location: {

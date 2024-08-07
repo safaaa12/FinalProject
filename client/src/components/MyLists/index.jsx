@@ -5,12 +5,13 @@ import ListComponent from '../List/List'; // ייבוא הרכיב ListComponent
 import "./index.css";
 
 const MyLists = () => {
-  const [baskets, setBaskets] = useState(null);
+  const [baskets, setBaskets] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [currentBasketIndex, setCurrentBasketIndex] = useState(null);
   const [updatedBasket, setUpdatedBasket] = useState([]);
+  const [basketName, setBasketName] = useState(''); // להוסיף שם הרשימה
 
   const handleSearchSubmit = async (listItems) => {
     try {
@@ -54,7 +55,7 @@ const MyLists = () => {
         basket: updatedBasket,
         basketId: currentBasketIndex
       });
-  
+
       if (response.status === 200) {
         const updatedBaskets = await axios.post('http://localhost:3000/api/user/basket/list', {
           id: localStorage.getItem("id")
@@ -66,6 +67,29 @@ const MyLists = () => {
       }
     } catch (error) {
       console.error('Error updating basket:', error);
+    }
+  };
+
+  const handleAddToList = async (product) => {
+    try {
+      const listId = currentBasketIndex !== null ? baskets[currentBasketIndex]._id : "רשימה חדשה";
+      const response = await axios.post('http://localhost:3000/api/user/add-to-list', {
+        userId: localStorage.getItem("id"),
+        listId,
+        product
+      });
+
+      if (response.status === 200) {
+        const updatedBaskets = await axios.post('http://localhost:3000/api/user/basket/list', {
+          id: localStorage.getItem("id")
+        });
+        setBaskets(updatedBaskets.data.baskets);
+        setShowUpdateModal(false);
+      } else {
+        console.error('Failed to add product to list:', response.status);
+      }
+    } catch (error) {
+      console.error('Error adding product to list:', error);
     }
   };
 
@@ -88,21 +112,21 @@ const MyLists = () => {
   return (
     <div className="user-management-container">
       <h1>הרשימות שלי</h1>
-      {baskets ? (
+      {baskets.length > 0 ? (
         baskets.map((basket, index) => (
           <div key={index} className="list-container">
             <div className="basket-header">
               <img src="/baskets.png" alt="Logo" className="basket-logo" />
-              <h2>רשימה {index + 1}</h2>
+              <h2>{basket.name}</h2>
             </div>
             <ul>
-              {basket.map((product, i) => (
+              {basket.products.map((product, i) => (
                 <li key={i}>{product}</li>
               ))}
             </ul>
             <Button variant="danger" id={index} onClick={handleDelete}>מחק</Button>
-            <Button variant="primary" onClick={() => handleSearchSubmit(basket)}>חיפוש</Button>
-            <Button variant="secondary" onClick={() => { setShowUpdateModal(true); setCurrentBasketIndex(index); setUpdatedBasket(basket); }}>עדכן</Button>
+            <Button variant="primary" onClick={() => handleSearchSubmit(basket.products)}>חיפוש</Button>
+            <Button variant="secondary" onClick={() => { setShowUpdateModal(true); setCurrentBasketIndex(index); setUpdatedBasket(basket.products); setBasketName(basket.name); }}>עדכן</Button>
           </div>
         ))
       ) : (
