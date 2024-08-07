@@ -1,15 +1,16 @@
 import React from "react";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./Category.css";
 
 const Category = (props) => {
     const { image, title, path } = props;
 
     return (
-        <Link to={path} style={{ textDecoration: "none" }}>
-            <div style={{ textAlign: "center" }}>
-                <Image style={{ maxWidth: "100px" }} src={`./images/categories/${image}`} alt={title} />
-                <p style={{ fontSize: "12px" }}>{title}</p>
+        <Link to={path} className="category-link">
+            <div className="category-container">
+                <Image className="category-image" src={`./images/categories/${image}`} alt={title} />
+                <p className="category-title">{title}</p>
             </div>
         </Link>
     );

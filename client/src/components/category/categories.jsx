@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Category from "./category";
+import "./Categories.css";
 
 const Categories = () => {
     const categories = [
@@ -37,16 +38,15 @@ const Categories = () => {
     ];
 
     return (
-        <div style={{ textAlign: "center" }}>
+        <div className="categories-container">
             <h3>קטגוריות</h3>
             <Row>
                 {categories.map((category) => (
-                    <Col style={{ gap: "5px" }} xs={12} sm={6} md={4} key={category.title}>
+                    <Col xs={12} sm={6} md={4} key={category.title}>
                         <Category
                             image={category.image}
                             title={category.title}
                             path={category.path}
-                            source={category.source}
                         />
                     </Col>
                 ))}
