@@ -28,7 +28,7 @@ export default function ContentCard({ content, isFavourite }) {
             <Card.Body>
                 <Card.Title>{content.title}<br />מאת: {content.tzunaiName}</Card.Title>
                 <Card.Text>
-                {content.type === "Article" && content.text}
+                    {content.type === "Article" && content.text}
                     {content.type === "Recipe" && content.products && (
                         <>
                             <strong>מצרכים:</strong>
@@ -44,7 +44,9 @@ export default function ContentCard({ content, isFavourite }) {
                             {content.text}
                         </>
                     )}
-                   <br />
+                    <br />
+                    {content.imagePath && <img src={`http://localhost:3000/${content.imagePath}`} alt={content.title} style={{ maxWidth: '100%', height: 'auto' }} />}
+                    <br />
                     <Button id={content._id} onClick={handleToggleFavorite}>
                         <FaHeart color={isFavourite ? "red" : "white"} /><span> {content.heartCount}</span>
                     </Button>

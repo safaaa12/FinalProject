@@ -1,40 +1,47 @@
-const router = require("express").Router();
-const { Article, validate } = require("../models/article");
+const express = require('express');
+const router = express.Router();
+const { Article, validate } = require("../models/article"); // ודא שהמודול מיובא נכון
+const multer = require("multer");
 
-router.post("/add/", async (req, res) => {
-	try {
-		const { error } = validate(req.body);
-		if (error)
-			return res.status(400).send({ message: error.details[0].message });
+// Multer configuration for articles
+const storageArticle = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/articles/'); // Separate directory for articles
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    }
+});
+const uploadArticle = multer({ storage: storageArticle });
 
-		article = await new Article({ ...req.body }).save();
+router.post("/add", uploadArticle.single('image'), async (req, res) => {
+    try {
+        const { error } = validate(req.body);
+        if (error)
+            return res.status(400).send({ message: error.details[0].message });
 
-		res
-			.status(201)
-			.send({ message: "הכתבה נוצרה" });
-	} catch (error) {
-		console.log(error);
-		res.status(500).send({ message: "Internal Server Error" });
-	}
+        // Check if there is an uploaded file
+        if (req.file) {
+            req.body.imagePath = req.file.path; // Add the image path to the request body
+        }
+
+        const article = await new Article({ ...req.body }).save();
+
+        res.status(201).send({ message: "הכתבה נוצרה בהצלחה" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
 });
 
-// router.post("/heart/plus/", async (req, res) => {
-// 	try {
-// 		const { articleId } = req.body;
-// 		const article = await Article.findById(articleId);
-// 		if (!article)
-// 			return res
-// 				.status(404)
-// 				.send({ message: "Article with given ID doesn't exist!" });
-// 		article.heartCount += 1;
-// 		await article.save();
-// 		res.status(200).send({ message: "הכתבה קיבלה לב" });
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.status(500).send({ message: "Internal Server Error" });
-// 	}
-// });
-
-
+router.get("/list", async (req, res) => {
+    try {
+        const articles = await Article.find({});
+        res.send({ articles });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+});
 
 module.exports = router;
