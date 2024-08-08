@@ -1,13 +1,13 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-module.exports = async (email, subject, text) => {
+const sendEmail = async (email, subject, text) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.HOST,
       service: process.env.SERVICE,
       port: process.env.EMAIL_PORT,
-      secure: process.env.SECURE === "true", // convert string to boolean
+      secure: process.env.SECURE === 'true',
       auth: {
         user: process.env.USER,
         pass: process.env.PASS,
@@ -17,12 +17,14 @@ module.exports = async (email, subject, text) => {
       },
     });
 
-    await transporter.sendMail({
+    const mailOptions = {
       from: process.env.USER,
       to: email,
       subject: subject,
       text: text,
-    });
+    };
+
+    await transporter.sendMail(mailOptions);
     console.log("email sent successfully");
   } catch (error) {
     console.log("email not sent!");
@@ -30,3 +32,5 @@ module.exports = async (email, subject, text) => {
     return error;
   }
 };
+
+module.exports = sendEmail;
