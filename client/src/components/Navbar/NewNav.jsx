@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
-import { FaHome, FaShoppingCart, FaTicketAlt, FaInfoCircle, FaCommentAlt, FaUser, FaNewspaper, FaLock } from "react-icons/fa";
+import { FaHome, FaTicketAlt, FaInfoCircle, FaCommentAlt, FaUser, FaNewspaper, FaLock } from "react-icons/fa";
 import { useState } from 'react';
 import './style.css'; // קישור לקובץ העיצוב החדש
 
@@ -20,7 +20,7 @@ const MyNav = ({ children }) => {
         },
         {
             path: "/coupons",
-            name: "קופונים",
+            name: "מבצעים",
             icon: <FaTicketAlt />
         },
         {
@@ -40,7 +40,7 @@ const MyNav = ({ children }) => {
     if (isLoggedIn) {
         menuItem.push({
             path: "/Profile",
-            name: "פרופיל",
+            name: "אזור אישי",
             icon: <FaUser />
         });
     }
@@ -59,7 +59,7 @@ const MyNav = ({ children }) => {
 
     return (
         <>
-            <Navbar expand="lg" className="bg-body-tertiary navbar-custom">
+            <Navbar expand="lg" className="bg-body-tertiary navbar-custom" >
                 <Container>
                     <Navbar.Brand href="/" className="navbar-custom_1">
                         <Image

@@ -1,85 +1,25 @@
 .product-search-container {
   display: flex;
-  align-items: center;
-  justify-content: flex-start; /* מצמיד לשמאל */
+  align-items:end;
+  justify-content:right; /* מצמיד לשמאל */
   margin-bottom: 20px; /* מרווח תחתון בין בלוק החיפוש לתוצאות */
-  gap: 10px; /* מרווח בין השדה לכפתור */
+  gap: 1px; /* מרווח בין השדה לכפתור */
+  margin-right: -40px;
 }
 
 .product-search-container .search-input {
   flex: 1; /* מגדיר גמישות לשדה החיפוש */
-  max-width: 800px; /* מגביל את הרוחב המרבי של השדה */
-  min-width: 300px; /* מגביל את הרוחב המינימלי של השדה */
+  border-radius: 100px;
 }
 
 .product-search-container .search-button {
-  flex-shrink: 0; /* מונע מהכפתור להתכווץ */
-}
-
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* יוצר עמודות בהתאם לרוחב המסך */
-  gap: 20px; /* מרווח בין הקלפים */
-  padding: 20px; /* ריווח פנימי */
-  justify-content: center; /* ממרכז את הקלפים */
-  max-width: 1000px; /* רוחב מרבי */
-  margin: 0 auto; /* ממרכז את המכולה */
-}
-
-.product-card {
-  display: flex;
-  flex-direction: column; /* סידור אלמנטים בצורה אנכית */
-  align-items: center;
-  border: 1px solid #ddd;
-  padding: 20px; /* ריווח פנימי */
-  margin-bottom: 10px; /* מרווח תחתון בין הקלפים */
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* כולל את הריווח הפנימי ברוחב */
-  background-color: #fff; /* צבע רקע לבן */
-  transition: transform 0.2s; /* אנימציה לקלף */
-  width: 100%; /* קובע רוחב מלא */
-  max-width: 300px; /* מגביל את הרוחב המרבי של הקלף */
-}
-
-.product-card:hover {
-  transform: scale(1.05); /* אפקט הגדלה בעת ריחוף */
-}
-
-.product-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  margin-bottom: 15px; /* מרווח תחתון */
-  border-radius: 4px;
-}
-
-.product-info {
-  text-align: center; /* מרכז את הטקסט */
-}
-
-.product-info h5 {
-  margin: 10px 0 5px; /* ריווח פנימי מעל ומתחת לכותרת */
-  color: #333;
-}
-
-.product-info p {
-  margin: 5px 0; /* ריווח פנימי מעל ומתחת לפסקאות */
-  color: #666;
+  flex-shrink:0; /* מונע מהכפתור להתכווץ */
 }
 
 /* עיצוב רספונסיבי */
 @media (max-width: 600px) {
-  .cards-container {
-    grid-template-columns: 1fr; /* עמודה אחת למסכים קטנים */
-  }
 
   .product-search-container {
-    flex-direction: column; /* סידור אנכי למסכים קטנים */
-  }
-
-  .product-search-container .search-input {
-    margin-right: 0;
-    margin-bottom: 10px; /* מרווח תחתון בין השדה לכפתור */
+    width: 20px;
   }
 }

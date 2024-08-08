@@ -39,7 +39,6 @@ const Categories = () => {
 
     return (
         <div className="categories-container">
-            <h3>קטגוריות</h3>
             <Row>
                 {categories.map((category) => (
                     <Col xs={12} sm={6} md={4} key={category.title}>

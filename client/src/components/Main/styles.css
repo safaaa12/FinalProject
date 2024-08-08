@@ -15,117 +15,169 @@
 	width: 400px;
 	height: 410px;
 	z-index: 99999;
-  }
+}
   
-  .ProductSearchContainer {
+.ProductSearchContainer {
 	width: 100%;
+}
+  
+.flex-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+  
+.carousel-container {
+	flex: 1;
+	border-radius: 10px;
+	height: auto;
+	position:static;
 	border: 1px solid #000000;
-  }
-  .listContainer{
-	width: 740px;
+	padding-bottom: 20px;
+	margin-right: 20px;
+}
+  
+.categories-column {
+	text-align: center;
+	transition: transform 0.2s ease-in-out;
+	width: 600px;
+	height: 300px;
+	border-radius: 10px;
+	margin-left: 0px;
+}
+  
+.custom-button {
+	background-color: #ed1c24 !important;
+	border-color: #ed1c24 !important;
+	color: white !important;
+}
+  
+.custom-button:hover {
+	background-color: #d0171b !important;
+	border-color: #d0171b !important;
+}
+  
+.category-link {
+	text-decoration: none;
+	color: inherit;
+}
+  
+@media (max-width: 768px) {
+	.categories-column {
+	  width: 100%;
+	  margin-left: 0;
+	  border-radius: 8px;
+	}
+}
+  
+.listContainer {
+	width: 95%;
 	border: 1px solid #000000;
-  }
-  /* עיצוב טקסטאריה וכפתור להזנת מידע */
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #ffffff;
+	margin-right: 20px;
+}
+  
 .listContainer .products-input textarea {
 	width: 100%;
 	margin-top: 20px;
 	margin-left: 20px;
-  }
+}
+  
 .listContainer .products-input button {
-	background-color:  #16a9d6;
+	background-color: #16a9d6;
 	font-size: 16px;
 	transition: background-color 0.2s ease;
-	color: #000;
+	color: #ffffff;
 	width: 100%;
-  }
+	margin-top: 10px;
+}
   
-  .listContainer .products-input button:hover {
+.listContainer .products-input button:hover {
 	background-color: #ff0000;
 	transform: scale(1.005);
-  }
-.custom-carousel-caption {
-	color: #000000; /* צבע הטקסט */
-	padding: 10px;
+}
+  
+.search-button, .save-button {
+	width: 100%;
+	margin-top: 10px;
+}
+  
+.search-button {
+	background-color: #16a9d6;
+	width: 140px;
+	margin-left: 10px;
+}
+  
+.save-button {
+	background-color: #ed1c24;
+	color: #ffffff;
+	width: 140px;
+}
+  
+.highlighted-title {
+	color: #000000; /* צבע טקסט */
+	background-color:#a5c8ec; /* צבע רקע */
+	font-weight: bold;
+	padding: 5px;
 	border-radius: 5px;
-  }
-  
-  .custom-carousel-caption h3 {
-	color: #ffcc00; /* צבע הכותרת */
-  }
-  
-  .custom-carousel-caption p {
-	color: #00ffcc; /* צבע הפסקה */
-  }
-  
-  .image-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 300px; /* גובה הקרוסלה */
-  }
-  
-  .image-container img {
-	max-width: 100%;
-	max-height: 100%;
-	object-fit: contain; /* שמירה על יחס הממדים של התמונה */
-  }
-  
-  .bordered-image {
-	border: 5px solid #16a9d6; /* צבע הגבול */
-	border-radius: 10px; /* פינות מעוגלות */
-  }
-  
-  /* שינוי צבע החצים בקרוסלה */
-  .custom-carousel-control {
-	background-color: #ed1c24; /* צבע החץ */
-	width: 30px;
-	height: 30px;
-	background-size: 30px 30px;
-  }
-  
-  /* הזזת הקרוסלה ימינה */
-  .carousel-container {
-	position: relative;
-	width: 540px;
-	border: 1px solid #000000;
-  }
-  
-  .custom-carousel-control-next {
-	right: -10px; /* הזזת החץ הבא ימינה */
-  }
-  
-  .custom-carousel-control-prev {
-	left: -10px; /* הזזת החץ הקודם ימינה */
-  }
-  .categories-column {
-    display: flex;
-    justify-content: flex-end; /* מיישר את ה-Categories לימינה */
-	border: 1px solid #000000;
-	width: 540px;
 }
-.pricechartcontainer{
-	margin-right: 0px;
-	width: 740px;
-	border: 1px solid #000000;
-}
-.price-chart-container {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f7f7f7;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 100%; /* Ensure container doesn't overflow */
-}
-
+  
 .chart-wrapper {
-    position: relative;
-    height: 400px; /* Set a fixed height */
-    width: 100%; /* Make the chart take full width */
+	position: relative;
+	height:auto;
+	width: 100%;
+}
+  
+@media (max-width: 768px) {
+	.ProductSearchContainer,
+	.carousel-container,
+	.listContainer {
+	  width: 100%;
+	  margin-bottom: 20px;
+	}
+	.chart-wrapper {
+	  height: 300px;
+	}
 }
 
-@media (max-width: 768px) {
-    .chart-wrapper {
-        height: 300px; /* Adjust height for smaller screens */
-    }
+/* Animation styles */
+@keyframes typing {
+	from { width: 0; }
+	to { width: 100%; }
 }
+
+@keyframes blink-caret {
+	50% { border-color: transparent; }
+}
+
+.animated-title {
+	font-size: 1em;
+	font-weight: bold;
+	border-right: 0.1em solid;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 100%;
+	color: #16a9d6;
+	animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+/* Animation styles */
+@keyframes move-title {
+	0% { transform: translateX(100%); }
+	100% { transform: translateX(-100%); }
+  }
+  
+  .moving-title-container {
+	overflow: hidden;
+	white-space: nowrap;
+  }
+  
+  .moving-title {
+	display: inline-block;
+	font-size: 2em;
+	font-weight: bold;
+	color: #d63316;
+	animation: move-title 10s linear infinite;
+  }
+  

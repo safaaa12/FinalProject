@@ -1,119 +1,153 @@
-import React, { useState } from 'react';
-import { Row, Col, Carousel } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Carousel, Button, Alert } from 'react-bootstrap';
+import { TextField } from '@mui/material';
+import { Link, useNavigate } from "react-router-dom"; // שימוש ב-useNavigate
 import ProductSearch from '../Search/ProductSearchComponent.jsx';
 import ListComponent from '../List/List.js';
+import axios from 'axios';
 import "./styles.css";
 import Categories from "../category/categories";
-import { useNavigate } from 'react-router-dom';
-import PriceChart from './PriceChart'; // ייבוא הקומפוננטה החדשה
 
 const Main = () => {
-  const [productsList, setProductsList] = useState('');
-  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [queries, setQueries] = useState('');
   const [searchResults, setSearchResults] = useState(null);
-  const navigate = useNavigate();
+  const [articles, setArticles] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert("עליך להתחבר לפני שתוכל להוסיף לרשימה.");
-      navigate('/Login');
-      return;
-    }
-
+  const handleSearch = async () => {
     try {
       const response = await fetch('http://localhost:3000/api/productsList', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ products: productsList.split('\n').map(item => item.trim()) }),
+        body: JSON.stringify({ products: queries.split('\n').map(item => item.trim()) }),
       });
 
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data);
-        setShowSearchResults(true);
       } else {
         console.error('Failed to fetch search results:', response.status);
       }
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error('Error searching for products', error);
     }
   };
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/user/basket/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: localStorage.getItem("id"), basket: queries.split('\n').map(item => item.trim()) }),
+      });
+
+      if (response.ok) {
+        console.log("List saved successfully");
+      } else {
+        console.error('Failed to save list:', response.status);
+      }
+    } catch (error) {
+      console.error('Error saving list', error);
+    }
+  };
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/articles/list')
+      .then((res) => setArticles(res.data.articles))
+      .catch((err) => console.error('Error:', err));
+      
+    axios.get('http://localhost:3000/api/recipes/list')
+      .then((res) => setRecipes(res.data.recipes))
+      .catch((err) => console.error('Error:', err));
+  }, []);
+
+  const defaultImage = "AS.png";
 
   return (
     <div>
       <Row style={{ justifyContent: 'space-between' }}>
-      <Col md={12} lg={7} className='ProductSearchContainer'>
+        <Col md={12} lg={7} className='ProductSearchContainer'>
           <div className="ProductSearch-container">
             <ProductSearch />
           </div>
         </Col>
-        <Col md={12} lg={7} className='listContainer'>
-          <div className="products-input">
-            <form onSubmit={handleFormSubmit}>
-              <textarea
-                id="productsListText"
-                value={productsList}
-                onChange={(e) => setProductsList(e.target.value)}
-                placeholder="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"
-              ></textarea>
-              <button type="submit">הוספה לרשימת הקניות</button>
-            </form>
+      </Row>
+      <Row className="flex-container">
+        <Col md={12} lg={6} className="carousel-container">
+        <Alert variant="info" className="text-center">
+        <h4>הצטרפו למערכת שלנו עכשיו!</h4>
+        <p>קבלו גישה להנחות ומבצעים מיוחדים <Link to="/signup">הירשמו עכשיו</Link></p>
+      </Alert>
+        <div className="moving-title-container">
+            <div className="moving-title">קראו את הכתבות המובילות שלנו</div>
           </div>
-          {showSearchResults && <ListComponent searchResults={searchResults} />}
-        </Col>
-        <Col md={12} lg={4} className="categories-column">
-        <Categories />
-        </Col>
-        <Col md={12} lg={4} className='pricechartcontainer'>
-          <PriceChart /> {/* הוספת תרשים המחירים */}
-        </Col>
-        <Col md={12} lg={4} className="carousel-container">
-          <Carousel nextIcon={<span aria-hidden="true" className="carousel-control-next-icon custom-carousel-control" />} prevIcon={<span aria-hidden="true" className="carousel-control-prev-icon custom-carousel-control" />}>
-            <Carousel.Item>
-              <div className="image-container">
+          <Carousel style={{ borderRadius: '10px', overflow: 'hidden' }}>
+            {articles.map(article => (
+              <Carousel.Item key={article.id}>
                 <img
-                  className="d-block bordered-image"
-                  src="hlogo2.png"
-                  alt="First slide"
-                  style={{ width: '700px', height: '500px' }}
+                  className="d-block w-100"
+                  src={article.imageUrl || defaultImage}
+                  alt={article.title}
+                  onClick={() => window.location.href = `/articles/${article.id}`}
+                  style={{ width: '260px', height: '290px', objectFit: 'cover' }}
                 />
-              </div>
-              <Carousel.Caption className="custom-carousel-caption">
-                <h3></h3>
-                <p></p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <div className="image-container">
+                <Carousel.Caption className="custom-carousel-caption">
+                  <h3 className="highlighted-title">{article.title}</h3>
+                  <p onClick={() => window.location.href = `/articles`}>{article.author}</p>
+                  <Button
+                    className="custom-button"
+                    onClick={() => window.location.href = `/recipes`}
+                  >
+                    קרא עוד
+                  </Button>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+            {recipes.map(recipe => (
+              <Carousel.Item key={recipe.id}>
                 <img
-                  className="d-block bordered-image"
-                  src="logo.png"
-                  alt="Second slide"
-                  style={{ width: '700px', height: '500px' }}
+                  className="d-block w-100"
+                  src={recipe.imageUrl || defaultImage}
+                  alt={recipe.title}
+                  onClick={() => window.location.href = `/recipes/${recipe.id}`}
+                  style={{ width: '270px', height: '300px', objectFit: 'cover' }}
                 />
-              </div>
-              <Carousel.Caption className="custom-carousel-caption">
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <div className="image-container">
-                <img
-                  className="d-block bordered-image"
-                  src="logo2.png"
-                  alt="Third slide"
-                  style={{ width: '700px', height: '500px' }}
-                />
-              </div>
-              <Carousel.Caption className="custom-carousel-caption">
-              </Carousel.Caption>
-            </Carousel.Item>
+                <Carousel.Caption className="custom-carousel-caption">
+                  <h3 className="highlighted-title">{recipe.title}</h3>
+                  <p onClick={() => window.location.href = `/recipes`}>{recipe.author}</p>
+                  <Button
+                    className="custom-button"
+                    onClick={() => window.location.href = `/recipes/${recipe.id}`}
+                  >
+                    קרא עוד
+                  </Button>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
           </Carousel>
+        </Col>
+        <Col md={12} lg={6} className="categories-column">
+          <Categories />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} lg={7} className='listContainer'>
+          <TextField 
+            label="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"
+            variant="outlined"
+            multiline
+            rows={6}
+            value={queries}
+            onChange={(e) => setQueries(e.target.value)}
+            style={{ marginBottom: '20px', width: '100%' }}
+          />
+          <Button variant="contained" color="primary" onClick={handleSearch} className="search-button">חפש</Button>
+          <Button variant="contained" color="secondary" onClick={handleSave} className="save-button">שמור רשימה</Button>
+          {searchResults && <ListComponent searchResults={searchResults} />}
         </Col>
       </Row>
     </div>
