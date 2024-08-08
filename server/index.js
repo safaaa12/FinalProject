@@ -23,6 +23,20 @@ const axios = require('axios');
 const app = express();
 app.use(express.json());
 app.use(cors());
+// Ensure the uploads directories exist
+const uploadDirArticles = path.join(__dirname, 'uploads/articles');
+if (!fs.existsSync(uploadDirArticles)) {
+    fs.mkdirSync(uploadDirArticles, { recursive: true });
+}
+
+const uploadDirRecipes = path.join(__dirname, 'uploads/recipes');
+if (!fs.existsSync(uploadDirRecipes)) {
+    fs.mkdirSync(uploadDirRecipes, { recursive: true });
+}
+
+app.use('/uploads/articles', express.static(uploadDirArticles));
+app.use('/uploads/recipes', express.static(uploadDirRecipes));
+
 
 // Ensure the message-uploads directory exists
 const uploadDir = path.join(__dirname, 'message-uploads');

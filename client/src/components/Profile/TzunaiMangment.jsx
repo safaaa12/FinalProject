@@ -10,11 +10,14 @@ const TzunaiManagement = ({ firstName, lastName }) => {
     const handleArticleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const formDataObj = Object.fromEntries(formData.entries());
-        formDataObj.tzunaiName = `${firstName} ${lastName}`;
+        formData.append('tzunaiName', `${firstName} ${lastName}`);
         try {
             const url = 'http://localhost:3000/api/article/add';
-            await axios.post(url, formDataObj);
+            await axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             setArticleSuccess(true);
             e.target.reset();
         } catch (error) {
@@ -25,11 +28,14 @@ const TzunaiManagement = ({ firstName, lastName }) => {
     const handleRecipeSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const formDataObj = Object.fromEntries(formData.entries());
-        formDataObj.tzunaiName = `${firstName} ${lastName}`;
+        formData.append('tzunaiName', `${firstName} ${lastName}`);
         try {
             const url = 'http://localhost:3000/api/recipe/add';
-            await axios.post(url, formDataObj);
+            await axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             setRecipeSuccess(true);
             e.target.reset();
         } catch (error) {
@@ -50,6 +56,10 @@ const TzunaiManagement = ({ firstName, lastName }) => {
                     <Form.Label>הכתבה</Form.Label>
                     <Form.Control required name="text" as="textarea" rows={3} placeholder="משהו מעניין על אוכל!" />
                 </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>תמונה</Form.Label>
+                    <Form.Control name="image" type="file" accept="image/*" />
+                </Form.Group>
                 <Button variant="primary" type="submit">שלח</Button>
             </Form>
             {articleSuccess && <Alert variant="success">הכתבה נשלחה בהצלחה.</Alert>}
@@ -67,6 +77,10 @@ const TzunaiManagement = ({ firstName, lastName }) => {
                 <Form.Group className="mb-3">
                     <Form.Label>המתכון</Form.Label>
                     <Form.Control required name="text" as="textarea" rows={3} placeholder="מערבבים הכל יחד ויוצא!..." />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>תמונה</Form.Label>
+                    <Form.Control name="image" type="file" accept="image/*" />
                 </Form.Group>
                 <Button variant="primary" type="submit">שלח</Button>
             </Form>
