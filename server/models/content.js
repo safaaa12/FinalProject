@@ -6,6 +6,7 @@ const contentSchema = new mongoose.Schema({
     text: { type: String, required: true },
     heartCount: { type: Number, default: 0 },
     tzunaiName: { type: String, required: true },
+    PictureUrl: { type: String, required: false },
 }, { discriminatorKey: 'type' });
 
 const contentValidationSchema = Joi.object({

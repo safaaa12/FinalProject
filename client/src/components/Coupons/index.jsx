@@ -25,7 +25,7 @@ export default class Coupons extends Component {
   render() {
     return (
       <div className='Coupons'>
-        <h1 className="text-center">קופונים</h1>
+        <h1 className="text-center">מבצעים</h1>
         {this.state.data ? (
           <div className="text-center">
             <div className="d-flex justify-content-center">

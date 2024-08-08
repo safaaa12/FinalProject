@@ -1,6 +1,6 @@
 /* navbar.css */
 .navbar-custom_1 {
-    padding: 10px 0;
+    padding: 0px 0;
 }
 
 .navbar-logo {
@@ -8,7 +8,7 @@
 }
 
 .navbar-custom {
-    background-color: #000000; /* צבע רקע ל-Navigation Bar */
+    background-color:rgb(230, 252, 252)!important; /* צבע רקע חדש ל-Navigation Bar */
     color: #fff;
     width: 100%; /* שמירה על גודל קבוע */
     z-index: 1000;
@@ -31,25 +31,21 @@
 }
 
 .navbar-custom .nav-link {
-    color: #000000;
+    color: #000000 !important;
     display: inline-flex; /* שמירה על פריטים בשורה */
     align-items: center; /* יישור למרכז אנכית */
     padding: 10px 15px;
     margin: 0 10px;
-    transition:background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .navbar-custom .nav-link:hover {
-    background-color: #ffffff; /* צבע רקע כאשר נעים מעל הפריט */
-    color: #d52626;
-}
-
-.navbar-custom .nav-link .icon {
-    margin-left: 8px; /* ריווח בין האיקון לטקסט */
+    background-color: #ffffff !important; /* צבע רקע כאשר נעים מעל הפריט */
+    color: rgb(230, 252, 252) !important;
 }
 
 .navbar-custom .nav-link.active {
-    color: #16a9d6; /* צבע הקישור הנלחץ */
+    color: #16a9d6 !important; /* צבע הקישור הנלחץ */
 }
 
 @media (max-width: 768px) {

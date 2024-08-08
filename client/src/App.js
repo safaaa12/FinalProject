@@ -18,24 +18,26 @@ import CategoryPage from './components/category/CategoryPage';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <MyNav>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Signup" element={<Signup />} />
-          <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-          <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/articles" element={<Articles />} />
-          <Route path="/Profile" element={<Profile />} />
-          <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
-          <Route path="/Coupons" element={<Coupons />} />
-          <Route path="/ContactUs" element={<ContactUs />} /> 
-          <Route path="/search-results" element={<SearchResults />} />
-          <Route path="/category/:name" element={<CategoryPage />} />
-        </Routes>
-      </MyNav>
-    </BrowserRouter>
+    <div style={{ backgroundColor: 'rgb(230, 252, 252)', minHeight: '100vh' }}>
+      <BrowserRouter>
+        <MyNav>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Signup" element={<Signup />} />
+            <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
+            <Route path="/AboutUs" element={<AboutUs />} />
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
+            <Route path="/Coupons" element={<Coupons />} />
+            <Route path="/ContactUs" element={<ContactUs />} /> 
+            <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/category/:name" element={<CategoryPage />} />
+          </Routes>
+        </MyNav>
+      </BrowserRouter>
+    </div>
   );
 };
 
