@@ -100,7 +100,7 @@ const Main = () => {
                   <p onClick={() => window.location.href = `/articles`}>{article.author}</p>
                   <Button
                     className="custom-button"
-                    onClick={() => window.location.href = `/recipes`}
+                    onClick={() => window.location.href = `/articles`}
                   >
                     קרא עוד
                   </Button>
@@ -121,8 +121,8 @@ const Main = () => {
                   <p onClick={() => window.location.href = `/recipes`}>{recipe.author}</p>
                   <Button
                     className="custom-button"
-                    onClick={() => window.location.href = `/recipes/${recipe.id}`}
-                  >
+                    onClick={() => window.location.href = `/recipes/${recipe.id}`}                   
+                     >
                     קרא עוד
                   </Button>
                 </Carousel.Caption>
