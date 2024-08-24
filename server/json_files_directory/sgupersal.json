@@ -83,26 +83,6 @@
           "ItemPrice": "8.90₪"
         },
         {
-          "ItemCode": "304",
-          "ItemType": "1",
-          "ItemName": "חלב בקרטון 3% שומן",
-          "ManufacturerName": "תנובה",
-          "ManufactureCountry": "ישראל",
-          "ManufacturerItemDescription": "חלב בקרטון 3%",
-          "UnitQty": "ליטר",
-          "Quantity": "1",
-          "bIsWeighted": "0",
-          "UnitOfMeasure": "ליטר",
-          "QtyInPackage": "1",
-          "UnitOfMeasurePrice": "0.71",
-          "AllowDiscount": "1",
-          "ItemStatus": "1",
-          "ImageUrl": "product_images/milk1.jpg",
-          "Category":"milk",
-          "Source": "shufersal",
-          "ItemPrice": "7.11₪"
-        },
-        {
           "ItemCode": "305",
           "ItemType": "1",
           "ItemName": "חלב טרי מהגולן 3%",
@@ -121,66 +101,6 @@
           "Category":"milk",
           "Source": "shufersal",
           "ItemPrice": "7.11₪"
-        },
-        {
-          "ItemCode": "306",
-          "ItemType": "1",
-          "ItemName": "חלב מועשר יטבתה 3% כד",
-          "ManufacturerName": "יטבתה",
-          "ManufactureCountry": "ישראל",
-          "ManufacturerItemDescription": "חלב מועשר יטבתה 3%",
-          "UnitQty": "ליטר",
-          "Quantity": "2",
-          "bIsWeighted": "0",
-          "UnitOfMeasure": "ליטר",
-          "QtyInPackage": "1",
-          "UnitOfMeasurePrice": "0.9",
-          "AllowDiscount": "1",
-          "ItemStatus": "1",
-          "ImageUrl": "product_images/milk12.jpg",
-          "Category": "milk",
-          "Source": "shufersal",
-          "ItemPrice": "17.90₪"
-        },
-        {
-          "ItemCode": "307",
-          "ItemType": "1",
-          "ItemName": "חלב נטול לקטוז 2% מעושר",
-          "ManufacturerName": "טרה",
-          "ManufactureCountry": "ישראל",
-          "ManufacturerItemDescription": "חלב נטול לקטוז 2%",
-          "UnitQty": "ליטר",
-          "Quantity": "1",
-          "bIsWeighted": "0",
-          "UnitOfMeasure": "ליטר",
-          "QtyInPackage": "1",
-          "UnitOfMeasurePrice": "0.93",
-          "AllowDiscount": "1",
-          "ItemStatus": "1",
-          "ImageUrl": "product_images/milk20.png",
-          "Category":"milk",
-          "Source": "shufersal",
-          "ItemPrice": "9.30₪"
-        },
-        {
-          "ItemCode": "308",
-          "ItemType": "1",
-          "ItemName": "חלב טרי נטול לקטוז 2% מהדרין",
-          "ManufacturerName": " תנובה",
-          "ManufactureCountry": "ישראל",
-          "ManufacturerItemDescription": "חלב טרי נטול לקטוז 2%",
-          "UnitQty": "ליטר",
-          "Quantity": "1",
-          "bIsWeighted": "0",
-          "UnitOfMeasure": "ליטר",
-          "QtyInPackage": "1",
-          "UnitOfMeasurePrice": "0.87",
-          "AllowDiscount": "1",
-          "ItemStatus": "1",
-          "ImageUrl": "product_images/milk15.jpg",
-          "Category": "milk",
-          "Source": "shufersal",
-          "ItemPrice": "8.70₪"
         },
         {
           "ItemCode": "309",
@@ -299,26 +219,6 @@
           "ItemStatus": "1",
           "ImageUrl": "product_images/milk17.jpg",
           "Category": "milk",
-          "Source": "shufersal",
-          "ItemPrice": "9.30₪"
-        },
-        {
-          "ItemCode": "315",
-          "ItemType": "1",
-          "ItemName": "חלב מעושר דל לקטוז דל 1%",
-          "ManufacturerName": "טרה",
-          "ManufactureCountry": "ישראל",
-          "ManufacturerItemDescription": "חלב נטול לקטוז דל 1%",
-          "UnitQty": "ליטר",
-          "Quantity": "1",
-          "bIsWeighted": "0",
-          "UnitOfMeasure": "ליטר",
-          "QtyInPackage": "1",
-          "UnitOfMeasurePrice": "0.93",
-          "AllowDiscount": "1",
-          "ItemStatus": "1",
-          "ImageUrl": "product_images/milk14.jpg",
-          "Category":"milk",
           "Source": "shufersal",
           "ItemPrice": "9.30₪"
         },
@@ -499,7 +399,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar9.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "13.90₪"
         },
@@ -520,30 +420,9 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar15.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples",
           "Source": "shufersal",
           "ItemPrice": "14.90₪"
-        },
-        {
-          "PriceUpdateDate": "2023-07-28 09:54",
-          "ItemCode": "303",
-          "ItemType": "1",
-          "ItemName": "סוכר קנים חום אורגני",
-          "ManufacturerName": "שופרסל גרין",
-          "ManufactureCountry": "IL",
-          "ManufacturerItemDescription": "סוכר קנים חום אורגני",
-          "UnitQty": "גרם",
-          "Quantity": "1000",
-          "bIsWeighted": "0",
-          "UnitOfMeasure": "100 גרם",
-          "QtyInPackage": "0",
-          "UnitOfMeasurePrice": "1.29",
-          "AllowDiscount": "1",
-          "ItemStatus": "1",
-          "ImageUrl": "product_images/sugar14.png",
-          "Category": "יבשים",
-          "Source": "shufersal",
-          "ItemPrice": "12.90₪"
         },
         {
           "PriceUpdateDate": "2023-07-28 09:54",
@@ -562,7 +441,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar16.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples",
           "Source": "shufersal",
           "ItemPrice": "11.90₪"
         },
@@ -583,7 +462,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar10.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "11.90₪"
         },
@@ -604,7 +483,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar17.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "8.50₪"
         },
@@ -625,7 +504,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar18.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "12.90₪"
         },
@@ -646,7 +525,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar19.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "16.00₪"
         },
@@ -667,7 +546,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar3.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples",
           "Source": "shufersal",
           "ItemPrice": "14.70₪"
         },
@@ -688,7 +567,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar4.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples",
           "Source": "shufersal",
           "ItemPrice": "14.90₪"
         },
@@ -709,7 +588,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar20.png",
-          "Category": "יבשים",
+        "Category": "Pantry Staples",
           "Source": "shufersal",
           "ItemPrice": "5.50₪"
         },
@@ -730,7 +609,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/sugar21.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples",
           "Source": "shufersal",
           "ItemPrice": "16.90₪"
         },
@@ -751,7 +630,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water24.png",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "13.90₪"
         },
@@ -772,7 +651,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water23.png",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "11.70₪"
         },
@@ -793,7 +672,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water3.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "13.70₪"
         },
@@ -814,7 +693,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water7.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "20.10₪"
         },
@@ -835,7 +714,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water8.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "15.50₪"
         },
@@ -856,7 +735,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water9.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "13.90₪"
         },
@@ -877,7 +756,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water12.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "13.90₪"
         },
@@ -898,7 +777,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water19.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "29.90₪"
         },
@@ -919,7 +798,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water26.png",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "9.80₪"
         },
@@ -940,7 +819,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water4.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "14.90₪"
         },
@@ -961,7 +840,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water28.jpeg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "54.90₪"
         },
@@ -982,7 +861,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water25.png",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "3.70₪"
         },
@@ -1003,7 +882,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water27.png",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "4.90₪"
         },
@@ -1024,7 +903,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water10.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "13.80₪"
         },
@@ -1045,7 +924,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/water2.jpg",
-          "Category": "משקה",
+          "Category": "Beverage",
           "Source": "shufersal",
           "ItemPrice": "15.30₪"
         },
@@ -1066,7 +945,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/onion1.jpg",
-          "Category": "ירקות",
+          "Category": "vegetables",
           "Source": "shufersal",
           "ItemPrice": "12.90₪"
         },
@@ -1087,7 +966,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/onion2.jpg",
-          "Category": "ירקות",
+          "Category": "vegetables",
           "Source": "shufersal",
           "ItemPrice": "9.90₪"
         },
@@ -1108,7 +987,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/onion6.jpg",
-          "Category": "ירקות",
+          "Category": "vegetables",
           "Source": "shufersal",
           "ItemPrice": "10.90₪"
         },
@@ -1129,7 +1008,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/onion8.png",
-          "Category": "ירקות",
+          "Category": "vegetables",
           "Source": "shufersal",
           "ItemPrice": "13.18₪"
         },
@@ -1150,7 +1029,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/onion9.png",
-          "Category": "ירקות",
+          "Category": "vegetables",
           "Source": "shufersal",
           "ItemPrice": "5.34₪"
         },
@@ -1171,7 +1050,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/onion7.png",
-          "Category": "ירקות",
+          "Category":"vegetables",
           "Source": "shufersal",
           "ItemPrice": "6.90₪"
         },
@@ -1192,7 +1071,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt13.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "17.90₪"
         },
@@ -1213,7 +1092,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt2.jpg.",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "17.90₪"
         },
@@ -1234,7 +1113,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt3.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "7.20₪"
         },
@@ -1255,7 +1134,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt11.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "10.50₪"
         },
@@ -1276,7 +1155,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt6.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "5.90₪"
         },
@@ -1297,7 +1176,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt7.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "7.90₪"
         },
@@ -1318,7 +1197,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt14.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "1.90₪"
         },
@@ -1339,7 +1218,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt15.png",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "1.90₪"
         },
@@ -1360,7 +1239,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt8.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "1.90₪"
         },
@@ -1381,7 +1260,7 @@
           "AllowDiscount": "1",
           "ItemStatus": "1",
           "ImageUrl": "product_images/salt5.jpg",
-          "Category": "יבשים",
+          "Category": "Pantry Staples ",
           "Source": "shufersal",
           "ItemPrice": "7.20₪"
         },

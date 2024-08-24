@@ -24,4 +24,10 @@ const Puppeteer = async () => {
     return { browser, page };
 };
 
-export { Puppeteer };
+async function newPage(browser) {
+    const page = await browser.newPage();
+    await page.setUserAgent(userAgent.random().toString());
+    return page;
+}
+
+export { Puppeteer, newPage };
