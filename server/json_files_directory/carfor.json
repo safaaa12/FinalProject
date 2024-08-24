@@ -66,6 +66,27 @@
           "ItemPrice": "6.70₪"
         },
         {
+          "PriceUpdateDate": "2018-07-11 12:07",
+          "ItemCode": "16000548404",
+          "ItemType": "1",
+          "ItemName": "חטיף נייטשר וואלי דבש5יח",
+          "ManufacturerName": "ג'נרל מילס סאן אדריאן",
+          "ManufactureCountry": "ES",
+          "ManufacturerItemDescription": "חטיף נייטשר ואלי",
+          "UnitQty": "גרמים",
+          "Quantity": "210.00",
+          "bIsWeighted": "0",
+          "UnitOfMeasure": "100 גרם",
+          "QtyInPackage": "0",
+          "ItemPrice": "21.90",
+          "UnitOfMeasurePrice": "10.43",
+          "AllowDiscount": "1",
+          "ItemStatus": "1",
+          "Category":"snacks",
+          "Source": "carrefour",
+          "ImageUrl": "https://res.cloudinary.com/shufersal/image/upload/f_auto,q_auto/v1551800922/prod/product_images/products_large/LGV32_L_P_16000548404_1.png"
+      },
+        {
           "PriceUpdateDate": "2024-07-27",
           "ItemCode": "004",
           "ItemType": "1",
@@ -1880,6 +1901,27 @@
           "ItemPrice": "18.90₪"
         },
         {
+          "PriceUpdateDate": "2024-07-28 10:00",
+          "ItemCode": "805",
+          "ItemType": "1",
+          "ItemName": "שוקולד 100% קקאו",
+          "ManufacturerName": "HOLY CACAO",
+          "ManufactureCountry": "IL",
+          "ManufacturerItemDescription": "שוקולד 100% קקאו",
+          "UnitQty": "100 גרם",
+          "Quantity": "1",
+          "bIsWeighted": "0",
+          "UnitOfMeasure": "גרם",
+          "QtyInPackage": "1",
+          "UnitOfMeasurePrice": "18.00",
+          "AllowDiscount": "1",
+          "ItemStatus": "1",
+          "ImageUrl": "product_images/shoko10.png",
+          "Category": "milk",
+          "Source": "carrefour",
+          "ItemPrice": "17.00₪"
+        },
+        {
           "ItemCode": "071",
           "ItemType": "1",
           "ItemName": "שוקולד חלב מעולה",
@@ -1897,7 +1939,7 @@
           "ImageUrl": "product_images/choco2.png",
           "Category": "snacks",
           "Source": "carrefour",
-          "ItemPrice": "6.80₪"
+          "ItemPrice": "6.50₪"
         },
         {
           "ItemCode": "072",
