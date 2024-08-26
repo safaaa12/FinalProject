@@ -7,6 +7,16 @@ const CategoryPage = () => {
   const { name } = useParams();
   const [products, setProducts] = useState([]);
 
+  // מילון שמות קטגוריות
+  const categoryNames = {
+    bread: "לחמים ומאפים",
+    meat: "בשר ודגים",
+    milk: "מוצרי חלב",
+    "Pantry Staples": "סיכות מזווה",
+    snacks: "חטיפים",
+    Beverage: "משקאות"
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -37,9 +47,9 @@ const CategoryPage = () => {
 
   return (
     <>
-      <h1>המוצרים של קטגוריית {name}</h1>
+      <h1 id="category-title">המוצרים של קטגוריית {categoryNames[name] || name}</h1>
 
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
+      <div className="cards-container">
         {products.length === 0 ? (
           <h2>טוען מוצרים...</h2>
         ) : (

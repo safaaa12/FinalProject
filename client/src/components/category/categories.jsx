@@ -21,17 +21,17 @@ const Categories = () => {
             path: "/category/milk"
         },
         {
-            image: "fruits.png",
-            title: "פירות וירקות",
+            image: "making.png",
+            title: "סיכות מזווה",
             path: "/category/Pantry Staples"
         },
         {
-            image: "organic.png",
-            title: "אורגני ובריאות",
+            image: "sweet.png",
+            title: "חטיפים",
             path: "/category/snacks"
         },
         {
-            image: "making.png",
+            image: "wine.png",
             title:"משקאות",
             path: "/category/Beverage"
         }

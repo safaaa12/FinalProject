@@ -77,64 +77,62 @@ const Main = () => {
         </Col>
       </Row>
       <Row className="flex-container">
-        <Col md={12} lg={6} className="carousel-container">
-        <Alert variant="info" className="text-center">
-        <h4>הצטרפו למערכת שלנו עכשיו!</h4>
-        <p>קבלו גישה להנחות ומבצעים מיוחדים <Link to="/signup">הירשמו עכשיו</Link></p>
-      </Alert>
-        <div className="moving-title-container">
-            <div className="moving-title">קראו את הכתבות המובילות שלנו</div>
-          </div>
-          <Carousel style={{ borderRadius: '10px', overflow: 'hidden' }}>
-            {articles.map(article => (
-              <Carousel.Item key={article.id}>
-                <img
-                  className="d-block w-100"
-                  src={`http://localhost:3000/${article.imagePath}`} // Ensure this path is correct
-                  alt={article.title}
-                  onClick={() => window.location.href = `/articles/${article.id}`}
-                  style={{ width: '260px', height: '290px', objectFit: 'cover' }}
-                />
-                <Carousel.Caption className="custom-carousel-caption">
-                  <h3 className="highlighted-title">{article.title}</h3>
-                  <p onClick={() => window.location.href = `/articles`}>{article.author}</p>
-                  <Button
-                    className="custom-button"
-                    onClick={() => window.location.href = `/articles`}
-                  >
-                    קרא עוד
-                  </Button>
-                </Carousel.Caption>
-              </Carousel.Item>
-            ))}
-            {recipes.map(recipe => (
-              <Carousel.Item key={recipe.id}>
-                <img
-                  className="d-block w-100"
-                  src={`http://localhost:3000/${recipe.imagePath}`} // Ensure this path is correct
-                  alt={recipe.title}
-                  onClick={() => window.location.href = `/recipes/${recipe.id}`}
-                  style={{ width: '270px', height: '300px', objectFit: 'cover' }}
-                />
-                <Carousel.Caption className="custom-carousel-caption">
-                  <h3 className="highlighted-title">{recipe.title}</h3>
-                  <p onClick={() => window.location.href = `/recipes`}>{recipe.author}</p>
-                  <Button
-                    className="custom-button"
-                    onClick={() => window.location.href = `/recipes/${recipe.id}`}                   
-                     >
-                    קרא עוד
-                  </Button>
-                </Carousel.Caption>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </Col>
+      <Col xs={12} lg={6} className="carousel-container">
+  <Alert variant="info" className="text-center">
+    <h4>הצטרפו למערכת שלנו עכשיו!</h4>
+    <p>קבלו גישה להנחות ומבצעים מיוחדים <Link to="/signup">הירשמו עכשיו</Link></p>
+  </Alert>
+  <div className="moving-title-container">
+    <div className="moving-title">קראו את הכתבות המובילות שלנו</div>
+  </div>
+  <Carousel className="custom-carousel">
+    {articles.map(article => (
+      <Carousel.Item key={article.id}>
+        <img
+          className="d-block w-100"
+          src={`http://localhost:3000/${article.imagePath}`}
+          alt={article.title}
+          onClick={() => window.location.href = `/articles/${article.id}`}
+          style={{ objectFit: 'cover', height: '290px' }} // Use only height and object-fit
+        />
+        <Carousel.Caption className="custom-carousel-caption">
+          <h3 className="highlighted-title">{article.title}</h3>
+          <p onClick={() => window.location.href = `/articles`}>{article.author}</p>
+          <Button
+            className="custom-button"
+            onClick={() => window.location.href = `/articles`}
+          >
+            קרא עוד
+          </Button>
+        </Carousel.Caption>
+      </Carousel.Item>
+    ))}
+    {recipes.map(recipe => (
+      <Carousel.Item key={recipe.id}>
+        <img
+          className="d-block w-100"
+          src={`http://localhost:3000/${recipe.imagePath}`}
+          alt={recipe.title}
+          onClick={() => window.location.href = `/recipes/${recipe.id}`}
+          style={{ objectFit: 'cover', height: '300px' }} // Use only height and object-fit
+        />
+        <Carousel.Caption className="custom-carousel-caption">
+          <h3 className="highlighted-title">{recipe.title}</h3>
+          <p onClick={() => window.location.href = `/recipes`}>{recipe.author}</p>
+          <Button
+            className="custom-button"
+            onClick={() => window.location.href = `/recipes/${recipe.id}`}                   
+          >
+            קרא עוד
+          </Button>
+        </Carousel.Caption>
+      </Carousel.Item>
+    ))}
+  </Carousel>
+</Col>
         <Col md={12} lg={6} className="categories-column">
           <Categories />
         </Col>
-      </Row>
-      <Row>
         <Col md={12} lg={7} className='listContainer'>
           <TextField 
             label="הזן את המוצרים כאן, כל מוצר בשורה נפרדת"

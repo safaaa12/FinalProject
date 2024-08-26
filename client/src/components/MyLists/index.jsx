@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Button, Modal, Form } from 'react-bootstrap';
 import ListComponent from '../List/List'; // ייבוא הרכיב ListComponent לתצוגת התוצאות
 import "./index.css";
+import { FaListUl } from 'react-icons/fa'; // ייבוא האייקון של רשימה
 
 const MyLists = () => {
   const [baskets, setBaskets] = useState([]);
@@ -115,13 +116,15 @@ const MyLists = () => {
       {baskets.length > 0 ? (
         baskets.map((basket, index) => (
           <div key={index} className="list-container">
-            <div className="basket-header">
-              <img src="/baskets.png" alt="Logo" className="basket-logo" />
-              <h2>{basket.name}</h2>
-            </div>
+<div className="basket-header">
+  <FaListUl className="basket-icon" />
+  <span style={{ marginRight: '15px' }}></span> {/* הוספת מרווח באמצעות span */}
+  <h2>{basket.name}</h2>
+</div>
+
             <ul>
               {basket.products.map((product, i) => (
-                <li key={i}>{product}</li>
+                <li key={i}>{`${i + 1}. ${product}`}</li>
               ))}
             </ul>
             <Button variant="danger" id={index} onClick={handleDelete}>מחק</Button>
