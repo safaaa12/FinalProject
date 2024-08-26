@@ -1,6 +1,6 @@
 export const navigateToUrl = async (page, url) => {
   try {
-    await page.goto(url, { waitUntil: 'networkidle0', timeout: 300000 });
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 600000 });
   } catch (error) {
     console.error("Failed to load page:", error);
     throw error;
