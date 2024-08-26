@@ -28,22 +28,39 @@
 }
   
 .carousel-container {
-	flex: 1;
+	flex:content;
 	border-radius: 10px;
 	height: auto;
 	position:static;
-	border: 1px solid #000000;
+	border: 0.3rem solid #ffffff;
 	padding-bottom: 20px;
-	margin-right: 20px;
+	margin-right: 10px;
 }
   
+@media (max-width: 768px) {
+	.carousel-container {
+	  margin-bottom: 20px; /* הוספת מרווח תחתון למסכים קטנים */
+	  flex: 0 0 100%; /* תופסת 100% רוחב במסכים קטנים */
+	  max-width: 100%; /* תופסת 100% רוחב במסכים קטנים */
+	}
+  
+	.custom-carousel {
+	  width: 100%; /* הקרוסלה תתפוס את כל הרוחב */
+	  margin: 0 auto; /* ממרכזת את הקרוסלה */
+	}
+  }
+.custom-carousel{
+	border: 0.2rem solid #5c5b5b;
+	padding: 10px;
+}
 .categories-column {
+	flex:auto;
 	text-align: center;
 	transition: transform 0.2s ease-in-out;
 	width: 600px;
 	height: 300px;
 	border-radius: 10px;
-	margin-left: 0px;
+	margin-bottom: 140px;
 }
   
 .custom-button {
@@ -62,22 +79,32 @@
 	color: inherit;
 }
   
+/* כללים רספונסיביים */
 @media (max-width: 768px) {
-	.categories-column {
-	  width: 100%;
-	  margin-left: 0;
-	  border-radius: 8px;
+	.ProductSearchContainer,
+	.carousel-container,
+	.categories-column,
+	.listContainer {
+	  width: 100% !important; /* מוודא שכל עמודה תתפוס את כל הרוחב */
+	  margin-bottom: 20px; /* הוספת מרווח תחתון */
+	  margin-right: 0; /* הסרת שוליים ימניים */
+	  margin-left: 0; /* הסרת שוליים שמאליים */
 	}
-}
+  
+	.flex-container {
+	  flex-direction: column; /* משנים את כיוון הפלקס לעמודה */
+	  align-items: center; /* מוודא שהרכיבים ממורכזים */
+	}
+  }
   
 .listContainer {
+	flex:none;
 	width: 95%;
 	border: 1px solid #000000;
 	padding: 20px;
 	border-radius: 10px;
 	background-color: #ffffff;
 	margin-right: 20px;
-	margin-top: 10px;
 }
   
 .listContainer .products-input textarea {
@@ -130,18 +157,6 @@
 	height:auto;
 	width: 100%;
 }
-  
-@media (max-width: 768px) {
-	.ProductSearchContainer,
-	.carousel-container,
-	.listContainer {
-	  width: 100%;
-	  margin-bottom: 20px;
-	}
-	.chart-wrapper {
-	  height: 300px;
-	}
-}
 
 /* Animation styles */
 @keyframes typing {
@@ -169,16 +184,16 @@
 	100% { transform: translateX(-100%); }
   }
   
-  .moving-title-container {
+.moving-title-container {
 	overflow: hidden;
 	white-space: nowrap;
-  }
+}
   
-  .moving-title {
+.moving-title {
 	display: inline-block;
 	font-size: 2em;
 	font-weight: bold;
 	color: #d63316;
 	animation: move-title 10s linear infinite;
-  }
+}
   

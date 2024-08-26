@@ -12,8 +12,8 @@ const CategoryPage = () => {
     bread: "לחמים ומאפים",
     meat: "בשר ודגים",
     milk: "מוצרי חלב",
-    "Pantry Staples": "פירות וירקות",
-    snacks: "אורגני ובריאות",
+    "Pantry Staples": "סיכות מזווה",
+    snacks: "חטיפים",
     Beverage: "משקאות"
   };
 
