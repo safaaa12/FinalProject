@@ -5,13 +5,13 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 
 export default class Coupons extends Component {
   state = {
-    data: JSON.parse(localStorage.getItem('coupons')), // Initialize state from localStorage
+    data: JSON.parse(localStorage.getItem('coupons')),
     error: null
   };
 
   componentDidMount() {
     if (!this.state.data) {
-      this.getData(); // Only fetch data if it's not found in localStorage
+      this.getData();
     }
   }
 
@@ -20,7 +20,7 @@ export default class Coupons extends Component {
       .get('http://localhost:3000/api/coupons')
       .then(({ data }) => {
         this.setState({ data });
-        localStorage.setItem('coupons', JSON.stringify(data)); // Save fetched data to localStorage
+        localStorage.setItem('coupons', JSON.stringify(data));
         console.log(data);
       })
       .catch((err) => {
@@ -29,34 +29,32 @@ export default class Coupons extends Component {
   }
 
   render() {
-    const { data, error } = this.state; // Destructure for cleaner access
+    const { data, error } = this.state;
     return (
       <div className='Coupons'>
-        <h1 className="text-center">מבצעים</h1>
+        <h1>דף מבצעים</h1>
         {data ? (
-          <div className="text-center">
-            <div className="d-flex justify-content-center">
-              {Object.entries(data).map(([source, products]) => (
-                <div style={{ width: 'max-content', margin: '10px' }} key={source}>
-                  <h2>{source}</h2>
-                  <ListGroup className="d-inline-flex">
-                    {products.map((product, index) => (
-                      <ListGroupItem key={index}>
-                        <img src={product.image} alt={product.description} style={{ width: '100px', height: 'auto' }} />
-                        <p>{product.priceText}</p>
-                        <p>{product.description}</p>
-                        <code>{product.until}</code>
-                      </ListGroupItem>
-                    ))}
-                  </ListGroup>
-                </div>
-              ))}
-            </div>
+          <div className="coupon-container">
+            {Object.entries(data).map(([source, products]) => (
+              <div className="coupon-item" key={source}>
+                <h2>{source}</h2>
+                <ListGroup>
+                  {products.map((product, index) => (
+                    <ListGroupItem key={index} className="coupon-product">
+                      <img src={product.image} alt={product.description} />
+                      <p className="price-text">{product.priceText}</p>
+                      <p>{product.description}</p>
+                      <code>{product.until}</code>
+                    </ListGroupItem>
+                  ))}
+                </ListGroup>
+              </div>
+            ))}
           </div>
         ) : error ? (
-          <div className="text-center">{error}</div>
+          <div className="text-center text-error">שגיאה בטעינת המבצעים: {error}</div>
         ) : (
-          <div className="text-center">Loading...</div>
+          <div className="text-center">טוען מבצעים...</div>
         )}
       </div>
     );

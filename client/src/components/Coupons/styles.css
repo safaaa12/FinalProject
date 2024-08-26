@@ -1,107 +1,100 @@
-.main-container {
-	font-family: 'Arial', sans-serif;
-	/* קובע את סוג הגופן לכל האלמנטים בתוך ה-container */
-	max-width: 600px;
-	/* מגביל את הרוחב המרבי של ה-container ל-600 פיקסלים */
+.Coupons {
+	max-width: 1200px;
 	margin: 0 auto;
-	/* ממרכז את ה-container באמצעות יצירת שוליים אוטומטיים משני הצדדים */
 	padding: 20px;
-	/* מוסיף שוליים פנימיים מכל הכיוונים ל-container */
-	direction: rtl;
-	/* קובע כיווניות מימין לשמאל לטקסט ולאלמנטים */
-	text-align: right;
-	/* מיישר את הטקסט לימין */
-}
-
-.products-input textarea {
-	/* width: 70%; הגדרת רוחב ה-textarea ל-70% מרוחב האב שלו */
-	height: 300px;
-	/* הגדרת גובה קבוע ל-textarea */
-	margin-bottom: 10px;
-	/* יוצר שוליים תחתונים של 10 פיקסלים */
-	padding: 10px;
-	/* מוסיף שוליים פנימיים מכל הכיוונים ל-textarea */
-	font-size: 16px;
-	/* קובע את גודל הגופן ל-16 פיקסלים */
-	border: 2px solid #ddd;
-	/* מגדיר גבול של 2 פיקסלים מסוג קו סולידי בצבע אפור */
-	border-radius: 4px;
-	/* מעגל את הפינות של ה-textarea */
-	resize: none;
-	/* מונע את האפשרות לשנות את גודל ה-textarea */
-}
-h1 {
-	color: #2c3e50;
-	font-size: 2.5em;
 	text-align: center;
-	margin-bottom: 20px;
-	font-weight: bolder;
+	background-color: #f8f9fa;
   }
-
-.products-input button {
-	max-width: 200px;
-	background-color: #007bff;
-	/* צבע רקע כחול בהיר */
-	color: white;
-	/* צבע הטקסט לבן */
-	border: none;
-	/* הסרת הגבול */
-	padding: 10px 20px;
-	/* שוליים פנימיים: 10 פיקסלים מלמעלה ומלמטה, 20 פיקסלים מהצדדים - יש להתאים ע"פ רוחב ה-textarea אם נדרש */
-	width: calc(77% - 20px);
-	/* רוחב של 70% מהאב, פחות 20px של ה-padding משני הצדדים */
-	text-align: center;
-	/* מיישר את הטקסט למרכז */
-	text-decoration: none;
-	/* מסיר קישוטי טקסט, כמו קו תחתי */
-	display: inline-block;
-	/* הפיכת האלמנט לבלוק אך מאפשר שימוש ב-width ו-height */
-	font-size: 16px;
-	/* גודל גופן */
-	border-radius: 4px;
-	/* מעגל את הפינות של הכפתור */
-	cursor: pointer;
-	/* הפוך את העכבר לסמן כאשר הוא מעל הכפתור */
-	margin-bottom: 10px;
-	/* מוסיף שוליים תחתונים להפרדה מהאלמנטים שלמטה */
-}
-
-.products-input button:hover {
-	background-color: #0056b3;
-	/* שינוי צבע הרקע של הכפתור בעת העברת העכבר מעליו לכחול כהה יותר */
-}
-
-
-.list-component {
-	margin-top: 20px;
-	/* יוצר שוליים עליונים של 20 פיקסלים לרשימת המוצרים */
-}
-
-.product-item {
-	display: flex;
-	/* הגדרת האלמנט כפלקס כדי לארגן את התת-אלמנטים בתוכו באופן אופקי */
-	align-items: center;
-	/* מיישר את התת-אלמנטים במרכז אנכית */
-	justify-content: space-between;
-	/* מפזר את התת-אלמנטים באופן שווה לאורך הציר הראשי */
-	padding: 10px;
-	/* שוליים פנימיים מכל הכיוונים */
-	margin-bottom: 10px;
-	/* יוצר שוליים תחתונים */
-	background-color: #f9f9f9;
-	/* רקע בצבע אפור קל */
-	border-radius: 4px;
-	/* מעגל את הפינות */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	/* יוצר צל קל */
-}
-
-.product-name {
+  
+  .Coupons h1 {
+	color: #ed1c24;
+	font-size: 2.5em;
+	margin-bottom: 20px;
 	font-weight: bold;
-	/* מבליט את שם המוצר */
-}
-
-.product-price {
-	color: #28a745;
-	/* צבע הטקסט ירוק */
-}
+	text-transform: uppercase;
+	letter-spacing: 1px;
+  }
+  
+  .coupon-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+  }
+  
+  .coupon-item {
+	background-color: #fff;
+	border: 2px solid #16a9d6;
+	border-radius: 8px;
+	width: 300px;
+	padding: 15px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	text-align: left;
+  }
+  
+  .coupon-item:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .coupon-item img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 5px;
+	margin-bottom: 10px;
+  }
+  
+  .coupon-item h2 {
+	font-size: 1.3em;
+	color: #007bff;
+	margin-bottom: 10px;
+	text-align: center;
+  }
+  
+  .coupon-product {
+	background-color: #f9f9f9;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 10px;
+	margin-bottom: 10px;
+  }
+  
+  .coupon-product img {
+	display: block;
+	margin: 0 auto;
+  }
+  
+  .coupon-product .price-text {
+	font-size: 1.2em;
+	color: #ed1c24;
+	font-weight: bold;
+	margin-top: 10px;
+	text-align: center;
+  }
+  
+  .coupon-product p {
+	margin: 5px 0;
+	font-size: 1em;
+	color: #333;
+	text-align: center;
+  }
+  
+  .coupon-product code {
+	display: block;
+	margin-top: 10px;
+	font-size: 0.9em;
+	color: #666;
+	text-align: center;
+  }
+  
+  .text-center {
+	text-align: center;
+  }
+  
+  .text-error {
+	color: red;
+	font-size: 1.2em;
+	margin-top: 20px;
+  }
+  

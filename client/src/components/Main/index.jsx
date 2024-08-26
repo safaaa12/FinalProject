@@ -90,7 +90,7 @@ const Main = () => {
               <Carousel.Item key={article.id}>
                 <img
                   className="d-block w-100"
-                  src={article.imageUrl || defaultImage}
+                  src={`http://localhost:3000/${article.imagePath}`} // Ensure this path is correct
                   alt={article.title}
                   onClick={() => window.location.href = `/articles/${article.id}`}
                   style={{ width: '260px', height: '290px', objectFit: 'cover' }}
@@ -111,7 +111,7 @@ const Main = () => {
               <Carousel.Item key={recipe.id}>
                 <img
                   className="d-block w-100"
-                  src={recipe.imageUrl || defaultImage}
+                  src={`http://localhost:3000/${recipe.imagePath}`} // Ensure this path is correct
                   alt={recipe.title}
                   onClick={() => window.location.href = `/recipes/${recipe.id}`}
                   style={{ width: '270px', height: '300px', objectFit: 'cover' }}
