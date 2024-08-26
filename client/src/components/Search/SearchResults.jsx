@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Button, Modal, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
+import { Container, Button, Popover, FormControl, InputLabel, Select, MenuItem, TextField, Alert, Typography, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import './SearchResults.css';
 
 const SearchResults = () => {
   const [results, setResults] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [lists, setLists] = useState([]);
   const [selectedList, setSelectedList] = useState('');
   const [newListName, setNewListName] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isCloseIconPressed, setIsCloseIconPressed] = useState(false);
 
   useEffect(() => {
     const query = localStorage.getItem('searchQuery');
@@ -37,11 +41,15 @@ const SearchResults = () => {
         setLists(response.data);
       } else {
         setLists([]);
+        setMessage("אין רשימות זמינות.");
+        setIsSuccess(false);
       }
 
       console.log('Fetched lists:', response.data);
     } catch (error) {
       console.error("Error fetching lists", error);
+      setMessage("שגיאה בטעינת הרשימות");
+      setIsSuccess(false);
     }
   };
 
@@ -50,23 +58,20 @@ const SearchResults = () => {
   }, []);
 
   const getImageUrl = (url) => {
-    if (url.startsWith('http')) {
-      return url;
-    } else {
-      return `http://localhost:3000/product_images/${url}`;
-    }
+    return url.startsWith('http') ? url : `http://localhost:3000/product_images/${url}`;
   };
 
-  const handleAddToList = (product) => {
+  const handleAddToListClick = (event, product) => {
     setSelectedProduct(product.ItemName);
-    setShowModal(true);
+    setAnchorEl(event.currentTarget);
   };
 
   const handleSave = async () => {
     try {
-      const listId = selectedList || newListName;
+      const listId = selectedList !== 'new' ? selectedList : newListName;
       if (!listId) {
-        alert("Please select or enter a list name");
+        setMessage("אנא בחר או הזן שם לרשימה.");
+        setIsSuccess(false);
         return;
       }
 
@@ -80,29 +85,28 @@ const SearchResults = () => {
       });
 
       if (response.status === 200) {
-        console.log("Product added to list successfully");
-
-        if (selectedList) {
-          const updatedLists = lists.map((list) =>
-            list._id === listId
-              ? { ...list, products: [...list.products, selectedProduct] }
-              : list
-          );
-          setLists(updatedLists);
-        } else {
-          setLists([...lists, { _id: response.data.newListId, name: newListName, products: [selectedProduct] }]);
-        }
-
-        setShowModal(false);
-        setSelectedProduct(null);
-        setSelectedList('');
-        setNewListName('');
+        setMessage("המוצר נוסף לרשימה בהצלחה!");
+        setIsSuccess(true);
+        // לא נסגור את ה-Popover
       } else {
         console.error('Failed to add product to list:', response.status);
+        setMessage('נכשל בהוספת המוצר לרשימה.');
+        setIsSuccess(false);
       }
     } catch (error) {
       console.error("Error adding product to list", error);
+      setMessage('נכשל בהוספת המוצר לרשימה.');
+      setIsSuccess(false);
     }
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setMessage('');
+    setIsCloseIconPressed(false);
+    setSelectedList('');
+    setNewListName('');
+    setIsSuccess(false);
   };
 
   return (
@@ -116,19 +120,40 @@ const SearchResults = () => {
               alt={product.ItemName}
             />
             <div className="product-info">
-              <h5>{product.ItemName}</h5>
-              <p>מחיר: {product.ItemPrice}</p>
-              <p>ספק: {product.ManufacturerName}</p>
-              <p>מקור: {product.Source}</p>
-              <Button variant="contained" color="primary" onClick={() => handleAddToList(product)}>הוסף לרשימה</Button>
+              <Typography variant="h5">{product.ItemName}</Typography>
+              <Typography variant="body2">מחיר: {product.ItemPrice}</Typography>
+              <Typography variant="body2">ספק: {product.ManufacturerName}</Typography>
+              <Typography variant="body2">מקור: {product.Source}</Typography>
+              <Button variant="contained" color="primary" onClick={(e) => handleAddToListClick(e, product)}>הוסף לרשימה</Button>
             </div>
           </div>
         ))}
       </div>
 
-      <Modal open={showModal} onClose={() => setShowModal(false)}>
-        <div className="modal-content">
-          <h2>בחר רשימה או צור רשימה חדשה</h2>
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <div className="popover-content">
+          <IconButton 
+            className="close-icon-button" 
+            onClick={() => { setIsCloseIconPressed(true); handleClose(); }}
+            sx={{ position: 'absolute', right: 8, top: 8, color: isCloseIconPressed ? 'red' : 'inherit' }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <br />
+          <h3>בחר רשימה או צור חדשה</h3>
+          {message && <Alert severity={isSuccess ? 'success' : 'error'}>{message}</Alert>}
           <FormControl fullWidth>
             <InputLabel id="select-list-label">בחר רשימה</InputLabel>
             <Select
@@ -136,22 +161,28 @@ const SearchResults = () => {
               value={selectedList}
               onChange={(e) => setSelectedList(e.target.value)}
             >
-              {Array.isArray(lists) && lists.map((list, index) => (
-                <MenuItem key={index} value={list._id}>{list.name}</MenuItem>
+              {lists.map((list) => (
+                <MenuItem key={list._id} value={list._id}>
+                  {list.name}
+                </MenuItem>
               ))}
+              <MenuItem value="new">+ רשימה חדשה</MenuItem>
             </Select>
           </FormControl>
-          <TextField
-            fullWidth
-            label="שם רשימה חדשה"
-            variant="outlined"
-            value={newListName}
-            onChange={(e) => setNewListName(e.target.value)}
-            style={{ marginTop: '1rem' }}
-          />
+          {selectedList === 'new' && (
+            <TextField
+              fullWidth
+              label="שם רשימה חדשה"
+              variant="outlined"
+              value={newListName}
+              onChange={(e) => setNewListName(e.target.value)}
+              className="new-list-input"
+              style={{ marginTop: '1rem' }}
+            />
+          )}
           <Button variant="contained" color="primary" onClick={handleSave} style={{ marginTop: '1rem' }}>שמור</Button>
         </div>
-      </Modal>
+      </Popover>
     </Container>
   );
 };

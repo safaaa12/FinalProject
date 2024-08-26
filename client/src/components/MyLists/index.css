@@ -1,53 +1,83 @@
 .user-management-container {
   padding: 20px;
-  margin-top: 10px;
-  background-color: #f8f9fa;
+  margin-top: 20px;
+  background-color: #e3f2fd; /* צבע רקע בהיר יותר */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .user-management-container h1 {
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 20px;
+  color: #1565c0; /* צבע כותרת */
+  text-align: center;
 }
 
 .list-container {
-  padding: 20px;
+  padding: 15px;
   margin-bottom: 20px;
-  background-color: #174b7e;
+  background-color: #ffffff; /* רקע לבן לניגודיות טובה יותר */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.list-container h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.list-container ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.list-container ul li {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-.user-management-container button {
-  font-size: 14px;
-  margin-top: 10px;
+.list-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .basket-header {
   display: flex;
   align-items: center;
+  justify-content: flex-start; 
+  margin-bottom: 15px;
 }
 
-.basket-logo {
-  width: 60px; /* גודל קטן יותר ללוגו */
-  height: auto;
-  margin-left: 20px;
-  margin-right: 10px;
+.basket-icon {
+  font-size: 28px; /* גודל האייקון */
+  margin-right: 15px; /* רווח גדול יותר בין האייקון לכותרת */
+  color: #1976d2; /* צבע האייקון */
+}
+
+.list-container h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #1976d2; /* צבע כותרת הרשימה */
+}
+
+.list-container ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+.list-container ul li {
+  font-size: 16px;
+  margin-bottom: 5px;
+  background-color: #f1f8e9; /* רקע ירוק בהיר לפריטים */
+  padding: 8px 12px; /* ריווח פנימי לפריטים */
+  border-radius: 4px;
+  color: #4caf50; /* צבע טקסט הפריטים */
+}
+
+.user-management-container button {
+  font-size: 14px;
+  margin: 5px;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+.modal-body form {
+  text-align: left;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
 }
