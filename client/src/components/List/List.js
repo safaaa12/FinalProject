@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Grid, Container, Box, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Grid, Container, Box } from '@mui/material';
 import axios from 'axios';
 import './ListComponent.css';
 
@@ -63,7 +63,7 @@ const ListComponent = ({ searchResults }) => {
     return (
         <Container>
             {cheapestPrice !== null && cheapestSource && (
-                <Box my={4}>
+                <Box my={4} className="cheapest-source">
                     <Typography variant="h5">המקור הזול ביותר:</Typography>
                     <Typography variant="h6">{cheapestSource}</Typography>
                     <Typography variant="h6">המחיר הזול ביותר: ₪{Number(cheapestPrice).toFixed(2)}</Typography>
@@ -71,20 +71,20 @@ const ListComponent = ({ searchResults }) => {
             )}
             {Object.keys(sourcesProducts).sort((a, b) => sourcesPrices[a] - sourcesPrices[b]).map((source) => (
                 <Box my={4} key={source} className="scrollable">
-                    <Typography variant="h5" gutterBottom>Source: {source}</Typography>
-                    <Typography variant="h6" gutterBottom>Total Price: ₪{Number(sourcesPrices[source]).toFixed(2)}</Typography>
+                    <Typography variant="h5" gutterBottom className="source-title">מקור: {source}</Typography>
+                    <Typography variant="h6" gutterBottom className="total-price">מחיר כולל: ₪{Number(sourcesPrices[source]).toFixed(2)}</Typography>
                     <Grid container spacing={2}>
                         {Array.isArray(sourcesProducts[source]) && sourcesProducts[source].map((product, index) => (
                             <Grid item key={index} xs={12} sm={6} md={4}>
-                                <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                                <Card className="product-card">
                                     <CardMedia
                                         component="img"
-                                        height="200"
+                                        height="150"
                                         image={getImageUrl(product.ImageUrl)}
                                         alt={product.ItemName}
-                                        style={{ objectFit: 'contain' }}
+                                        className="product-image"
                                     />
-                                    <CardContent style={{ flexGrow: 1 }}>
+                                    <CardContent>
                                         <Typography gutterBottom variant="h6" component="div" align="center">
                                             {product.ItemName}
                                         </Typography>

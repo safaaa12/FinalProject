@@ -4,10 +4,26 @@ import axios from 'axios';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
 export default class Coupons extends Component {
-  state = {};
+  state = {
+    data: null,
+    error: null,
+  };
 
   componentDidMount() {
-    this.getData();
+    // Check if there's saved data in localStorage
+    const savedData = localStorage.getItem('couponsData');
+    if (savedData) {
+      this.setState({ data: JSON.parse(savedData) });
+    } else {
+      this.getData();
+    }
+  }
+
+  componentWillUnmount() {
+    // Clear the timeout to avoid memory leaks
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
   }
 
   getData() {
@@ -16,11 +32,21 @@ export default class Coupons extends Component {
       .then(({ data }) => {
         this.setState({ data });
         console.log(data);
+        // Set a timeout to save the data to localStorage after 40 seconds
+        this.timeoutId = setTimeout(this.saveToLocalStorage, 40000); // 40000 ms = 40 seconds
       })
       .catch((err) => {
         this.setState({ error: err.message });
       });
   }
+
+  saveToLocalStorage = () => {
+    const { data } = this.state;
+    if (data) {
+      localStorage.setItem('couponsData', JSON.stringify(data));
+      console.log('Data saved to localStorage');
+    }
+  };
 
   render() {
     return (

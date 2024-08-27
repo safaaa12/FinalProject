@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Row, Col, Form, Card } from 'react-bootstrap';
-import ContentMap from "./contentMap";
-import "./styles.css";
+import ContentMap from './contentMap';
+import './styles.css';
 
 const Articles = () => {
   const [articles, setArticles] = useState(null);
@@ -12,7 +12,7 @@ const Articles = () => {
   const [articlesShowOnlyFavourites, setArticlesShowOnlyFavourites] = useState(false);
 
   useEffect(() => {
-    axios.post('http://localhost:3000/api/user/favorites/list', { id: localStorage.getItem("id") })
+    axios.post('http://localhost:3000/api/user/favorites/list', { id: localStorage.getItem('id') })
       .then((res) => setFavouriteContents(res.data.favouriteContents))
       .catch((err) => console.error('Error:', err));
   }, []);
@@ -36,7 +36,7 @@ const Articles = () => {
           <Card.Body>
             {articles ? (
               <>
-                <h1 className="custom-header">כתבות </h1>
+                <h1 className="custom-header">כתבות</h1>
                 <Form.Check
                   style={{ display: 'inline-block' }}
                   type="switch"
@@ -44,7 +44,12 @@ const Articles = () => {
                   label="הצג רק את הכתבות המועדפות שלי"
                   onChange={() => setArticlesShowOnlyFavourites(!articlesShowOnlyFavourites)}
                 />
-                <ContentMap contents={articles} favouriteContents={favouriteContents} onlyFavourites={articlesShowOnlyFavourites} />
+                <ContentMap
+                  contents={articles}
+                  favouriteContents={favouriteContents}
+                  onlyFavourites={articlesShowOnlyFavourites}
+                  align="right"
+                />
               </>
             ) : (
               <h1>אין כתבות עדיין...</h1>
@@ -57,7 +62,7 @@ const Articles = () => {
           <Card.Body>
             {recipes ? (
               <>
-                <h1 className="custom-header">מתכונים </h1>
+                <h1 className="custom-header">מתכונים</h1>
                 <Form.Check
                   style={{ display: 'inline-block' }}
                   type="switch"
@@ -65,7 +70,12 @@ const Articles = () => {
                   label="הצג רק את המתכונים המועדפים שלי"
                   onChange={() => setRecipesShowOnlyFavourites(!recipesShowOnlyFavourites)}
                 />
-                <ContentMap contents={recipes} favouriteContents={favouriteContents} onlyFavourites={recipesShowOnlyFavourites} />
+                <ContentMap
+                  contents={recipes}
+                  favouriteContents={favouriteContents}
+                  onlyFavourites={recipesShowOnlyFavourites}
+                  align="left"
+                />
               </>
             ) : (
               <h1>אין מתכונים עדיין...</h1>

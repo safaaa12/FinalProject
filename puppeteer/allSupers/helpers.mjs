@@ -1,6 +1,6 @@
 export const navigateToUrl = async (page, url) => {
   try {
-    await page.goto(url, { waitUntil: 'networkidle0', timeout: 300000 });
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 600000 });
   } catch (error) {
     console.error("Failed to load page:", error);
     throw error;
@@ -8,6 +8,9 @@ export const navigateToUrl = async (page, url) => {
 };
 
 const collectProducts = async (page, productSelector, selectors) => {
+  await page.mouse.wheel({
+    deltaY: 5000,
+  });
   return await page.evaluate((productSelector, selectors) => {
     const productElements = document.querySelectorAll(productSelector);
     let products = [];
@@ -19,7 +22,12 @@ const collectProducts = async (page, productSelector, selectors) => {
         const selectorName = fullSelectorName.toLowerCase().replace("product", "").replace("selector", "");
         try {
           if (selectorName == "image") {
-            product[selectorName] = productElement.querySelector(selector).src;
+            let src = productElement.querySelector(selector).src;
+            if (!src) {
+              src = productElement.querySelector(selector).style.backgroundImage;
+              src = src.slice(4, -1).replace(/"/g, "");
+            }
+            product[selectorName] = src;
           }
           else {
             product[selectorName] = productElement.querySelector(selector).innerText;

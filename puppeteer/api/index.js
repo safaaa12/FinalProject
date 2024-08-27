@@ -6,14 +6,14 @@ import { bigdabachSearch } from '../bigdabach/search.mjs';
 import { carefourCoupons } from '../carefour/coupons.mjs'
 import { shufersalCoupons } from '../shufersal/coupons.mjs'
 import { quikCoupons } from '../quik/coupons.mjs'
-import { Puppeteer } from '../browser.mjs';
+import { Puppeteer, newPage } from '../browser.mjs';
 import { productsFromUrl } from "../allSupers/helpers.mjs"
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Assuming Puppeteer setup is correct and returns { browser, page } as needed
+// Launch the browser and create a new page
 const { browser, page } = await Puppeteer();
 
 app.post('/search', async (req, res) => {
@@ -58,19 +58,19 @@ app.post('/search', async (req, res) => {
 });
 app.get('/coupons', async (req, res) => {
     try {
-        const quikProducts = await quikCoupons(browser, page);
-        console.log("quikProducts:");
-        console.log(quikProducts);
+        // Use Promise.all to execute all coupon retrieval functions in parallel
+        const [quikProducts, carefourProducts, shufersalProducts] = await Promise.all([
+            quikCoupons(browser, await newPage(browser)),
+            carefourCoupons(browser, await newPage(browser)),
+            shufersalCoupons(browser, await newPage(browser))
+        ]);
 
-        const carefourProducts = await carefourCoupons(browser, page);
-        console.log("carefourProducts");
-        console.log(carefourProducts);
+        const combinedProducts = {
+            "quik": quikProducts,
+            "carefour": carefourProducts,
+            "shufersal": shufersalProducts
+        };
 
-        const shufersalProducts = await shufersalCoupons(browser, page);
-        console.log("shufersalProducts:");
-        console.log(shufersalProducts);
-
-        const combinedProducts = { "quik": quikProducts, "carefour": carefourProducts, "shufersal": shufersalProducts };
         console.log("combinedProducts:");
         console.log(combinedProducts);
 
@@ -81,13 +81,41 @@ app.get('/coupons', async (req, res) => {
     }
 });
 
+// app.get('/coupons', async (req, res) => {
+//     try {
+//         const quikPage = await newPage(browser);
+//         const quikProducts = await quikCoupons(browser, quikPage);
+//         console.log("quikProducts:");
+//         console.log(quikProducts);
+
+//         const carefourPage = await newPage(browser);
+//         const carefourProducts = await carefourCoupons(browser, carefourPage);
+//         console.log("carefourProducts");
+//         console.log(carefourProducts);
+
+//         const shufersalPage = await newPage(browser);
+//         const shufersalProducts = await shufersalCoupons(browser, shufersalPage);
+//         console.log("shufersalProducts:");
+//         console.log(shufersalProducts);
+
+//         const combinedProducts = { "quik": quikProducts, "carefour": carefourProducts, "shufersal": shufersalProducts };
+//         console.log("combinedProducts:");
+//         console.log(combinedProducts);
+
+//         return res.json(combinedProducts);
+//     } catch (error) {
+//         console.error("Error during search:", error);
+//         res.status(500).send({ message: 'Internal server error' });
+//     }
+// });
+
 app.get('/category/:name', async (req, res) => {
     const name = req.params.name;
     const productSelector = "li.miglog-prod"
     const selectors = {
-        productDescriptionSelector: ".description",
+        productDescriptionSelector: "span:nth-of-type(1)",
         productImageSelector: ".pic",
-        productPriceTextSelector: ".price span"
+        productPriceTextSelector: ".number"
     }
     console.log(name);
     const categories =

@@ -203,23 +203,42 @@ router.post("/basket/update", async (req, res) => {
 
 
 // מסלול להוספת רשימה חדשה
-router.post('/basket/add', async (req, res) => {
-  const { id, basket } = req.body;
+router.post("/basket/add", async (req, res) => {
   try {
+    const { id, basket } = req.body;
+    console.log("Basket add route hit"); // הודעת לוג
+    console.log("Request body:", req.body); // הודעת לוג
+    
+    // וודא שה-id וה-basket נשלחים
+    if (!id || !basket) {
+      console.error("ID or basket is missing in the request body.");
+      return res.status(400).send({ message: "ID or basket is missing in the request body." });
+    }
+
     const user = await User.findById(id);
     if (!user) {
-      return res.status(404).send('User not found');
+      console.error("User not found");
+      return res.status(404).send({ message: "User with given ID doesn't exist!" });
+    }
+
+    if (!Array.isArray(user.baskets)) {
+      console.error("Baskets is not an array");
+      return res.status(500).send({ message: "Baskets is not an array" });
     }
 
     user.baskets.push(basket);
     await user.save();
 
-    res.status(200).send('Basket added successfully');
+    console.log("Basket added successfully");
+    res.status(200).send({ message: "Basket added successfully" });
   } catch (error) {
-    console.error('Error adding basket:', error);
-    res.status(500).send('Server error');
+    console.error("Error adding basket:", error);
+    res.status(500).send({ message: "Internal Server Error" });
   }
 });
+
+
+
 // Delete basket
 router.post("/basket/delete", async (req, res) => {
   try {

@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, TextField, IconButton } from '@mui/material';
+import { Container, OutlinedInput, IconButton, Box, Typography, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import './ProductSearch.css';
 
 const ProductSearch = () => {
   const [query, setQuery] = useState('');
-  const [location, setLocation] = useState('');
   const navigate = useNavigate();
 
   const handleSearch = () => {
+    if (query.trim() === '') return; // Prevent empty searches
     localStorage.setItem('searchQuery', query);
-    localStorage.setItem('searchLocation', location);
     navigate('/search-results');
   };
 
@@ -22,20 +21,28 @@ const ProductSearch = () => {
   };
 
   return (
-    <Container>
-      <div className="product-search-container">
-        <TextField
-          className="search-input"
-          label="חפש מוצר"
-          variant="outlined"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <IconButton color="primary" onClick={handleSearch}>
-          <SearchIcon />
-        </IconButton>
-      </div>
+    <Container className="product-search-container" dir="rtl">
+      <Paper elevation={6} className="motivation-article">
+        <Typography variant="h5" component="h2" gutterBottom className="article-title">
+          גלה את המחירים הטובים ביותר למוצרי הצריכה שלך!
+        </Typography>
+        <Typography variant="body1" className="article-text">
+          חיפוש המוצרים בתוכנית שלנו מאפשר לך לגלות את המחירים הטובים ביותר בשוק. תתחיל לחפש היום ותחסוך בגדול!
+        </Typography>
+        <Box className="search-block">
+          <OutlinedInput
+            className="search-input"
+            placeholder="חפש מוצר"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyPress={handleKeyPress}
+            fullWidth
+          />
+          <IconButton color="primary" onClick={handleSearch} className="search-icon">
+            <SearchIcon />
+          </IconButton>
+        </Box>
+      </Paper>
     </Container>
   );
 };

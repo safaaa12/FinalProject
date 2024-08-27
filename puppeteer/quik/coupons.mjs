@@ -1,13 +1,14 @@
 import { productsFromUrl } from "../allSupers/helpers.mjs"
 
 export const quikCoupons = async (browser, page) => {
-    const url = `https://quik.co.il/products/%D7%9E%D7%91%D7%A6%D7%A2%D7%99%D7%9D`
-    const productSelector = ".product_Vun.sale_XjM";
+    const url = `https://www.quik.co.il/specials`
+    const productSelector = ".special-product";
     const selectors = {
-        productDescriptionSelector: ".name__7t",
-        productImageSelector: ".imageWrapper_XN8 img",
-        productPriceTextSelector: " .promotionSumWrapper_A6f ",
+        productDescriptionSelector: ".promotion-description",
+        productImageSelector: ".image-wrapper .image",
+        productPriceTextSelector: ".tag",
     };
     const products = await productsFromUrl(browser, page, url, productSelector, selectors);
+    console.log(products);
     return products;
 }
